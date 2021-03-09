@@ -1,11 +1,11 @@
-# import simulatorAPI as uapi
-import RobotAPI as rapi
+import simulatorAPI as uapi
+# import RobotAPI as rapi
 import cv2
 import numpy as np
 import time
 
-# robot = uapi.UnityAPI().make_car_robot("Robot")
-robot = rapi.RobotAPI()
+robot = uapi.UnityAPI().make_car_robot("Robot")
+# robot = rapi.RobotAPI()
 
 manual_angle = 0
 manual_throttle = 0
@@ -26,8 +26,6 @@ timer_stop = 0
 turn_counter = 0
 
 print("Starting")
-robot.beep()
-
 
 class Constants:
     wallRegulatorPoint = 126
@@ -83,6 +81,11 @@ class WRO:
         return False
 
     def regulateByWalls(self, frame):
+        """Regulates robot's directiob by the wall regulator
+
+        Args:
+            frame (cv2 frame): Robot's frame
+        """
         x1, y1 = 320 - 10, 0
         x2, y2 = 320, 240
         frame_crop = frame[y1:y2, x1:x2]
@@ -110,6 +113,16 @@ class WRO:
                 robot.turn(p)  # повернуть
 
     def changeState(self, k: int):
+        """Changes state by the keycodes
+
+        Args:
+            k (int): keycode
+
+        Keycodes:
+            49 - 1st state 
+            50 - 2nd state 
+            51 - 3rd state 
+        """
 
         # если нажата клавиша 1
         if k == 49:
@@ -123,6 +136,17 @@ class WRO:
             # переключаем програму в 3 стадию
             state = 2
             timer_stop = time.time()
+
+    def detectDirection(frame) -> int:
+        """Detects robot's direction
+
+        Args:
+            frame (cv2 frame): Robot's frame
+
+        Returns:
+            int: Robot's direction. 0 - not detected, 1 - clockwise, 2 - counterclockwise
+        """
+        
 
     def stage0(self, frame, k: int):
         if k == 119 or k == 246:
@@ -176,7 +200,7 @@ class WRO:
     def stage1(self, frame) -> bool:
         global state, timer_stop, turn_counter
         # ищем цвет и рулим
-        if turn_counter >= 12:
+        if turn_counter >= 4:
             return True
         if self.findCenterColor(frame):
             turn_counter += 1
@@ -205,7 +229,7 @@ class WRO:
                 # если True, то конец программы
                 if self.stage1(frame):
                     robot.turn(0)
-                    robot.move(0)
+                    robot.brake(0, 0)
                     return
             # вывод телеметрии на экран
             cv2.putText(frame, "State: " + state_names[state], (10, 20), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1,
