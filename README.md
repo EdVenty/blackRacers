@@ -1,3 +1,3 @@
 # blackRacers
 5 тыщ слов
-Robot simulator http://robocenter.fun/simulator.zip
+Robot simulator http://robocenter.fun/robotsimulator.zip
