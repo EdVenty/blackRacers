@@ -6,3 +6,5 @@ Robot simulator http://robocenter.fun/robotsimulator.zip
 Главная программа для робота - `wroracer.py`
 
 API робота - `RobotAPI.py`
+
+Поставьте пятёрочку 😀
