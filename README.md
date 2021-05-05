@@ -10,5 +10,7 @@ Robot simulator http://robocenter.fun/robotsimulator.zip
 API робота - `RobotAPI.py`
 
 Техническая документация - ```technical_documentation.md```
+
 Электрическая схема робота - ```electrical circuit.jpeg```
+
 //Поставьте пятёрочку 😀
