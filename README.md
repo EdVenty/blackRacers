@@ -7,7 +7,7 @@ Robot simulator http://robocenter.fun/robotsimulator.zip
 
 API робота - `RobotAPI.py`
 
-Видео загруженное на платформу YouTube https://youtu.be/yDAf9wK3G58
+Видео загруженное на платформу YouTube https://youtu.be/gwtpSeXLMqE
 
 Техническая документация - ```technical_documentation.md```
 
