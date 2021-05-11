@@ -6,15 +6,15 @@ import json
 import regulators
 
 robot = rapi.RobotAPI(flag_pyboard=True)
-
+robot.set_camera(60, 640, 480, 0, 0)
 ############################################################
 # flag_qualification=True
 
 
 # global_speed = 115
 # global_speed = 60
-global_speed = 150
-pause_finish = 2
+global_speed = 125 #130 USE IT FUCK # 120
+pause_finish = 1.5
 
 
 # пременные порога черной линии
@@ -27,20 +27,19 @@ porog_black_line_plus = 300 #Black
 flag_qualification = False
 # flag_qualification = True
 if flag_qualification:
-    global_speed += 65
-    pause_finish = 1
+    global_speed += 60
+    pause_finish = 0.5
     porog_black_line_plus+=30  # по часовой стрелке
     porog_black_line_minus+=30   # против
 
 
 
-delta_green_plus = -10
-delta_red_plus = 10
+delta_green_plus = 10
+delta_red_plus = -10
 
-delta_green_minus = 5
+delta_green_minus = 10
 delta_red_minus = -10
-
-time_go_back_banka = 400
+time_go_back_banka = 300
 
 # global_speed = 0
 
@@ -50,7 +49,7 @@ state = "Manual move"
 # state = "Main move"
 # state = "HSV"
 
-pause_povorot = 0.7
+pause_povorot = 0.5 #0.6 SEC
 
 
 
@@ -246,7 +245,7 @@ def Find_start_line(frame, frame_show, color, flag_draw=True):
         x, y, w, h = cv2.boundingRect(contour)
         # вычисляем площадь найденного контура
         area = cv2.contourArea(contour)
-        if area > 500:
+        if area > 200:
             if flag_draw:
                 cv2.drawContours(frame_crop_show, contour, -1, (0, 0, 255), 2)
             return True
@@ -322,7 +321,7 @@ def Find_black_box_right(frame, frame_show, color, flag_draw=True):
         x, y, w, h = cv2.boundingRect(contour)
         # вычисляем площадь найденного контура
         area = cv2.contourArea(contour)
-        if area > 500:
+        if area > 1000:
             if flag_draw:
                 cv2.drawContours(frame_crop_show, contour, -1, (0, 0, 255), 2)
             return True
@@ -356,7 +355,7 @@ def Find_black_box_left(frame, frame_show, color, flag_draw=True):
         x, y, w, h = cv2.boundingRect(contour)
         # вычисляем площадь найденного контура
         area = cv2.contourArea(contour)
-        if area > 500:
+        if area > 1000:
             if flag_draw:
                 cv2.drawContours(frame_crop_show, contour, -1, (0, 0, 255), 2)
             return True
@@ -364,7 +363,7 @@ def Find_black_box_left(frame, frame_show, color, flag_draw=True):
     return False
 
 
-robot.wait(500)
+# robot.wait(500)
 # frame1=None
 count_lines = 0
 e_old = 0
@@ -387,6 +386,10 @@ def put_telemetry(frame_show):
 
 
 reg_move = regulators.Regulators(0, 0, 0, Ki_border=5)
+# robot.serv(180)
+# robot.wait(500)
+# robot.serv(-180)
+# robot.wait(500)
 robot.serv(0)
 
 
@@ -403,6 +406,8 @@ def go_back(angle, time1, time2):
         timer_finish += time1 / 1000 + time2 / 1000
 
 
+robot.beep()
+robot.wait(300)
 robot.beep()
 
 # button_work = False
@@ -563,15 +568,15 @@ while True:
                 cord_red_banka, area_red_banka = Find_box(frame, frame_show, "red_up")
                 if area_red_banka is not None:
                     delta_banka = delta_red_plus
-                    if area_red_banka > 15000:
-                        go_back(-40, time_go_back_banka, 50)
+                    if area_red_banka > 11000:
+                        go_back(40, time_go_back_banka, 50)
 
                 cord_green_banka, area_green_banka = Find_box(frame, frame_show, "green")
                 if area_green_banka is not None:
                     delta_banka = delta_green_plus
                     # print(area_green_banka)
-                    if area_green_banka > 15000:
-                        go_back(40, time_go_back_banka, 50)
+                    if area_green_banka > 11000:
+                        go_back(-20, time_go_back_banka, 50)
 
                 if area_green_banka is not None and area_red_banka is not None:
 
@@ -596,15 +601,15 @@ while True:
                 cord_red_banka, area_red_banka = Find_box(frame, frame_show, "red_up")
                 if area_red_banka is not None:
                     delta_banka = delta_red_minus
-                    if area_red_banka > 15000:
-                        go_back(40, time_go_back_banka * 2, 50)
+                    if area_red_banka > 11000:
+                        go_back(40, time_go_back_banka, 50)
 
                 cord_green_banka, area_green_banka = Find_box(frame, frame_show, "green")
                 if area_green_banka is not None:
                     delta_banka = delta_green_minus
                     # print(area_green_banka)
-                    if area_green_banka > 14000:
-                        go_back(-40, time_go_back_banka * 2, 50)
+                    if area_green_banka > 11000:
+                        go_back(-20, time_go_back_banka, 50)
 
                 if area_green_banka is not None and area_red_banka is not None:
 
