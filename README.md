@@ -11,6 +11,8 @@ Video uploaded to YouTube platform https://youtu.be/gwtpSeXLMqE
 
 Robot electrical diagram - `` Schematic_BlackRacers_2021-05-08.png``.
 
+Images of our team and robot can be found in `images/` folder.
+
 ____
 ## Description of the robot
 Our robot is based on a bundle of Raspberry PI and PY Board platforms that communicate with each other via the UART protocol. Raspberry PI analyzes the image using computer vision, in particular the OpenCV library, supported by Intel; The PY Board controls the movement of the robot in space using a brushed motor with a gearbox. The robot signals its behavior by means of sound and light indication. Also, the robot can be given commands by means of contact sensors (including buttons).
@@ -86,6 +88,8 @@ API робота - `RobotAPI.py`.
 Видео загруженное на платформу YouTube https://youtu.be/gwtpSeXLMqE
 
 Электрическая схема робота -  ```Schematic_BlackRacers_2021-05-08.png```.
+
+Фотографии нашей команды и фото робота можно найти в папке `images/`.
 
 ____
 ## Описание робота
