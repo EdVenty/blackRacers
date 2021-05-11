@@ -1,7 +1,7 @@
 # blackRacers
 Robot simulator http://robocenter.fun/robotsimulator.zip.
 
-The robot connection program is `start_robot.py` (the` InetConnection.py` file is also required).
+The robot connection program is `start_robot.py` (the `InetConnection.py` and `regulators.py` files are also required).
 
 The main program for the robot is `wroracer.py`.
 
@@ -79,7 +79,7 @@ We used 3D printing in the design of the robot. The models were developed in Aut
 # blackRacers
 Robot simulator http://robocenter.fun/robotsimulator.zip.
 
-Программа соединения с роботом - `start_robot.py` (также необходим файл `InetConnection.py`).
+Программа соединения с роботом - `start_robot.py` (также необходим файл `InetConnection.py` и `regulators.py`).
 
 Главная программа для робота - `wroracer.py`.
 
