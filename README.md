@@ -47,7 +47,7 @@ Also, additional libraries were used for the correct and trouble-free operation 
 ### 3d Models
 We used 3D printing in the design of the robot. The models were developed in Autodesk Inventor 2020, then exported in STL file format and printed on 3D printers.
 3D models used in the robot:
-- `` Knopka.stl ''
+- `` Knopka.stl ``
 - `` korpus.stl ``
 
 
