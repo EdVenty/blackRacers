@@ -1,39 +1,105 @@
 # blackRacers
 Robot simulator http://robocenter.fun/robotsimulator.zip.
+
+The robot connection program is `start_robot.py` (the` InetConnection.py` file is also required).
+
+The main program for the robot is `wroracer.py`.
+
+The robot API is `RobotAPI.py`.
+
+Video uploaded to YouTube platform https://youtu.be/gwtpSeXLMqE
+
+Robot electrical diagram - `` Schematic_BlackRacers_2021-05-08.png``.
+
+____
+## Description of the robot
+Our robot is based on a bundle of Raspberry PI and PY Board platforms that communicate with each other via the UART protocol. Raspberry PI analyzes the image using computer vision, in particular the OpenCV library, supported by Intel; The PY Board controls the movement of the robot in space using a brushed motor with a gearbox. The robot signals its behavior by means of sound and light indication. Also, the robot can be given commands by means of contact sensors (including buttons).
+The robot performs actions and tasks in accordance with the rules of the competition.
+
+### Construction and electronic components
+Our robot has a portable 12V battery powered by a bundle of three 18650 Li-ion power supplies.
+Electronic components in the robot are connected by conductors connected by soldering.
+The robot is equipped with a magnetic holder for the battery compartment. The robot chassis is based on a 1/16 scale toy model. It has oil-filled shock absorbers, the steering is similar to the control device on real cars. The camera on the robot is mounted on a stand modeled in a special program and printed on a high-precision 3D printer made of pla plastic.
+
+### Programs
+We created files for our robot to work in the programs JetBrains PyCharm Community Edition 2020 and Microsoft Visul Studio Code v.1.56.0 (the latest at the time of the release of this commit). Loaded onto the robot using a self-written script program start_robot.py The robot control program is based on the high-level dynamically typed programming language Python, which was chosen due to its simplicity, cross-platform and a huge range of libraries.
+
+### Program arrangement:
+The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
+#### The first leg is the start.
+The start consists of pressing the button on which the robot starts moving and driving to the turn line. If the line turns out to be blue, then the robot will move clockwise. Otherwise - counterclockwise.
+#### The second section of the program is the main pass and avoidance of obstacles in the final heats.
+To maintain the position relative to the rim, the position of the extremely 1 black point on the frame along the Y axis is used. Further, using the proportional-integral-differential controller, the robot aligns the positions relative to the rim. The position of the extreme point in the frame is determined depending on the direction the robot is going. To go around objects, it is used to find them in the HSV color range. When an object is found, the robot drives back and turns away from the obstacle.
+#### The third section is finding the finish line and stopping.
+After passing a certain number of turns, the robot realizes that it has driven three laps and stops at the start zone.
+#### Wall collision protection
+To protect against collision and, in case of impossibility to correctly adjust the direction of movement by the proportional-integral-differential regulator, a short-term backward movement and a turn from the wall in the opposite direction are used. Thus, even when leaving the required trajectory of movement, the robot will be able to align its position and return to the passage of the task.
+
+### Computer vision and additional libraries
+We used a camera and computer vision to identify the different sections of the track. The program used the CV2 library and various libraries necessary for its work. For precise selection of objects on the card, we used the HSV image color scheme and finding the pixels within the specified color limits.
+Also, additional libraries were used for the correct and trouble-free operation of the program. A complete list of libraries is given below:
+- OpenCV 2 - computer vision
+- NumPy - work with arrays that store images captured from the camera thanks to the OpenCV library.
+- Time - a library that allows you to find out the system time. Used in the robot program to create a delay during turns.
+- RobotAPI - a self-written library of the Center for the Development of Robotics for connecting and communicating with a robot, as well as executing programs.
+- JSON - processing data in JSON format. Used to store and quickly access the parameters of the HSV color range stored in the robot's memory.
+-
+### 3d Models
+We used 3D printing in the design of the robot. The models were developed in Autodesk Inventor 2020, then exported in STL file format and printed on 3D printers.
+3D models used in the robot:
+- `` Knopka.stl ''
+- `` korpus.stl ``
+
+
+# blackRacers
+Robot simulator http://robocenter.fun/robotsimulator.zip.
+
 Программа соединения с роботом - `start_robot.py` (также необходим файл `InetConnection.py`).
+
 Главная программа для робота - `wroracer.py`.
+
 API робота - `RobotAPI.py`.
 
 Видео загруженное на платформу YouTube https://youtu.be/gwtpSeXLMqE
 
-Техническая документация - ```technical_documentation.md```.
 Электрическая схема робота -  ```Schematic_BlackRacers_2021-05-08.png```.
 
-3Д модели используемые в роботе:
-- ``` Knopka.stl ```
-- ``` korpus.stl ```
 ____
 ## Описание робота
 Наш робот основан на связке платформ Raspberry PI и PY Board, коммуницирующие друг с другом посредством протокола UART. Raspberry PI анализирует картинку с помощью компьютерного зрения, в частности библиотеки OpenCV, поддерживающейся компанией Intel; PY Board контролирует движение робота в пространстве, используя коллекторный мотор с редуктором. Робот сигнализирует о своём поведении с помощью звуковой и световой индикации. Также роботу можно подавать команды посредством контактных сенсором (в том числе кнопки). 
-
 Робот выполняет действия и задания, согласно регламенту соревнования.
-
-Программа управления робота основана на высокоуровневом динамически типизированном языке программирования Python, который был выбран благодаря своей простоте, кроссплатформенности и наличии огромного ассортимента библиотек. 
 
 ### Конструкция и электронные компоненты
 Наш робот имеет переносное аккумуляторное питание 12В, с помощью связки трёх Li-ion источников питания типа 18650.
 Электронные компоненты в роботе соединяются за счёт проводников, соединённых между собой при помощью пайки.
+Робот оснащён магнитным креплением для отсека с бататейками. Шасси робота основанны на игрушечной модели маштаба 1/16. Оно имеет маслонаполненные аммортизаторы, рулевое управление схожее с устройством управления на настоящих машинах. Камера на роботе закрепленна на стойке смоделированной в специальной программе и напечатанной на  высокоточном 3д принтере из pla пластика.
 
 ### Программы
-Мы создавали файлы для работы нашего робота в программах JetBrains PyCharm и Microsoft Visul Studio Code. Загружали на робота посредством самописаного скрипта-программы start_robot.py 
+Мы создавали файлы для работы нашего робота в программах JetBrains PyCharm Community Edition 2020 и Microsoft Visul Studio Code v.1.56.0 (последняя на момент релиза данного комминта). Загружали на робота посредством самописаного скрипта-программы start_robot.py Программа управления робота основана на высокоуровневом динамически типизированном языке программирования Python, который был выбран благодаря своей простоте, кроссплатформенности и наличии огромного ассортимента библиотек.
 
 ### Устройтво программы:
 Код состоит из нескольких блоков. Отдельные участки программы выполняют разные действия: ищут стартовую линию, корректируют и управляют движением робота, нахождение финишной линии, обЪезд и защита от столкновения с банками, защита от врезания в борта поля.
+#### Первый участок - это старт. 
+Старт состоит из нажатия на кнопку, по которой робот начинает движение, и проезда до линии поворота. Если линия оказалась синей, то робот будет ехать по часовой стрелке. Иначе - против часовой. 
+#### Второй участок программы - это основной проезд и объезд препятствий на финальных заездах.
+Для сохранения положения относительно бортика используется распознование положения крайне1 точки черного цвета на кадре по оси Y. Далее с помощью пропорционально-интегрально-дифференциального регулятора робот выравнивает положения относительно бортика. Положение крайней точки в кадре определяется в зависимости от направления, куда едет робот. Для объезда объектов используется нахождения их в цветовом диапазоне HSV. При нахождении объекта робот отъезжает назад и отворачивает от препядствия.
+#### Третий участок - это нахождения финиша и остановка. 
+После проезда определённого количества поворотов робот понимает, что он проехал три круга и останавливается в зоне старта.
+#### Защита от столкновения со стеной
+Для защиты от столкновения и, в случае невозможности корректно отрегулировать пропорциально-интегрально-дифференциальным регулятором направление движения, используется кратковременный отъезд назад и отворот от стены в противоположную сторону. Таким образом, даже при слёте с необходимой траектории движения, робот сможет выравнить своё положение и вернуться к прохождению задания.
 
-Для определения различных участков трассы мы исполользовали камеру и компьютерное зрение, как сказано выше. Для точного выделения объектов на кардре мы использовали цветовую схему изображения HSV и нахождение пикселей в заданных цветовых пределах.
+### Компьютерное зрение и дополнительные библиотеки
+Для определения различных участков трассы мы исполользовали камеру и компьютерное зрение. В программе была использованна библиотека CV2 и различные библиотеки необходимые для её работы. Для точного выделения объектов на кардре мы использовали цветовую схему изображения HSV и нахождение пикселей в заданных цветовых пределах. 
 
-
-
-
-
+Также были использованы дополнительные библиотеки для корректной и безотказной работы программы. Полный список библиотек приведён ниже:
+- OpenCV 2 - компьютерное зрение
+- NumPy - работа с массивами, в которых храняться изображения, снятые с камеры благодаря библиотеке OpenCV.
+- Time - библиотека, позволяющая узнать системное время. Используется в программе робота для создания задержки во время поворотов.
+- RobotAPI - самописная библиотека Центра Развития Робототехники для соединения и коммуникации с роботом, а также выполнения программ.
+- JSON - обработка данных в формате JSON. Используется для хранения и быстрого доступа к сохранённым в памяти робота параметров диапазона цветов HSV.
+- 
+### 3д Модели
 В конструкции робота мы использовали 3Д печать. Модели были разработанны в программе Autodesk Inventor 2020, затем экспортированы в формате файла STL и напечатаны на 3Д принтерах.
+3Д модели используемые в роботе:
+- ``` Knopka.stl ```
+- ``` korpus.stl ```
