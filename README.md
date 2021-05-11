@@ -26,6 +26,8 @@ We created files for our robot to work in the programs JetBrains PyCharm Communi
 
 ### Program arrangement:
 The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
+#### Sound indication of start
+When starting up, the robot emits a long beep. This means that the robot has turned on, but the program has not yet loaded. After that, the program itself starts to run. After its launch, two short sound singals are released. The robot is then ready to drive. To start performing tasks and passing the route, you must press the button after the above-mentioned sound signals.
 #### The first leg is the start.
 The start consists of pressing the button on which the robot starts moving and driving to the turn line. If the line turns out to be blue, then the robot will move clockwise. Otherwise - counterclockwise.
 #### The second section of the program is the main pass and avoidance of obstacles in the final heats.
@@ -49,6 +51,27 @@ We used 3D printing in the design of the robot. The models were developed in Aut
 3D models used in the robot:
 - `` Knopka.stl ``
 - `` korpus.stl ``
+
+### Operating Instructions and Precautions
+1) Always use charged 18650 batteries.
+2) Do not turn the robot over to avoid detaching the battery compartment.
+3) Do not throw or kick the robot. Don't hurt him physically.
+4) Avoid getting water on the surface of the robot.
+5) Press the red toggle button to start the robot. Press no more than 1 time per minute.
+6) Use the robot only on the designated field. You can find more details about the field in the WRO 2020 regulations of the Future Engineers category.
+7) Do not cover or touch the camera lens of the robot.
+8) Do not interrupt or modify the electrical circuit.
+9) Press the green start button only after one long beep and two short beeps.
+10) Avoid getting toxic substances on the surface of the robot.
+11) Avoid contact with acetone and other substances that corrode plastics, electronic boards, wire insulation, metals and hot melt glue.
+12) Before starting the robot, check the safety of the electrical circuit and the presence of defects on the robot body.
+13) Do not run the robot in poor lighting conditions. This will prevent it from recognizing colors from the camera.
+14) Do not disassemble the robot body.
+15) Do not remove the batteries while the robot is running.
+16) Do not touch the robot while driving through the track, field, performing tasks, after pressing the "start" button.
+17) Use only for persons over 12 years old.
+18) If the robot shuts down unexpectedly, remove the batteries immediately for safety.
+19) If the electronic components overheat, stop the robot immediately and remove the batteries.
 
 
 # blackRacers
@@ -79,10 +102,12 @@ ____
 
 ### Устройтво программы:
 Код состоит из нескольких блоков. Отдельные участки программы выполняют разные действия: ищут стартовую линию, корректируют и управляют движением робота, нахождение финишной линии, обЪезд и защита от столкновения с банками, защита от врезания в борта поля.
+#### Звуковая индикация запуска
+При запуске робот издаёт длинный звуковой сигнал. Это означает, что робот включился, но программа ещё не подгрузилась. После этого программа сама начинает запускаться. После её запуска издаются два коротких звуковых сингала. После этого робот готов к проезду. Для старта выполнения заданий и прохождения трассы необходимо нажать на кнопку, после выше перечисленных звуковых сигналов.
 #### Первый участок - это старт. 
 Старт состоит из нажатия на кнопку, по которой робот начинает движение, и проезда до линии поворота. Если линия оказалась синей, то робот будет ехать по часовой стрелке. Иначе - против часовой. 
 #### Второй участок программы - это основной проезд и объезд препятствий на финальных заездах.
-Для сохранения положения относительно бортика используется распознование положения крайне1 точки черного цвета на кадре по оси Y. Далее с помощью пропорционально-интегрально-дифференциального регулятора робот выравнивает положения относительно бортика. Положение крайней точки в кадре определяется в зависимости от направления, куда едет робот. Для объезда объектов используется нахождения их в цветовом диапазоне HSV. При нахождении объекта робот отъезжает назад и отворачивает от препядствия.
+Для сохранения положения относительно бортика используется распознование положения крайней точки черного цвета на кадре по оси Y. Далее с помощью пропорционально-интегрально-дифференциального регулятора робот выравнивает положения относительно бортика. Положение крайней точки в кадре определяется в зависимости от направления, куда едет робот. Для объезда объектов используется нахождения их в цветовом диапазоне HSV. При нахождении объекта робот отъезжает назад и отворачивает от препядствия.
 #### Третий участок - это нахождения финиша и остановка. 
 После проезда определённого количества поворотов робот понимает, что он проехал три круга и останавливается в зоне старта.
 #### Защита от столкновения со стеной
@@ -103,6 +128,27 @@ ____
 3Д модели используемые в роботе:
 - ``` Knopka.stl ```
 - ``` korpus.stl ```
+
+### Инструкция по эксплуатации и меры предосторожности
+1) Всегда используйте заряженные аккумуляторы модели 18650.
+2) Не переворачивайте робота во избежания отделения батерейного отсека.
+3) Не кидайте и не пинайте робота. Не причиняйте ему физического вреда.
+4) Избегайте попадание воды на поверхность робота.
+5) Для запуска робота нажмите на красную кнопку-переключатель. Нажимайте не более 1 раза в минуту.
+6) Используйте робота только на предназначенной поле. Подробнее вы можете ознакомиться с полем вы можете в регламенте WRO 2020 категории Future Engineers.
+7) Не закрывайте и не трогайте линзу камеры робота.
+8) Не обрывайте и не изменяйте электрическую схему.
+9) Нажимайте на зелёную кнопку "старт" только после одного долгого звукового сигнала и двух коротких звуковых сигналов.
+10) Избегайте попадания токсичных веществ на поверхность робота.
+11) Избегайте попадания ацетона и других вещест, разъедающих пластмассу, электронные платы, изоляцию проводов, металлы и термоклей.
+12) Перед стартом робота проверяйте сохранность электрической схемы и наличие деффектов на корпусе робота.
+13) Не запускайте робота при плохом освещении. Это не позволит ему распознавать цвета по камере.
+14) Не разбирайте корпус робота.
+15) Не вытаскивайте аккумуляторы во время работы робота.
+16) Не трогайте робота во время проезда трассы, поля, выполнения заданий, после нажатия кнопки "старт".
+17) Использовать только лицам от 12 лет.
+18) При неожиданном отключении робота сразу вытащите аккумуляторы для обеспечения безопасности.
+19) При перегреве электронных компонентов немедленно прекратите работу робота и вытащите аккумуляторы.
 ____
 ## Контакты | Contacts
 Edventy (Андрей Данильченко | Andrew Danilchenko) - edventyh@gmail.com
