@@ -498,7 +498,7 @@ class RobotAPI:
 
         # self.cap.release()
 
-    def set_camera(self, fps=60, width=640, height=480, num=0):
+    def set_camera(self, fps=60, width=640, height=480, num=0, expo=None):
         answer = self.init_cam(num)
         self.stop_frames = True
         self.wait(800)
@@ -511,6 +511,8 @@ class RobotAPI:
             self.__cap[num].set(cv2.CAP_PROP_FPS, fps)
             self.__cap[num].set(cv2.CAP_PROP_FRAME_WIDTH, width)
             self.__cap[num].set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+            if expo is not None:
+                self.__cap[num].set(cv2.CAP_PROP_EXPOSURE, expo)
             self.wait(600)
         self.stop_frames = False
         return answer
