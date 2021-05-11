@@ -47,7 +47,7 @@ Also, additional libraries were used for the correct and trouble-free operation 
 - Time - a library that allows you to find out the system time. Used in the robot program to create a delay during turns.
 - RobotAPI - a self-written library of the Center for the Development of Robotics for connecting and communicating with a robot, as well as executing programs.
 - JSON - processing data in JSON format. Used to store and quickly access the parameters of the HSV color range stored in the robot's memory.
-- 
+
 ### 3d Models
 We used 3D printing in the design of the robot. The models were developed in Autodesk Inventor 2020, then exported in STL file format and printed on 3D printers.
 3D models used in the robot:
