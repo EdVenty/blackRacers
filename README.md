@@ -43,7 +43,7 @@ Also, additional libraries were used for the correct and trouble-free operation 
 - Time - a library that allows you to find out the system time. Used in the robot program to create a delay during turns.
 - RobotAPI - a self-written library of the Center for the Development of Robotics for connecting and communicating with a robot, as well as executing programs.
 - JSON - processing data in JSON format. Used to store and quickly access the parameters of the HSV color range stored in the robot's memory.
--
+- 
 ### 3d Models
 We used 3D printing in the design of the robot. The models were developed in Autodesk Inventor 2020, then exported in STL file format and printed on 3D printers.
 3D models used in the robot:
@@ -97,9 +97,12 @@ ____
 - Time - библиотека, позволяющая узнать системное время. Используется в программе робота для создания задержки во время поворотов.
 - RobotAPI - самописная библиотека Центра Развития Робототехники для соединения и коммуникации с роботом, а также выполнения программ.
 - JSON - обработка данных в формате JSON. Используется для хранения и быстрого доступа к сохранённым в памяти робота параметров диапазона цветов HSV.
-- 
+
 ### 3д Модели
 В конструкции робота мы использовали 3Д печать. Модели были разработанны в программе Autodesk Inventor 2020, затем экспортированы в формате файла STL и напечатаны на 3Д принтерах.
 3Д модели используемые в роботе:
 - ``` Knopka.stl ```
 - ``` korpus.stl ```
+____
+## Контакты | Contacts
+Edventy (Андрей Данильченко | Andrew Danilchenko) - edventyh@gmail.com
