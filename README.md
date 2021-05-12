@@ -75,6 +75,8 @@ We used 3D printing in the design of the robot. The models were developed in Aut
 18) If the robot shuts down unexpectedly, remove the batteries immediately for safety.
 19) If the electronic components overheat, stop the robot immediately and remove the batteries.
 
+### Our sponsors
+DNS company, Center for the Development of Robotics, Far Eastern Federal University, Samsung company, Rhonda company, Slavda company, Primnagrada company, VL.ru news portal, Rostelecom company, FEFU Project Activity Center, ANO Primorsky Krai Youth Development Center , Department of Youth Affairs and Public Relations of Vladivostok.
 
 # blackRacers
 Robot simulator http://robocenter.fun/robotsimulator.zip.
@@ -153,6 +155,7 @@ ____
 17) Использовать только лицам от 12 лет.
 18) При неожиданном отключении робота сразу вытащите аккумуляторы для обеспечения безопасности.
 19) При перегреве электронных компонентов немедленно прекратите работу робота и вытащите аккумуляторы.
+
 ### Наши спонсоры
 компания DNS, Цент Развития Робототехники, Дальневосточный федеральный университет, компания Samsung, компания Rhonda, компания Slavda, компания «Примнаграда», новостной портал VL.ru, компания «Ростелеком», Центр проектной деятельности ДВФУ, АНО «Центр содействия развитию молодежи Приморского края», Управление по делам молодежи и связям с общественностью г. Владивостока.
 ____
