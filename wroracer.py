@@ -13,9 +13,9 @@ robot.set_camera(60, 640, 480, 0, 0)
 
 # global_speed = 115
 # global_speed = 60
-global_speed = 125 #130 USE IT FUCK # 120
-pause_finish = 1.5
-
+global_speed = 120 #130 USE IT FUCK # 120
+pause_finish = 2.5
+count_lines_proverka = 0
 
 # пременные порога черной линии
 # porog_black_line_minus = 250  #LIme
@@ -27,19 +27,19 @@ porog_black_line_plus = 300 #Black
 flag_qualification = False
 # flag_qualification = True
 if flag_qualification:
-    global_speed += 60
-    pause_finish = 0.5
+    global_speed += 85
+    pause_finish = 0.3
     porog_black_line_plus+=30  # по часовой стрелке
     porog_black_line_minus+=30   # против
 
 
 
-delta_green_plus = 10
-delta_red_plus = -10
+delta_green_plus = 8
+delta_red_plus = -8
 
-delta_green_minus = 10
-delta_red_minus = -10
-time_go_back_banka = 300
+delta_green_minus = 8
+delta_red_minus = -8
+time_go_back_banka = 400
 
 # global_speed = 0
 
@@ -49,7 +49,7 @@ state = "Manual move"
 # state = "Main move"
 # state = "HSV"
 
-pause_povorot = 0.5 #0.6 SEC
+pause_povorot = 0.8 #0.45 SEC
 
 
 
@@ -79,7 +79,7 @@ class HSV_WORK(object):
 
     def reset(self):
 
-        print(self.colors)
+        # print(self.colors)
         self.colors = {
             'orange': [[0, 50, 80], [50, 256, 256]],
             # 'red_low': [[0, 0, 212], [31, 256, 256]],
@@ -457,15 +457,15 @@ while True:
         if k == 37:
             manual_serv = 25
             robot.serv(manual_serv)
-            print(manual_serv)
+            # print(manual_serv)
         if k == 39:
             manual_serv = -25
             robot.serv(manual_serv)
-            print(manual_serv)
+            # print(manual_serv)
         if k == 32:
             manual_serv = 0
             robot.serv(manual_serv)
-            print(manual_serv)
+            # print(manual_serv)
         if k == 38:
             robot.move(speed_manual, 0, 100, wait=False)
         if k == 40:
@@ -563,20 +563,32 @@ while True:
             if is_orange:
                 state = "Right"
                 count_lines += 1
+                count_lines_proverka += 1
+                print(count_lines)
 
             if not flag_qualification:
                 cord_red_banka, area_red_banka = Find_box(frame, frame_show, "red_up")
                 if area_red_banka is not None:
                     delta_banka = delta_red_plus
-                    if area_red_banka > 11000:
-                        go_back(40, time_go_back_banka, 50)
+                    timer_banka = time.time()
+                    if area_red_banka > 6000:
+                        go_back(30, time_go_back_banka, 140)
+                        if count_lines_proverka < count_lines:
+                            count_lines -= 1
+                        if timer_finish is not None:
+                            timer_finish += time.time() - timer_banka
 
                 cord_green_banka, area_green_banka = Find_box(frame, frame_show, "green")
                 if area_green_banka is not None:
                     delta_banka = delta_green_plus
                     # print(area_green_banka)
-                    if area_green_banka > 11000:
-                        go_back(-20, time_go_back_banka, 50)
+                    timer_banka = time.time()
+                    if area_green_banka > 6000:
+                        go_back(-30, time_go_back_banka, 140)
+                        if count_lines_proverka < count_lines:
+                            count_lines -= 1
+                        if timer_finish is not None:
+                            timer_finish += time.time() - timer_banka
 
                 if area_green_banka is not None and area_red_banka is not None:
 
@@ -596,20 +608,31 @@ while True:
             if is_blue:
                 state = "Left"
                 count_lines += 1
-
+                count_lines_proverka += 1
+                print(count_lines)
             if not flag_qualification:
                 cord_red_banka, area_red_banka = Find_box(frame, frame_show, "red_up")
                 if area_red_banka is not None:
                     delta_banka = delta_red_minus
-                    if area_red_banka > 11000:
-                        go_back(40, time_go_back_banka, 50)
+                    if area_red_banka > 6000:
+                        timer_banka = time.time()
+                        go_back(30, time_go_back_banka, 140)
+                        if count_lines_proverka < count_lines:
+                            count_lines -= 1
+                        if timer_finish is not None:
+                            timer_finish += time.time() - timer_banka
 
                 cord_green_banka, area_green_banka = Find_box(frame, frame_show, "green")
                 if area_green_banka is not None:
                     delta_banka = delta_green_minus
                     # print(area_green_banka)
-                    if area_green_banka > 11000:
-                        go_back(-20, time_go_back_banka, 50)
+                    if area_green_banka > 6000:
+                        timer_banka = time.time()
+                        go_back(-30, time_go_back_banka, 140)
+                        if count_lines_proverka < count_lines:
+                            count_lines -= 1
+                        if timer_finish is not None:
+                            timer_finish += time.time() - timer_banka
 
                 if area_green_banka is not None and area_red_banka is not None:
 
@@ -636,7 +659,7 @@ while True:
 
             p = reg_move.apply(porog, max_y) * direction  # Lime
             # p = reg_move.apply(300, max_y)*direction #Xanna
-            print(max_y)
+            # print(max_y)
             robot.serv(p + delta_banka)
             robot.move(global_speed + delta_speed, 0, 100, wait=False)
         else:
@@ -741,4 +764,3 @@ while True:
             print(name_color, low_set, up_set)
             print(m)
 
-        pass
