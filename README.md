@@ -91,7 +91,8 @@ API робота - `RobotAPI.py`.
 
 Электрическая схема робота -  ```Schematic_BlackRacers_2021-05-08.png```.
 
-Фотографии нашей команды и фото робота можно найти в папке `images/`.
+Фотографии нашей команды и фото робота можно найти в папке `images/`. Фото команды: `ours photo` and `ours funny photo`
+
 
 ____
 ## Описание робота
@@ -161,4 +162,5 @@ ____
 ____
 ## Контакты | Contacts
 Edventy (Андрей Данильченко | Andrew Danilchenko) - edventyh@gmail.com
+
 FoReSstT (Корабейников Матвей | Korabeynikov Matvey) - korrabeynikov@mail.ru
