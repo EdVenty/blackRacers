@@ -14,7 +14,7 @@ robot.set_camera(60, 640, 480, 0, 0)
 # global_speed = 115
 # global_speed = 60
 global_speed = 120 #130 USE IT FUCK # 120
-pause_finish = 2.5
+pause_finish = 1.3
 count_lines_proverka = 0
 
 # пременные порога черной линии
@@ -27,7 +27,7 @@ porog_black_line_plus = 300 #Black
 flag_qualification = False
 # flag_qualification = True
 if flag_qualification:
-    global_speed += 85
+    global_speed += 65
     pause_finish = 0.3
     porog_black_line_plus+=30  # по часовой стрелке
     porog_black_line_minus+=30   # против
@@ -39,7 +39,7 @@ delta_red_plus = -8
 
 delta_green_minus = 8
 delta_red_minus = -8
-time_go_back_banka = 400
+time_go_back_banka = 380
 
 # global_speed = 0
 
@@ -49,7 +49,7 @@ state = "Manual move"
 # state = "Main move"
 # state = "HSV"
 
-pause_povorot = 0.8 #0.45 SEC
+pause_povorot = 0.8 #0.8 SEC 0.6 sec the qula
 
 
 
@@ -545,8 +545,11 @@ while True:
             # if time.time()>timer_state+1:
             if timer_finish is None:
                 timer_finish = time.time() + pause_finish
+            if count_lines > 11:
+                robot.move(-255, 0, 1000, wait=True)
+                exit(0)
 
-            else:
+            if timer_finish is not None:
                 if time.time() > timer_finish:
                     global_speed = 0
                     robot.beep()
@@ -571,7 +574,7 @@ while True:
                 if area_red_banka is not None:
                     delta_banka = delta_red_plus
                     timer_banka = time.time()
-                    if area_red_banka > 6000:
+                    if area_red_banka > 11000:
                         go_back(30, time_go_back_banka, 140)
                         if count_lines_proverka < count_lines:
                             count_lines -= 1
@@ -583,7 +586,7 @@ while True:
                     delta_banka = delta_green_plus
                     # print(area_green_banka)
                     timer_banka = time.time()
-                    if area_green_banka > 6000:
+                    if area_green_banka > 11000:
                         go_back(-30, time_go_back_banka, 140)
                         if count_lines_proverka < count_lines:
                             count_lines -= 1
@@ -614,7 +617,7 @@ while True:
                 cord_red_banka, area_red_banka = Find_box(frame, frame_show, "red_up")
                 if area_red_banka is not None:
                     delta_banka = delta_red_minus
-                    if area_red_banka > 6000:
+                    if area_red_banka > 11000:
                         timer_banka = time.time()
                         go_back(30, time_go_back_banka, 140)
                         if count_lines_proverka < count_lines:
@@ -626,7 +629,7 @@ while True:
                 if area_green_banka is not None:
                     delta_banka = delta_green_minus
                     # print(area_green_banka)
-                    if area_green_banka > 6000:
+                    if area_green_banka > 11000:
                         timer_banka = time.time()
                         go_back(-30, time_go_back_banka, 140)
                         if count_lines_proverka < count_lines:
