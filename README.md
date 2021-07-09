@@ -53,8 +53,8 @@ Also, additional libraries were used for the correct and trouble-free operation 
 ### 3d Models
 We used 3D printing in the design of the robot. The models were developed in Autodesk Inventor 2020, then exported in STL file format and printed on 3D printers.
 3D models used in the robot:
-- `` Knopka.stl ``
-- `` korpus.stl ``
+- `` kuzov_BlackRacer.ipt ``
+- `` kuzov_BlackRacer.stl ``
 
 ### Operating Instructions and Precautions
 1) Always use charged 18650 batteries.
@@ -137,8 +137,8 @@ ____
 ### 3д Модели
 В конструкции робота мы использовали 3Д печать. Модели были разработанны в программе Autodesk Inventor 2020, затем экспортированы в формате файла STL и напечатаны на 3Д принтерах.
 3Д модели используемые в роботе:
-- ``` Knopka.stl ```
-- ``` korpus.stl ```
+- ``` kuzov_BlackRacer.stl  ```
+- ``` kuzov_BlackRacer.itp ```
 
 ### Инструкция по эксплуатации и меры предосторожности
 1) Всегда используйте заряженные аккумуляторы модели 18650.
