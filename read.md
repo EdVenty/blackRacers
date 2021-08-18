@@ -37,14 +37,15 @@ WRO 2021
 ![image002](https://user-images.githubusercontent.com/80317959/129824608-fe3af042-959d-4ccf-aaa3-9312ea026d93.png)
 -	Откройте скачанный установочный файл.
  
-	![image003](https://user-images.githubusercontent.com/80317959/129824636-e8de3e8c-bb1c-483a-855b-0d9d3c0097fc.png)
+![image003](https://user-images.githubusercontent.com/80317959/129824636-e8de3e8c-bb1c-483a-855b-0d9d3c0097fc.png)
 -	После открытия разрешите приложению вносить изменения на устройстве. Нажмите «Да».
 -	После разрешения, у вас появятся два окна: 
 
 ![image005](https://user-images.githubusercontent.com/80317959/129824695-265f6b38-87fe-4b9e-ade9-dca456e5ce2c.png)
+
   В маленьком окне выставьте галочку в поле «I agree to accept all the terms of the License Agreement» и нажмите «Install».
   
 ![image007](https://user-images.githubusercontent.com/80317959/129825008-e49fb9a8-92bf-45db-86e1-4af12a27a9df.png)
 -	В случае успешной установки у вас появится окно, сообщающее об этом. Нажмите "OK" 
--	
+	
 ![image009](https://user-images.githubusercontent.com/80317959/129825065-348fbeca-04e7-4684-9839-575cc17a7070.png)
