@@ -1,3 +1,5 @@
+![image011](https://user-images.githubusercontent.com/80317959/129826379-390447a3-dd18-402b-ba1a-d44b41ca71e1.png)
+![image011](https://user-images.githubusercontent.com/80317959/129826392-f179cc30-b9c3-44d1-a3bc-171271927588.png)
 # РУКОВОДСТВО ПОЛЬЗОВАТЕЛЯ
 BR-2G 
 ![Рисунок1](https://user-images.githubusercontent.com/80317959/129823910-77be7fb0-0ab2-45dd-8bca-df48c1715f8c.png)
@@ -54,3 +56,8 @@ WRO 2021
 3. Загрузить репозиторий робота с сайта GitHub.
 	-	Перейдите по ссылке https://github.com/EdVenty/blackRacers/archive/refs/heads/main.zip. У вас откроется окно браузера 		 с репозиторием робота.
 	-	Нажмите на зелёную кнопку «Code». 
+	
+	![image011](https://user-images.githubusercontent.com/80317959/129826395-4ee6dedc-dc83-436f-965b-425b9c9f78ea.png)
+	-	У вас откроется следующее окно: 
+		
+	![image013](https://user-images.githubusercontent.com/80317959/129826444-9871a02d-922c-4320-82cf-2d65a1e288a2.png)
