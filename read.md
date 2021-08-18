@@ -82,3 +82,6 @@ WRO 2021
 	-	Откройте его
 	
 ![image026](https://user-images.githubusercontent.com/80317959/129986296-8776bb72-eb84-4783-977d-6702f69d060e.png)
+	-	Нажмите кнопку «Next», и у вас откроется следующее окно: 
+	
+	![image028](https://user-images.githubusercontent.com/80317959/129986393-d8244a64-5e56-44aa-b48e-04e0fd78c932.png)
