@@ -61,4 +61,7 @@ WRO 2021
 	-	У вас откроется следующее окно: 
 		
 	![image013](https://user-images.githubusercontent.com/80317959/129826444-9871a02d-922c-4320-82cf-2d65a1e288a2.png)
+	
 	Нажмите на кнопку «Download ZIP» для загрузки архива репозитория.
+	-	Репозиторий скачается в архив в формате «.zip». 
+	![image014](https://user-images.githubusercontent.com/80317959/129826627-684fa183-e1f1-48c9-8475-d2be2f3f2759.png)
