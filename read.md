@@ -51,6 +51,6 @@ WRO 2021
 	
 	![image009](https://user-images.githubusercontent.com/80317959/129825065-348fbeca-04e7-4684-9839-575cc17a7070.png)
 
-### 3:
-   Загрузить репозиторий робота с сайта GitHub.
-	-Перейдите по ссылке https://github.com/EdVenty/blackRacers/archive/refs/heads/main.zip. У вас откроется окно браузера 		 с репозиторием робота.
+3. Загрузить репозиторий робота с сайта GitHub.
+	-	Перейдите по ссылке https://github.com/EdVenty/blackRacers/archive/refs/heads/main.zip. У вас откроется окно браузера 		 с репозиторием робота.
+	-	Нажмите на зелёную кнопку «Code». 
