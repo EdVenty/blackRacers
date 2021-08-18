@@ -1,5 +1,3 @@
-![image011](https://user-images.githubusercontent.com/80317959/129826379-390447a3-dd18-402b-ba1a-d44b41ca71e1.png)
-![image011](https://user-images.githubusercontent.com/80317959/129826392-f179cc30-b9c3-44d1-a3bc-171271927588.png)
 # РУКОВОДСТВО ПОЛЬЗОВАТЕЛЯ
 BR-2G 
 ![Рисунок1](https://user-images.githubusercontent.com/80317959/129823910-77be7fb0-0ab2-45dd-8bca-df48c1715f8c.png)
