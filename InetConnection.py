@@ -24,7 +24,7 @@ class InetConnect:
         self.connected=False
         self.count_disconnected=0
         self.time_last_connect=time.time()
-
+#frghjm,g
     # def send_non_block(self, message):
     #     while 1:
     #         f=0
