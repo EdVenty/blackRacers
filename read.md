@@ -97,8 +97,13 @@ WRO 2021
 	-	После успешной установки , появится следующее окно. Нажмите «Finish».
 
 	![image032](https://user-images.githubusercontent.com/80317959/130030609-64e3354e-ea19-42e0-a4c4-2fbd59216a82.png)
-5.Raspberry PI Imager.
+	
+5. Raspberry PI Imager.
 	-	Загрузите установщик с официального сайта по ссылке: https://downloads.raspberrypi.org/imager/imager_latest.exe. 
 		У вас должен скачаться следующий файл: 
+		
 	![image033](https://user-images.githubusercontent.com/80317959/130031606-22081287-5b88-4826-a3c2-456c6e7bc2a1.png)
-
+	-	Откройте файл и разрешите установщику доступ к правам администратора, нажав «Да». 
+		У вас должно открыться следующее окно. 
+	
+	![image035](https://user-images.githubusercontent.com/80317959/130031886-b7429d1f-504d-4a2c-b48a-a117bbfccf59.png)
