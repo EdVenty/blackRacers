@@ -162,3 +162,12 @@ WRO 2021
 	-	Откройте «Проводник Windows» 
 	![image063](https://user-images.githubusercontent.com/80317959/130037470-93e5a7d9-c8c8-49ff-b880-6d53ba84cfd4.png)
 	![image066](https://user-images.githubusercontent.com/80317959/130037476-cadac61e-b1b4-48eb-9ea2-a68daea834b1.png)
+	-	В графе «Устройства и диски» вы увидите диск, с названием «boot». Откройте его. 
+	
+	![image067](https://user-images.githubusercontent.com/80317959/130037922-34aafe94-851a-45a9-a305-ce9435dfa247.png)
+	Здесь находятся важные файлы для загрузки операционной системы Raspberry PI.
+	-	Нажмите правой кнопкой по белой области и нажмите «Создать», выберите «Текстовый документ». 
+	
+	![image069](https://user-images.githubusercontent.com/80317959/130037974-36c3c9c5-2ba9-4152-812a-0a930b25bf11.png)
+	-	Назовите документ «ssh». Важно: файл не должен иметь никакого расширения. Содержимое файла также можно оставить пустым.
+		![image071](https://user-images.githubusercontent.com/80317959/130038044-5f948d15-eef6-4307-a058-a349b88d23d1.png)
