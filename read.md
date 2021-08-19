@@ -134,3 +134,31 @@ WRO 2021
 - Ethernet кабель
 - SD карта минимум на 8 гигабайт памяти.
 - Компьютер с ethernet портом.
+
+Ход установки:
+1. Установите Raspbian OS Lite на SD карту.
+	-	Вставьте SD карту в компьютер.
+	-	Откройте Raspberry PI Imager. У вас должно появиться следующее окно: 
+	
+	![image052](https://user-images.githubusercontent.com/80317959/130036760-86111ffc-cba3-455e-b008-d119deb70e67.png)
+	-	Нажмите кнопку «CHOOSE OS». У вас появится окно выбора операционной системы Raspberry PI. 
+	
+	![image054](https://user-images.githubusercontent.com/80317959/130036829-8c43f8da-4fbf-4732-8686-6d3b5e17c9b6.png)
+	-	Нажмите «Raspberry PI OS (other)». У вас откроется следующее:
+	
+	![image056](https://user-images.githubusercontent.com/80317959/130036902-13bc52c9-aaa3-4b28-a84e-234d4cc7ec1c.png)
+	-	Выберите «Raspberry PI OS Lite (32-bit)». Окно сбросится на начальное, а операционная система будет выбрана. 
+	
+	![image052](https://user-images.githubusercontent.com/80317959/130037101-6866da1c-2a20-4921-babb-21023cc0b02f.png)
+	-	Нажмите «CHOOSE STORAGE» и выберите SD карту в списке. 
+	
+	![image060](https://user-images.githubusercontent.com/80317959/130037202-2712f860-457a-4e13-a194-310c9bde5f07.png)
+	-	После выбора, окно сбросится. Для записи операционной системы на флешку «WRITE». 
+	
+	![image062](https://user-images.githubusercontent.com/80317959/130037245-2d7d4892-ad2d-4ba9-b9b7-3a805c124758.png)
+	-	После записи и верификации файлов вы сможете достать SD карту. До этого времени, извлекать карту нельзя!
+2. Активация SSH протокола на Raspberry PI.
+	-	Вставьте SD карту в компьютер.
+	-	Откройте «Проводник Windows» 
+	![image063](https://user-images.githubusercontent.com/80317959/130037470-93e5a7d9-c8c8-49ff-b880-6d53ba84cfd4.png)
+	![image066](https://user-images.githubusercontent.com/80317959/130037476-cadac61e-b1b4-48eb-9ea2-a68daea834b1.png)
