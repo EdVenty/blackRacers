@@ -8,6 +8,7 @@ WRO 2021
 1.	3Д модели: они находятся в папке “3d models”
 -	`` Knopka``: модель выложена в двух файлах(stl и itp), модель проектировалась в  Autodesk Inventor 2020
 -	`` kuzov_BlackRacer``: модель выложена в двух файлах(stl и itp), модель проектировалась в  Autodesk Inventor 2020
+-	`` Kozhux_right_BlackRacer`` : модель выложена в двух файлах(stl и itp), модель проектировалась в  Autodesk Inventor 2020
 2.	Схемы: находятся в папке “Schematic”
 -	Электрическая схема представлена в файле: `` Schematic_BlackRacer.png``, схема проектировалась в программе EasyEda, файл: `` SCH_BlackRacer_team. Json``
 -	 Кинетическая схема была составлена с использованием ГОСТ ‘а, файл: ``kinematic_scheme.jpg``
