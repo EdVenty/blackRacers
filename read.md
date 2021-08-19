@@ -100,6 +100,5 @@ WRO 2021
 5.Raspberry PI Imager.
 	-	Загрузите установщик с официального сайта по ссылке: https://downloads.raspberrypi.org/imager/imager_latest.exe. 
 		У вас должен скачаться следующий файл: 
-		
-![image033](https://user-images.githubusercontent.com/80317959/130031606-22081287-5b88-4826-a3c2-456c6e7bc2a1.png)
+	![image033](https://user-images.githubusercontent.com/80317959/130031606-22081287-5b88-4826-a3c2-456c6e7bc2a1.png)
 
