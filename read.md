@@ -107,3 +107,29 @@ WRO 2021
 		У вас должно открыться следующее окно. 
 	
 	![image035](https://user-images.githubusercontent.com/80317959/130031886-b7429d1f-504d-4a2c-b48a-a117bbfccf59.png)
+	-	Нажмите «Install», и, после установки, откроется следующее окно. Нажмите «Finish».
+	  
+	![image037](https://user-images.githubusercontent.com/80317959/130032500-3600d9b7-3f30-4c25-b77d-f89b9b0f11ed.png)
+6. Установка среды выполнения «Python».
+	-	Перейдите по ссылке https://www.python.org/downloads/windows/ и найдите пункт «Python 3.7.0 – June 27, 2018».
+	
+	![image040](https://user-images.githubusercontent.com/80317959/130032611-b26346bb-3bce-4021-be20-45af27a90dd0.png)
+	-	Нажмите на ссылку «Download Winfows executable installer». У вас скачается файл установщика.
+	-	Откройте скачаный файл.
+	
+	![image042](https://user-images.githubusercontent.com/80317959/130032738-bdb4e622-3bc8-4060-bd38-4f25fdbef2d7.png)
+	-	У вас откроется окно установщика. Нажмите галочку слева от поля «Add Python 3.7 to PATH».
+	
+	![image045](https://user-images.githubusercontent.com/80317959/130032849-ac41a10a-6b06-4485-9e5e-d3d9674d8831.png)
+	-	Нажмите кнопку «Install Now». Ожидайте установки.
+	
+	![image048](https://user-images.githubusercontent.com/80317959/130032917-3e350ddb-30ba-40ab-9966-665bd0496228.png)
+	-	После упешной установки у вас появится окно, сообщающее ою этом. Нажмите «Close».
+	
+	![image050](https://user-images.githubusercontent.com/80317959/130032976-06563953-6dff-4e86-8617-baa6b6f3ac91.png)
+## Загрузка программного обеспечения на робота.
+Далее, необходимо загрузить необходимые файлы и программы на робота. Для загрузки на робота вам понадобятся программы, установка которых показана выше, а также:
+	-	USB-A (male) на micro-USB (male) провод (минимум 15 сантиметров).
+	-	Ethernet кабель
+	-	SD карта минимум на 8 гигабайт памяти.
+	-	Компьютер с ethernet портом.
