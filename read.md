@@ -88,5 +88,13 @@ WRO 2021
 	![image026](https://user-images.githubusercontent.com/80317959/129986296-8776bb72-eb84-4783-977d-6702f69d060e.png)
 	-	Нажмите кнопку «Next», и у вас откроется следующее окно: 
 	
-	![Uploading image028.png…]()
+	![image028](https://user-images.githubusercontent.com/80317959/130030272-3a698115-ee36-4511-a88e-f467bb842c21.png)
+	-	Нажмите «Next». Покажется следующее:
+
+	![image030](https://user-images.githubusercontent.com/80317959/130030407-2f390cc3-8b28-4c80-920c-4b3b338ecaab.png)
+	-	Нажмите «Install». Приложение запросит права администратора, разрешите их предоставление нажатием кнопки «Да». Далее
+		произойдет установка. 
+	-	После успешной установки , появится следующее окно. Нажмите «Finish».
+
+	![image032](https://user-images.githubusercontent.com/80317959/130030609-64e3354e-ea19-42e0-a4c4-2fbd59216a82.png)
 
