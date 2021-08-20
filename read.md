@@ -208,3 +208,11 @@ WRO 2021
 	-	В итоге, верхняя панель будет выглядеть так: 
 	
 	![image082](https://user-images.githubusercontent.com/80317959/130159463-acd2e5dc-0aa6-4d0e-8d27-d7a1de1ed958.png)
+	-	Внизу окна нажмте кнопку «Login». Ожидайте, пока Bitvise SSH Client не подключится к Raspberry PI.
+	
+	-	Если по истечении подключения в логах появляется следующая ошибка 
+	![image086](https://user-images.githubusercontent.com/80317959/130159719-affa7e3d-5172-47dc-bc34-515d0172f8ae.png), то измените значения поля «Host» на «raspberrypi».
+	
+	-	Если подключение было успешным, у вас появится окно. Нажмите «Accept and Save». 
+	
+	![image088](https://user-images.githubusercontent.com/80317959/130159846-90bb0033-b5c3-47d4-b674-0ff50d583056.png)
