@@ -149,8 +149,7 @@ Installation progress:
 ![image056](https://user-images.githubusercontent.com/80317959/130036902-13bc52c9-aaa3-4b28-a84e-234d4cc7ec1c.png)
 - Select " Raspberry PI OS Lite (32-bit)". The window will reset to the initial one, and the operating system will be selected.
 
-![image058](https://user-images.githubusercontent.com/80317959/130039118-d082de0d-5b57-4934-9ebf-8a02349eafe1.png)![image074](https://user-images.githubusercontent.com/80317959/130039159-99f6369f-0d41-457e-9f4a-761b0ef2f462.png)
-
+![image058](https://user-images.githubusercontent.com/80317959/130039118-d082de0d-5b57-4934-9ebf-8a02349eafe1.png)
 - Click "CHOOSE STORAGE" and select the SD card from the list.
 
 ![image060](https://user-images.githubusercontent.com/80317959/130037202-2712f860-457a-4e13-a194-310c9bde5f07.png)
@@ -230,7 +229,7 @@ Here you can write commands for the Raspberry PI.
 - After that, the Raspberry PI will be updated. This may take some time.
 - Write the command in the terminal:
 
-"sudo raspi-config`
+``sudo raspi-config``
 - You will see the Raspberry settings window.
 - Use the up and down arrows on the keyboard to move the red cursor to the "Interfacing Options" element.
 
@@ -477,8 +476,7 @@ WRO 2021
 	![image056](https://user-images.githubusercontent.com/80317959/130036902-13bc52c9-aaa3-4b28-a84e-234d4cc7ec1c.png)
 	-	Выберите «Raspberry PI OS Lite (32-bit)». Окно сбросится на начальное, а операционная система будет выбрана. 
 	
-	![image058](https://user-images.githubusercontent.com/80317959/130039118-d082de0d-5b57-4934-9ebf-8a02349eafe1.png)![image074](https://user-images.githubusercontent.com/80317959/130039159-99f6369f-0d41-457e-9f4a-761b0ef2f462.png)
-
+	![image058](https://user-images.githubusercontent.com/80317959/130039118-d082de0d-5b57-4934-9ebf-8a02349eafe1.png)
 	-	Нажмите «CHOOSE STORAGE» и выберите SD карту в списке. 
 	
 	![image060](https://user-images.githubusercontent.com/80317959/130037202-2712f860-457a-4e13-a194-310c9bde5f07.png)
