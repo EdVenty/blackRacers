@@ -216,3 +216,7 @@ WRO 2021
 	-	Если подключение было успешным, у вас появится окно. Нажмите «Accept and Save». 
 	
 	![image088](https://user-images.githubusercontent.com/80317959/130159846-90bb0033-b5c3-47d4-b674-0ff50d583056.png)
+	- 	Слева обновится панель. Нажмите на следующую кнопку ![image090](https://user-images.githubusercontent.com/80317959/130159918-f652285f-d1b9-4bfc-b56b-ca9628af0626.png). 
+		У вас откроется окно удалённого терминала Raspberry PI. 
+		![image092](https://user-images.githubusercontent.com/80317959/130159980-04593e9d-f982-4c3a-8416-b69aa03b1b88.png)
+		Здесь вы можете писать команды для Raspberry PI.
