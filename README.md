@@ -1,170 +1,329 @@
-# blackRacers
-Robot simulator http://robocenter.fun/robotsimulator.zip.
+# РУКОВОДСТВО ПОЛЬЗОВАТЕЛЯ
+BR-2G 
+![Рисунок1](https://user-images.githubusercontent.com/80317959/129823910-77be7fb0-0ab2-45dd-8bca-df48c1715f8c.png)
+BlackRacers 
+WRO 2021
+---
+## Обзор репозитория
+1.	Фотографии команды: находятся в папке “Item number 1 - our photos”
+-	Фото (`` Ours photo.jpeg ``)- официальное фото команды, а (`` ours funny photo.jpg ``)- забавное
+2. Фотографии робота находятся в папке “Item number 2 - photographs of the robot from 6 sides”
+-	Фотографии (`` Robot_…jpg `` ) показывают строение робота с разных сторон
+3. Ссылка на видеоролик находится в папке “Item number 3 - Url the address of the YouTube video
+-	Ссылка(`` Url the address of the YouTube video.md``)
+4.	Схемы: находятся в папке “Item number 4 - schematic diagrams of electromechanical components.”
+-	Электрическая схема представлена в файле: `` Schematic_BlackRacer.png``, схема проектировалась в программе EasyEda, файл: `` SCH_BlackRacer_team. Json``
+-	 Кинетическая схема была составлена с использованием ГОСТ ‘а, файл: ``kinematic_scheme.jpg``
+5.	3Д модели: они находятся в папке “Item number 5 - 3d models used in the robot”
+-	`` Knopka``: модель выложена в двух файлах(stl и itp), модель проектировалась в  Autodesk Inventor 2020
+-	`` kuzov_BlackRacer``: модель выложена в двух файлах(stl и itp), модель проектировалась в  Autodesk Inventor 2020
+-	`` Kozhux_right_BlackRacer`` : модель выложена в двух файлах(stl и itp), модель проектировалась в  Autodesk Inventor 2020
+6.	В папке “Program” находится весь код, используемый на роботе и на главном компьютере
+-	`` wro.py ``-программа используемая в симуляторе для первичной настройки алгоритмов
+-	`` wroracer ``-программа запускающаяся на роботе и управляющая его действиями
+-	`` regulators.py ``-модуль регулятора движения робота
+-	`` RoboAPI.py``-модуль коммуникации с роботом
+-	`` wroracer_last_win.py `` -программа которая использовалась на региональных соревнованиях
+-	`` start_robot.py ``-файл запускающийся на главном компьютере 
+-	`` InetConnection.py``-файл создания сервера на Raspberry Pi
+7.	Файлы в основном разделе:
+-	`` wroracer``-программа запускающаяся на роботе и управляющая его действиями
+-	``wroracer_last_win.py``-программа, которая использовалась на региональных соревнованиях
+-	``start_robot.py``-файл запускающийся на главном компьютере 
+-	`` README.md``-файл с руководством пользователя и обзором репозитория
+---
+## Настройка программного обеспечения
+Для настройки использования робота BR-2G вам понадобится установить следующее программное обеспечение:
+1. Все последующие программы были протестированы и настроены под операционную систему Windows 10, и руководство также описывает установку под это систему. Если у вас установлена другая система, пожалуйста, воспользуйтесь поисковой системой Google или её аналогами для самостоятельного поиска установки программ. Если у вас нету графической оболочки система (командная строка), то установка клиентских программ может существенно отличаться от руководства. Мы настоятельно рекомендуем использовать последние сборки систем не ниже Windows 10, в ином случае, ответственность за неправильную установку или неработоспособность компонентов робота будете нести вы.
 
-The robot connection program is `start_robot.py` (the `InetConnection.py` and `regulators.py` files are also required).
+2. Программа для коммуникации с устройствами по протоколу SSH и SFTP. Например, Bitvise SSH Client, которую можно скачать с официального сайта. 
+	-	Для этого перейдите по ссылке https://www.bitvise.com/ssh-client-download и нажмите кнопку «Bitvise SSH Client 		Installer».
+ 
+	![image002](https://user-images.githubusercontent.com/80317959/129824608-fe3af042-959d-4ccf-aaa3-9312ea026d93.png)
+	-	Откройте скачанный установочный файл.
+ 
+	![image003](https://user-images.githubusercontent.com/80317959/129824636-e8de3e8c-bb1c-483a-855b-0d9d3c0097fc.png)
+	-	После открытия разрешите приложению вносить изменения на устройстве. Нажмите «Да».
+	-	После разрешения, у вас появятся два окна: 
 
-The main program for the robot is `wroracer.py`.
+	![image005](https://user-images.githubusercontent.com/80317959/129824695-265f6b38-87fe-4b9e-ade9-dca456e5ce2c.png)
+	
+	В маленьком окне выставьте галочку в поле «I agree to accept all the terms of the License Agreement» и нажмите «Install».
+  
+	![image007](https://user-images.githubusercontent.com/80317959/129825008-e49fb9a8-92bf-45db-86e1-4af12a27a9df.png)
+	-	В случае успешной установки у вас появится окно, сообщающее об этом. Нажмите "OK" 
+	
+	![image009](https://user-images.githubusercontent.com/80317959/129825065-348fbeca-04e7-4684-9839-575cc17a7070.png)
 
-The robot API is `RobotAPI.py`.
+3. Загрузить репозиторий робота с сайта GitHub.
+	-	Перейдите по ссылке https://github.com/EdVenty/blackRacers/archive/refs/heads/main.zip. У вас откроется окно браузера 		 с репозиторием робота.
+	-	Нажмите на зелёную кнопку «Code». 
+	
+	![image011](https://user-images.githubusercontent.com/80317959/129826395-4ee6dedc-dc83-436f-965b-425b9c9f78ea.png)
+	-	У вас откроется следующее окно: 
+		
+	![image013](https://user-images.githubusercontent.com/80317959/129826444-9871a02d-922c-4320-82cf-2d65a1e288a2.png)
+	
+	Нажмите на кнопку «Download ZIP» для загрузки архива репозитория.
+	-	Репозиторий скачается в архив в формате «.zip». 
+	
+	![image014](https://user-images.githubusercontent.com/80317959/129826627-684fa183-e1f1-48c9-8475-d2be2f3f2759.png)
+	-	Если у вас не установлен «WinRar» или другие архиваторы, то у вас откроется следующие окно проводника: 
+	
+	![image016](https://user-images.githubusercontent.com/80317959/129985270-b3985063-01fc-4f07-a192-b956ab9d7fde.png)
+	-	Скопируйте единственную корневую папку и извлеките в любую другую папку на вашем диске.
+	
+	![image018](https://user-images.githubusercontent.com/80317959/129985324-43f1e20e-9be0-4e70-a4d2-710ae2fcd5f5.png)
+	![image018](https://user-images.githubusercontent.com/80317959/129985341-140a5d90-bbbe-4e24-b57b-8a1d6e348ace.png)
+	-	Репозиторий загружен на ваш компьютер.
+4. Программа для коммуникации с роботом по протоколу UART, для загрузки прошивки в микроконтроллер PyBoard, напрмер, «PuTTY».
+	-	Перейдите по ссылке https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html. У вас откроется окно загрузки установщика PuTTY. Найдите следующую область 			(надписи могут отличаться):  
+	
+	![image022](https://user-images.githubusercontent.com/80317959/129985851-20ef1c04-061d-4afa-99b1-0106ab5dd788.png)
+	-	Нажмите на ссылку, справа от поля «64-bit x86», если у вас система 64 бита, иначе – «32-		bit x86». У вас должен скачаться следующий файл: 
 
-Video uploaded to YouTube platform https://youtu.be/gwtpSeXLMqE
+	![image024](https://user-images.githubusercontent.com/80317959/129986069-605bf70e-d59b-412b-8215-d9bc005b6f69.png)
+	-	Откройте его
+	
+	![image026](https://user-images.githubusercontent.com/80317959/129986296-8776bb72-eb84-4783-977d-6702f69d060e.png)
+	-	Нажмите кнопку «Next», и у вас откроется следующее окно: 
+	
+	![image028](https://user-images.githubusercontent.com/80317959/130030272-3a698115-ee36-4511-a88e-f467bb842c21.png)
+	-	Нажмите «Next». Покажется следующее:
 
-Robot electrical diagram - `` Schematic_BlackRacers_2021-05-08.png``.
+	![image030](https://user-images.githubusercontent.com/80317959/130030407-2f390cc3-8b28-4c80-920c-4b3b338ecaab.png)
+	-	Нажмите «Install». Приложение запросит права администратора, разрешите их предоставление нажатием кнопки «Да». Далее
+		произойдет установка. 
+	-	После успешной установки , появится следующее окно. Нажмите «Finish».
 
-Images of our team and robot can be found in `images/` folder. 
+	![image032](https://user-images.githubusercontent.com/80317959/130030609-64e3354e-ea19-42e0-a4c4-2fbd59216a82.png)
+	
+5. Raspberry PI Imager.
+	-	Загрузите установщик с официального сайта по ссылке: https://downloads.raspberrypi.org/imager/imager_latest.exe. 
+		У вас должен скачаться следующий файл: 
+		
+	![image033](https://user-images.githubusercontent.com/80317959/130031606-22081287-5b88-4826-a3c2-456c6e7bc2a1.png)
+	-	Откройте файл и разрешите установщику доступ к правам администратора, нажав «Да». 
+		У вас должно открыться следующее окно. 
+	
+	![image035](https://user-images.githubusercontent.com/80317959/130031886-b7429d1f-504d-4a2c-b48a-a117bbfccf59.png)
+	-	Нажмите «Install», и, после установки, откроется следующее окно. Нажмите «Finish».
+	  
+	![image037](https://user-images.githubusercontent.com/80317959/130032500-3600d9b7-3f30-4c25-b77d-f89b9b0f11ed.png)
+6. Установка среды выполнения «Python».
+	-	Перейдите по ссылке https://www.python.org/downloads/windows/ и найдите пункт «Python 3.7.0 – June 27, 2018».
+	
+	![image040](https://user-images.githubusercontent.com/80317959/130032611-b26346bb-3bce-4021-be20-45af27a90dd0.png)
+	-	Нажмите на ссылку «Download Winfows executable installer». У вас скачается файл установщика.
+	-	Откройте скачаный файл.
+	
+	![image042](https://user-images.githubusercontent.com/80317959/130032738-bdb4e622-3bc8-4060-bd38-4f25fdbef2d7.png)
+	-	У вас откроется окно установщика. Нажмите галочку слева от поля «Add Python 3.7 to PATH».
+	
+	![image045](https://user-images.githubusercontent.com/80317959/130032849-ac41a10a-6b06-4485-9e5e-d3d9674d8831.png)
+	-	Нажмите кнопку «Install Now». Ожидайте установки.
+	
+	![image048](https://user-images.githubusercontent.com/80317959/130032917-3e350ddb-30ba-40ab-9966-665bd0496228.png)
+	-	После упешной установки у вас появится окно, сообщающее ою этом. Нажмите «Close».
+	
+	![image050](https://user-images.githubusercontent.com/80317959/130032976-06563953-6dff-4e86-8617-baa6b6f3ac91.png)
+---
+## Загрузка программного обеспечения на робота.
+Далее, необходимо загрузить необходимые файлы и программы на робота. Для загрузки на робота вам понадобятся программы, установка которых показана выше, а также:
+- USB-A (male) на micro-USB (male) провод (минимум 15 сантиметров).
+- Ethernet кабель
+- SD карта минимум на 8 гигабайт памяти.
+- Компьютер с ethernet портом.
 
-Team photos: `ours photo` and `ours funny photo`.
+Ход установки:
+1. Установите Raspbian OS Lite на SD карту.
+	-	Вставьте SD карту в компьютер.
+	-	Откройте Raspberry PI Imager. У вас должно появиться следующее окно: 
+	
+	![image052](https://user-images.githubusercontent.com/80317959/130036760-86111ffc-cba3-455e-b008-d119deb70e67.png)
+	-	Нажмите кнопку «CHOOSE OS». У вас появится окно выбора операционной системы Raspberry PI. 
+	
+	![image054](https://user-images.githubusercontent.com/80317959/130036829-8c43f8da-4fbf-4732-8686-6d3b5e17c9b6.png)
+	-	Нажмите «Raspberry PI OS (other)». У вас откроется следующее:
+	
+	![image056](https://user-images.githubusercontent.com/80317959/130036902-13bc52c9-aaa3-4b28-a84e-234d4cc7ec1c.png)
+	-	Выберите «Raspberry PI OS Lite (32-bit)». Окно сбросится на начальное, а операционная система будет выбрана. 
+	
+	![image058](https://user-images.githubusercontent.com/80317959/130039118-d082de0d-5b57-4934-9ebf-8a02349eafe1.png)![image074](https://user-images.githubusercontent.com/80317959/130039159-99f6369f-0d41-457e-9f4a-761b0ef2f462.png)
 
-____
-## Description of the robot
-Our robot is based on a bundle of Raspberry PI and PY Board platforms that communicate with each other via the UART protocol. Raspberry PI analyzes the image using computer vision, in particular the OpenCV library, supported by Intel; The PY Board controls the movement of the robot in space using a brushed motor with a gearbox. The robot signals its behavior by means of sound and light indication. Also, the robot can be given commands by means of contact sensors (including buttons).
-The robot performs actions and tasks in accordance with the rules of the competition.
+	-	Нажмите «CHOOSE STORAGE» и выберите SD карту в списке. 
+	
+	![image060](https://user-images.githubusercontent.com/80317959/130037202-2712f860-457a-4e13-a194-310c9bde5f07.png)
+	-	После выбора, окно сбросится. Для записи операционной системы на флешку «WRITE». 
+	
+	![image062](https://user-images.githubusercontent.com/80317959/130037245-2d7d4892-ad2d-4ba9-b9b7-3a805c124758.png)
+	-	После записи и верификации файлов вы сможете достать SD карту. До этого времени, извлекать карту нельзя!
+2. Активация SSH протокола на Raspberry PI.
+	-	Вставьте SD карту в компьютер.
+	-	Откройте «Проводник Windows» 
+	![image063](https://user-images.githubusercontent.com/80317959/130037470-93e5a7d9-c8c8-49ff-b880-6d53ba84cfd4.png)
+	![image066](https://user-images.githubusercontent.com/80317959/130037476-cadac61e-b1b4-48eb-9ea2-a68daea834b1.png)
+	-	В графе «Устройства и диски» вы увидите диск, с названием «boot». Откройте его. 
+	
+	![image067](https://user-images.githubusercontent.com/80317959/130037922-34aafe94-851a-45a9-a305-ce9435dfa247.png)
+	Здесь находятся важные файлы для загрузки операционной системы Raspberry PI.
+	-	Нажмите правой кнопкой по белой области и нажмите «Создать», выберите «Текстовый документ». 
+	
+	![image069](https://user-images.githubusercontent.com/80317959/130037974-36c3c9c5-2ba9-4152-812a-0a930b25bf11.png)
+	-	Назовите документ «ssh». Важно: файл не должен иметь никакого расширения. 
+		Содержимое файла также можно оставить пустым.
+		
+	![image071](https://user-images.githubusercontent.com/80317959/130038044-5f948d15-eef6-4307-a058-a349b88d23d1.png)
+	
+	Если у вас не отображаются расширения (например, файл «config.txt» не имеет расширения «.txt», то используйте слудующие шаги:    
+		-	Нажмите кнопку «Вид» в верхнем меню проводника. 
+		
+	![image072](https://user-images.githubusercontent.com/80317959/130039251-2518f871-7e57-402d-9ecd-3987af256ce2.png)
+		-	У вас должна открыться следующая панель: 
+		
+	![image074](https://user-images.githubusercontent.com/80317959/130038473-b3867d52-a021-40e1-8a2d-0e764ce050e7.png)
+		-	Если у вас не стоит галочка в поле «Расширения имен файлов», то поставьте её. 
+	
+	-	Извлеките SD карту из компьютера и вставьте в Raspberry PI. Включите питание Raspberry PI. 
+		Начнётся процесс инициализации системы, в это время, жёлтый светодиод будет активно моргать.
+		
+	-	Подождите 5–10  минут для полной подготовки системы. Последующие запуски будут происходить намного быстрее. 
+		После этого периода вы можете переходить в следующим шагам.
+3.	Настройка камеры Raspberry PI.
+	-	Подключите Raspberry PI к компьютеру, используя Ethernet кабель.
+	-	Запустите программу «Bitvise SSH Client».  У вас откроется следующее окно:
+		
+	![image076](https://user-images.githubusercontent.com/80317959/130159295-83a713a2-face-42c9-a746-aadbc1ff434d.png)
+	-	В поле «Port» введите «22». В поле «Host» введите «raspberrypi.local».
+	
+	![image078](https://user-images.githubusercontent.com/80317959/130159339-ebf57c82-5935-452a-8115-950d2cbc8a4e.png)
+	-	В разделе «Authentication» в поле «Login» введите слово логин «pi». 
+		В поле «Initial method» выберите значение «password». 
+		
+	![image080](https://user-images.githubusercontent.com/80317959/130159366-00e656bf-3bf0-44eb-8c2f-9e67c5411c45.png)
+	-	Нажмите галочку в поле «Store enctypted password in profile». Поле «Password» перестанет быть серым. 
+		Введите туда пароль «raspberry». 
+		
+	![image081](https://user-images.githubusercontent.com/80317959/130159413-d1fe3cc4-f436-4252-9fe4-7ab3afa2b22a.png)
+	-	В итоге, верхняя панель будет выглядеть так: 
+	
+	![image082](https://user-images.githubusercontent.com/80317959/130159463-acd2e5dc-0aa6-4d0e-8d27-d7a1de1ed958.png)
+	-	Внизу окна нажмте кнопку «Login». Ожидайте, пока Bitvise SSH Client не подключится к Raspberry PI.
+	
+	-	Если по истечении подключения в логах появляется следующая ошибка 
+	![image086](https://user-images.githubusercontent.com/80317959/130159719-affa7e3d-5172-47dc-bc34-515d0172f8ae.png), то измените значения поля «Host» на «raspberrypi».
+	
+	-	Если подключение было успешным, у вас появится окно. Нажмите «Accept and Save». 
+	
+	![image088](https://user-images.githubusercontent.com/80317959/130159846-90bb0033-b5c3-47d4-b674-0ff50d583056.png)
+	- 	Слева обновится панель. Нажмите на следующую кнопку ![image090](https://user-images.githubusercontent.com/80317959/130159918-f652285f-d1b9-4bfc-b56b-ca9628af0626.png). 
+		У вас откроется окно удалённого терминала Raspberry PI. 
+		![image092](https://user-images.githubusercontent.com/80317959/130159980-04593e9d-f982-4c3a-8416-b69aa03b1b88.png)
+		Здесь вы можете писать команды для Raspberry PI.
 
-### Construction and electronic components
-Our robot has a portable 12V battery powered by a bundle of three 18650 Li-ion power supplies.
-Electronic components in the robot are connected by conductors connected by soldering.
-The robot is equipped with a magnetic holder for the battery compartment. The robot chassis is based on a 1/16 scale toy model. It has oil-filled shock absorbers, the steering is similar to the control device on real cars. The camera on the robot is mounted on a stand modeled in a special program and printed on a high-precision 3D printer made of pla plastic.
+	-	Подключите ваш компьютер к интернету, если ещё этого не сделали.
+	-	Пропишите следующие команды в терминале:
 
-### Programs
-We created files for our robot to work in the programs JetBrains PyCharm Community Edition 2020 and Microsoft Visul Studio Code v.1.56.0 (the latest at the time of the release of this commit). Loaded onto the robot using a self-written script program start_robot.py The robot control program is based on the high-level dynamically typed programming language Python, which was chosen due to its simplicity, cross-platform and a huge range of libraries.
+		``sudo apt upgrade``
+		
+		``sudo apt full-upgrade``
+	-	После этого произойдет обновление Raspberry PI. Это может занять время.
+	-	Пропишите команду в терминале:
+	
+		``sudo raspi-config``
+	-	У вас откроется окно настроек Raspberry.	
+	-	Стрелками вверх и вниз на клавиатуре переместите красный курсор на элемент «Interfacing Options». 
+	
+	![image094](https://user-images.githubusercontent.com/80317959/130160144-ac2261b7-9e09-404c-a0f0-0791a41ab375.png)
+	-	Нажмите «Enter». У вас откроются настройки интерфейсов Raspberry PI. 
+	
+	![image096](https://user-images.githubusercontent.com/80317959/130160207-bc532b36-876c-4b98-b91f-c9030a170c29.png)
+	-	Выберите пункт «Camera» и нажмите «Enter».
+	
+	![image098](https://user-images.githubusercontent.com/80317959/130160246-bae943af-2137-4dc6-bf8f-3d23c7cff9b6.png)
+	-	Нажмите «Enter». Таким образом, вы включили камеру на Raspberry PI.
+	-	Нажмимайте «Esc» до тех пор, пока окно опять не станет исходным терминалом.
+	-	Введите команду в терминал:
 
-### Program arrangement:
-The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
-#### Sound indication of start
-When starting up, the robot emits a long beep. This means that the robot has turned on, but the program has not yet loaded. After that, the program itself starts to run. After its launch, two short sound singals are released. The robot is then ready to drive. To start performing tasks and passing the route, you must press the button after the above-mentioned sound signals.
-#### The first leg is the start.
-The start consists of pressing the button on which the robot starts moving and driving to the turn line. If the line turns out to be blue, then the robot will move clockwise. Otherwise - counterclockwise.
-#### The second section of the program is the main pass and avoidance of obstacles in the final heats.
-To maintain the position relative to the rim, the position of the extremely 1 black point on the frame along the Y axis is used. Further, using the proportional-integral-differential controller, the robot aligns the positions relative to the rim. The position of the extreme point in the frame is determined depending on the direction the robot is going. To go around objects, it is used to find them in the HSV color range. When an object is found, the robot drives back and turns away from the obstacle.
-#### The third section is finding the finish line and stopping.
-After passing a certain number of turns, the robot realizes that it has driven three laps and stops at the start zone.
-#### Wall collision protection
-To protect against collision and, in case of impossibility to correctly adjust the direction of movement by the proportional-integral-differential regulator, a short-term backward movement and a turn from the wall in the opposite direction are used. Thus, even when leaving the required trajectory of movement, the robot will be able to align its position and return to the passage of the task.
+		``sudo reboot``
+	-	Raspberry PI перезагрузится, и камера сможет работать.
 
-### Computer vision and additional libraries
-We used a camera and computer vision to identify the different sections of the track. The program used the CV2 library and various libraries necessary for its work. For precise selection of objects on the card, we used the HSV image color scheme and finding the pixels within the specified color limits.
-Also, additional libraries were used for the correct and trouble-free operation of the program. A complete list of libraries is given below:
-- OpenCV 2 - computer vision
-- NumPy - work with arrays that store images captured from the camera thanks to the OpenCV library.
-- Time - a library that allows you to find out the system time. Used in the robot program to create a delay during turns.
-- RobotAPI - a self-written library of the Center for the Development of Robotics for connecting and communicating with a robot, as well as executing programs.
-- JSON - processing data in JSON format. Used to store and quickly access the parameters of the HSV color range stored in the robot's memory.
+4. Настройка сервера на Raspberry PI
+	-	Повторите шаги a-h пункта 3.
+	-	В левом меню нажмите на кнопку ![image100](https://user-images.githubusercontent.com/80317959/130160422-52ea7f28-95ef-4c31-840d-78a723dbb5bd.png)
+		У вас откроется окно передачи файлов на Raspberry PI.
+	-	В части окна «Remote files» нажмите на белую область правой кнопкой мыши и выберите «Create folder». Введите название папки «robot». 
+	
+	![image102](https://user-images.githubusercontent.com/80317959/130160445-cbcb99e0-de0d-4947-a3c5-3d8bbf4d8f48.png)
+	-	Откройте папку «robot» двойным щелчком. Она дожна быть пустая.
+	-	Откройте папку репизитория, скаченного с GitHub. Выделите 4 показанных файла:
+	
+	![image104](https://user-images.githubusercontent.com/80317959/130160518-569ca432-42d9-4b6e-ae38-e81df7fdddcf.png)
+	И перетащите в окно Bitvise SFTP, в зону «Remote files». Они должны скопироваться на Raspberry PI и отображаться в папке «robot». 
+	-	Откройте терминал в главном окне BItvise SSH Client. 
+	-	Пропишите команду:
+	
+		``sudo nano rc.local``
+	-	У вас должно открыться следующее окно: 
+	
+	![image106](https://user-images.githubusercontent.com/80317959/130160617-f9d6d6a9-9dc9-47cd-94a9-158abd95a385.png)
 
-### 3d Models
-We used 3D printing in the design of the robot. The models were developed in Autodesk Inventor 2020, then exported in STL file format and printed on 3D printers.
-3D models used in the robot:
-- `` kuzov_BlackRacer.ipt ``
-- `` kuzov_BlackRacer.stl ``
+	-	Перед строчкой «_IP=$(hostname -I) || true» добавьте следующую строчку (перемещать курсор можо стрелками на клавиатуре):
 
-### Operating Instructions and Precautions
-1) Always use charged 18650 batteries.
-2) Do not turn the robot over to avoid detaching the battery compartment.
-3) Do not throw or kick the robot. Don't hurt him physically.
-4) Avoid getting water on the surface of the robot.
-5) Press the red toggle button to start the robot. Press no more than 1 time per minute.
-6) Use the robot only on the designated field. You can find more details about the field in the WRO 2020 regulations of the Future Engineers category.
-7) Do not cover or touch the camera lens of the robot.
-8) Do not interrupt or modify the electrical circuit.
-9) Press the green start button only after one long beep and two short beeps.
-10) Avoid getting toxic substances on the surface of the robot.
-11) Avoid contact with acetone and other substances that corrode plastics, electronic boards, wire insulation, metals and hot melt glue.
-12) Before starting the robot, check the safety of the electrical circuit and the presence of defects on the robot body.
-13) Do not run the robot in poor lighting conditions. This will prevent it from recognizing colors from the camera.
-14) Do not disassemble the robot body.
-15) Do not remove the batteries while the robot is running.
-16) Do not touch the robot while driving through the track, field, performing tasks, after pressing the "start" button.
-17) Use only for persons over 12 years old.
-18) If the robot shuts down unexpectedly, remove the batteries immediately for safety.
-19) If the electronic components overheat, stop the robot immediately and remove the batteries.
+		``sudo modprobe bcm2835-v4l2``
+	-	Всё вместе должно выглядеть следующим образом: 
+	
+	![image108](https://user-images.githubusercontent.com/80317959/130160661-f3ff7d62-8fa1-4c29-93a0-8c763eea3b03.png)
+	-	Нажмите на клавиатуре «x», затем «y». Файл сохранится. 
+	-	Перезагрузите Raspberry PI.
+5. Прошивка PyBoard
+	-	Подключите PyBoard к компьютеру проводом micro-USB. 
+	-	Откройте проводник Windows
+	-	В поле «Устройства и диски» откройте диск с названием «PYBFLASH». 
+	
+	![image110](https://user-images.githubusercontent.com/80317959/130160704-6e6b88f0-4072-4ce4-8b02-ac17029a8768.png)
+	-	Откройте скачаный репозиторий с GitHub и скопируйте оттуда 5 файлов. 
+	
+	![image112](https://user-images.githubusercontent.com/80317959/130160730-e903ea64-0eae-41f0-9247-c1e83f1fceb0.png)
+	-	Скопируйте их в корень диска «PYBFLASH».
+	
+	![image113](https://user-images.githubusercontent.com/80317959/130160747-05ae1c7c-5b5f-4c59-951e-69a8deedf690.png)
+	-	На PyBoard в этот момент загорится красный светодиод. Дождитесь его отключения и отключите USB кабель. 
+		В случае досрочного извлечения USB кабеля, вся информация с PyBoard сотрётся!
+	-	PyBoard успешно прошит.
+---
+## Связь с роботом и запуск программ
+Для связи с роботом используется программа «Robot Starter», написанная Юрием Гламаздином. Её стартовый файл вы можете найти в папке репозитория GitHub. 
+Подключение робота:
+1.	Подключитесь к wifi сети робота (название может отличаться). 
 
-### Our sponsors
-DNS company, Center for the Development of Robotics, Far Eastern Federal University, Samsung company, Rhonda company, Slavda company, Primnagrada company, VL.ru news portal, Rostelecom company, FEFU Project Activity Center, ANO Primorsky Krai Youth Development Center , Department of Youth Affairs and Public Relations of Vladivostok and our parents.
+![image115](https://user-images.githubusercontent.com/80317959/130160857-b1fe5578-52d9-467c-9929-11ac50dff20d.png)
 
-# blackRacers
-Robot simulator http://robocenter.fun/robotsimulator.zip.
+2.	Откройте папку репозитория GitHub. Запустите файл с названием «start_robot.py». 
 
-Программа соединения с роботом - `start_robot.py` (также необходим файл `InetConnection.py` и `regulators.py`).
+![image117](https://user-images.githubusercontent.com/80317959/130160876-59d59e76-c428-4675-98b9-14444dc7a12e.png)
+-	Load Start - выбрать, загрузить и запустить файл программы.
+-	Start - загрузить и запустить уже выбранный файл программы.
+-	Stop - остановить программу.
+-	Raw - загрузить и запустить файл программы по пути на компьютере «C:/Windows/System32/raw.py».
+-	Video - включить/выключить видео.
+-	Connect to robot - выбрать робота и подключиться к нему.
+			-	При нажатии появляется окно выбора робота: 
 
-Главная программа для робота - `wroracer.py`.
+![image120](https://user-images.githubusercontent.com/80317959/130161080-06dc16f7-3adc-47da-a9ed-eddbfb6d3def.png)
 
-API робота - `RobotAPI.py`.
+Здесь перечислены множество IP адресов. IP нашего робота – 192.168.4.1.
 
-Видео загруженное на платформу YouTube https://youtu.be/gwtpSeXLMqE
+-	Для выбора робота нажмите на его IP. После подключения, выведется следующий текст в консоль
 
-Электрическая схема робота -  ```Schematic_BlackRacers_2021-05-08.png```.
+	![image122](https://user-images.githubusercontent.com/80317959/130161284-bc00bf8c-c7b0-46db-83f1-f2c2ecbbf2d0.png)
+	
+	В ином случае – надписи не будет.
+-	Консоль. Сообщения с робота. Сюда выводятся все ошибки во время выполнения программы и выводы текста (print).	
+3.	Запуск программы:
+-	Выберите робота, как показано в пункте 2.f.
+-	Нажмите кнопку «Load Start», показанную в пункте 2.a.
+-	В открывшемся окне найдите папку репозитория GitHub, выберите файл «wroracer_last_win.py». Нажмите «Открыть».	
 
-Фотографии нашей команды и фото робота можно найти в папке `images/`. 
-
-Фото команды: `ours photo` and `ours funny photo`
-
-
-____
-## Описание робота
-Наш робот основан на связке платформ Raspberry PI и PY Board, коммуницирующие друг с другом посредством протокола UART. Raspberry PI анализирует картинку с помощью компьютерного зрения, в частности библиотеки OpenCV, поддерживающейся компанией Intel; PY Board контролирует движение робота в пространстве, используя коллекторный мотор с редуктором. Робот сигнализирует о своём поведении с помощью звуковой и световой индикации. Также роботу можно подавать команды посредством контактных сенсором (в том числе кнопки). 
-Робот выполняет действия и задания, согласно регламенту соревнования.
-
-### Конструкция и электронные компоненты
-Наш робот имеет переносное аккумуляторное питание 12В, с помощью связки трёх Li-ion источников питания типа 18650.
-Электронные компоненты в роботе соединяются за счёт проводников, соединённых между собой при помощью пайки.
-Робот оснащён магнитным креплением для отсека с бататейками. Шасси робота основанны на игрушечной модели маштаба 1/16. Оно имеет маслонаполненные аммортизаторы, рулевое управление схожее с устройством управления на настоящих машинах. Камера на роботе закрепленна на стойке смоделированной в специальной программе и напечатанной на  высокоточном 3д принтере из pla пластика.
-
-### Программы
-Мы создавали файлы для работы нашего робота в программах JetBrains PyCharm Community Edition 2020 и Microsoft Visul Studio Code v.1.56.0 (последняя на момент релиза данного комминта). Загружали на робота посредством самописаного скрипта-программы start_robot.py Программа управления робота основана на высокоуровневом динамически типизированном языке программирования Python, который был выбран благодаря своей простоте, кроссплатформенности и наличии огромного ассортимента библиотек.
-
-### Устройтво программы:
-Код состоит из нескольких блоков. Отдельные участки программы выполняют разные действия: ищут стартовую линию, корректируют и управляют движением робота, нахождение финишной линии, обЪезд и защита от столкновения с банками, защита от врезания в борта поля.
-#### Звуковая индикация запуска
-При запуске робот издаёт длинный звуковой сигнал. Это означает, что робот включился, но программа ещё не подгрузилась. После этого программа сама начинает запускаться. После её запуска издаются два коротких звуковых сингала. После этого робот готов к проезду. Для старта выполнения заданий и прохождения трассы необходимо нажать на кнопку, после выше перечисленных звуковых сигналов.
-#### Первый участок - это старт. 
-Старт состоит из нажатия на кнопку, по которой робот начинает движение, и проезда до линии поворота. Если линия оказалась синей, то робот будет ехать по часовой стрелке. Иначе - против часовой. 
-#### Второй участок программы - это основной проезд и объезд препятствий на финальных заездах.
-Для сохранения положения относительно бортика используется распознование положения крайней точки черного цвета на кадре по оси Y. Далее с помощью пропорционально-интегрально-дифференциального регулятора робот выравнивает положения относительно бортика. Положение крайней точки в кадре определяется в зависимости от направления, куда едет робот. Для объезда объектов используется нахождения их в цветовом диапазоне HSV. При нахождении объекта робот отъезжает назад и отворачивает от препядствия.
-#### Третий участок - это нахождения финиша и остановка. 
-После проезда определённого количества поворотов робот понимает, что он проехал три круга и останавливается в зоне старта.
-#### Защита от столкновения со стеной
-Для защиты от столкновения и, в случае невозможности корректно отрегулировать пропорциально-интегрально-дифференциальным регулятором направление движения, используется кратковременный отъезд назад и отворот от стены в противоположную сторону. Таким образом, даже при слёте с необходимой траектории движения, робот сможет выравнить своё положение и вернуться к прохождению задания.
-
-### Компьютерное зрение и дополнительные библиотеки
-Для определения различных участков трассы мы исполользовали камеру и компьютерное зрение. В программе была использованна библиотека CV2 и различные библиотеки необходимые для её работы. Для точного выделения объектов на кардре мы использовали цветовую схему изображения HSV и нахождение пикселей в заданных цветовых пределах. 
-
-Также были использованы дополнительные библиотеки для корректной и безотказной работы программы. Полный список библиотек приведён ниже:
-- OpenCV 2 - компьютерное зрение
-- NumPy - работа с массивами, в которых храняться изображения, снятые с камеры благодаря библиотеке OpenCV.
-- Time - библиотека, позволяющая узнать системное время. Используется в программе робота для создания задержки во время поворотов.
-- RobotAPI - самописная библиотека Центра Развития Робототехники для соединения и коммуникации с роботом, а также выполнения программ.
-- JSON - обработка данных в формате JSON. Используется для хранения и быстрого доступа к сохранённым в памяти робота параметров диапазона цветов HSV.
-
-### 3д Модели
-В конструкции робота мы использовали 3Д печать. Модели были разработанны в программе Autodesk Inventor 2020, затем экспортированы в формате файла STL и напечатаны на 3Д принтерах.
-3Д модели используемые в роботе:
-- ``` kuzov_BlackRacer.stl  ```
-- ``` kuzov_BlackRacer.itp ```
-
-### Инструкция по эксплуатации и меры предосторожности
-1) Всегда используйте заряженные аккумуляторы модели 18650.
-2) Не переворачивайте робота во избежания отделения батерейного отсека.
-3) Не кидайте и не пинайте робота. Не причиняйте ему физического вреда.
-4) Избегайте попадание воды на поверхность робота.
-5) Для запуска робота нажмите на красную кнопку-переключатель. Нажимайте не более 1 раза в минуту.
-6) Используйте робота только на предназначенной поле. Подробнее вы можете ознакомиться с полем вы можете в регламенте WRO 2020 категории Future Engineers.
-7) Не закрывайте и не трогайте линзу камеры робота.
-8) Не обрывайте и не изменяйте электрическую схему.
-9) Нажимайте на зелёную кнопку "старт" только после одного долгого звукового сигнала и двух коротких звуковых сигналов.
-10) Избегайте попадания токсичных веществ на поверхность робота.
-11) Избегайте попадания ацетона и других вещест, разъедающих пластмассу, электронные платы, изоляцию проводов, металлы и термоклей.
-12) Перед стартом робота проверяйте сохранность электрической схемы и наличие деффектов на корпусе робота.
-13) Не запускайте робота при плохом освещении. Это не позволит ему распознавать цвета по камере.
-14) Не разбирайте корпус робота.
-15) Не вытаскивайте аккумуляторы во время работы робота.
-16) Не трогайте робота во время проезда трассы, поля, выполнения заданий, после нажатия кнопки "старт".
-17) Использовать только лицам от 12 лет.
-18) При неожиданном отключении робота сразу вытащите аккумуляторы для обеспечения безопасности.
-19) При перегреве электронных компонентов немедленно прекратите работу робота и вытащите аккумуляторы.
-
-### Наши спонсоры
-Компания DNS, Цент Развития Робототехники, Дальневосточный федеральный университет, компания Samsung, компания Rhonda, компания Slavda, компания «Примнаграда», новостной портал VL.ru, компания «Ростелеком», Центр проектной деятельности ДВФУ, АНО «Центр содействия развитию молодежи Приморского края», Управление по делам молодежи и связям с общественностью г. Владивостока и наши родители.
-____
-## Контакты | Contacts
-Edventy (Андрей Данильченко | Andrew Danilchenko) - edventyh@gmail.com
-
-FoReSstT (Корабейников Матвей | Korabeynikov Matvey) - korrabeynikov@mail.ru
+![image124](https://user-images.githubusercontent.com/80317959/130161366-c95fb988-52e0-43c4-be1e-80dfca4feae8.png)
+-	Программа запущена. Нажмите на кнопку для начала езды.
