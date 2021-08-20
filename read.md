@@ -220,3 +220,32 @@ WRO 2021
 		У вас откроется окно удалённого терминала Raspberry PI. 
 		![image092](https://user-images.githubusercontent.com/80317959/130159980-04593e9d-f982-4c3a-8416-b69aa03b1b88.png)
 		Здесь вы можете писать команды для Raspberry PI.
+
+	-	Подключите ваш компьютер к интернету, если ещё этого не сделали.
+	-	Пропишите следующие команды в терминале:
+
+		sudo apt upgrade
+		sudo apt full-upgrade
+	-	После этого произойдет обновление Raspberry PI. Это может занять время.
+	-	Пропишите команду в терминале:
+	
+		sudo raspi-config
+	-	У вас откроется окно настроек Raspberry.	
+	-	Стрелками вверх и вниз на клавиатуре переместите красный курсор на элемент «Interfacing Options». 
+	
+	![image094](https://user-images.githubusercontent.com/80317959/130160144-ac2261b7-9e09-404c-a0f0-0791a41ab375.png)
+	-	Нажмите «Enter». У вас откроются настройки интерфейсов Raspberry PI. 
+	
+	![image096](https://user-images.githubusercontent.com/80317959/130160207-bc532b36-876c-4b98-b91f-c9030a170c29.png)
+	-	Выберите пункт «Camera» и нажмите «Enter».
+	
+	![image098](https://user-images.githubusercontent.com/80317959/130160246-bae943af-2137-4dc6-bf8f-3d23c7cff9b6.png)
+	-	Нажмите «Enter». Таким образом, вы включили камеру на Raspberry PI.
+	-	Нажмимайте «Esc» до тех пор, пока окно опять не станет исходным терминалом.
+	-	Введите команду в терминал:
+
+		sudo reboot
+	-	Raspberry PI перезагрузится, и камера сможет работать.
+
+4.	Настройка сервера на Raspberry PI
+	-	Повторите шаги a-h пункта 3.
