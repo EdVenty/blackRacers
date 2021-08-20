@@ -189,4 +189,22 @@ WRO 2021
 		
 	-	Подождите 5–10  минут для полной подготовки системы. Последующие запуски будут происходить намного быстрее. 
 		После этого периода вы можете переходить в следующим шагам.
-
+3.	Настройка камеры Raspberry PI.
+	-	Подключите Raspberry PI к компьютеру, используя Ethernet кабель.
+	-	Запустите программу «Bitvise SSH Client».  У вас откроется следующее окно:
+		
+	![image076](https://user-images.githubusercontent.com/80317959/130159295-83a713a2-face-42c9-a746-aadbc1ff434d.png)
+	-	В поле «Port» введите «22». В поле «Host» введите «raspberrypi.local».
+	
+	![image078](https://user-images.githubusercontent.com/80317959/130159339-ebf57c82-5935-452a-8115-950d2cbc8a4e.png)
+	-	В разделе «Authentication» в поле «Login» введите слово логин «pi». 
+		В поле «Initial method» выберите значение «password». 
+		
+	![image080](https://user-images.githubusercontent.com/80317959/130159366-00e656bf-3bf0-44eb-8c2f-9e67c5411c45.png)
+	-	Нажмите галочку в поле «Store enctypted password in profile». Поле «Password» перестанет быть серым. 
+		Введите туда пароль «raspberry». 
+		
+	![image081](https://user-images.githubusercontent.com/80317959/130159413-d1fe3cc4-f436-4252-9fe4-7ab3afa2b22a.png)
+	-	В итоге, верхняя панель будет выглядеть так: 
+	
+	![image082](https://user-images.githubusercontent.com/80317959/130159463-acd2e5dc-0aa6-4d0e-8d27-d7a1de1ed958.png)
