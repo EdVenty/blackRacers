@@ -4,7 +4,7 @@ BR-2G
 BlackRacers
 WRO 2021
 ---
-##Repository Overview
+## Repository Overview
 1. Team photos: are located in the “Item number 1 - our photos” folder
 	- Photo ("Ours photo.jpeg `)- the official photo of the team, and ("ours funny photo.jpg `) - funny
 2. The robot's photos are located in the folder " Item number 2 - photos of the robot from 6 sides ”
