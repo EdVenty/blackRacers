@@ -6,7 +6,7 @@ WRO 2021
 ---
 ## Repository Overview
 1. Team photos: are located in the “Item number 1 - our photos” folder
-	- Photo ("Ours photo.jpeg `)- the official photo of the team, and ("ours funny photo.jpg `) - funny
+	- Photo (`` Ours photo.jpeg `` )- the official photo of the team, and ( ``ours funny photo.jpg `` ) - funny
 2. The robot's photos are located in the folder " Item number 2 - photos of the robot from 6 sides ”
 	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
 3. The link to the video is located in the folder " Item number 3-Url the address of the YouTube video
