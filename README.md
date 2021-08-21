@@ -5,32 +5,32 @@ BlackRacers
 WRO 2021
 ---
 ##Repository Overview
-1. Team photos: are located in the “Item number 1 - our photos”folder
-- Photo ("Ours photo.jpeg `)- the official photo of the team, and ("ours funny photo.jpg `) - funny
-2. The robot's photos are located in the folder " Item number 2 - photos of the robot from 6 sides”
-- Photos (` Robot_...jpg `) show the structure of the robot from different sides
+1. Team photos: are located in the “Item number 1 - our photos” folder
+	- Photo ("Ours photo.jpeg `)- the official photo of the team, and ("ours funny photo.jpg `) - funny
+2. The robot's photos are located in the folder " Item number 2 - photos of the robot from 6 sides ”
+	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
 3. The link to the video is located in the folder " Item number 3-Url the address of the YouTube video
-- Link ("Url the address of the YouTube video.md`)
+	- Link ``Url the address of the YouTube video.md``
 4. Diagrams: located in the folder "Item number 4-schematic diagrams of electromechanical components."
-- The electrical diagram is presented in the file: "Schematic_BlackRacer. png`, the scheme was designed in the EasyEDA program, the file:" SCH_BlackRacer_team. Json``
-- The kinetic scheme was compiled using GOST 'a, file:" kinematic_scheme.jpg``
+	- The electrical diagram is presented in the file: ``Schematic_BlackRacer. png``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer_team. Json``
+	- The kinetic scheme was compiled using GOST 'a, file:`` kinematic_scheme.jpg``
 5. 3D models: they are located in the folder " Item number 5-3d models used in the robot”
-- "Knopka": the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-- "kuzov_BlackRacer": the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-- "Kozhux_right_BlackRacer": the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+	- `Knopka`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+	- `kuzov_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+	- `Kozhux_right_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 6. The “Program " folder contains all the code used on the robot and on the main computer
-- ` wro.py `-the program used in the simulator for the initial configuration of algorithms
-- "wroracer" - a program that runs on the robot and controls its actions
-- ` regulators.py `-module of the robot motion controller
-- ` RoboAPI.py` - module of communication with the robot
-- ` wroracer_last_win.py ` -the program that was used at regional competitions
-- ` start_robot.py `-a file that runs on the main computer
-- ` InetConnection.py`-server creation file on Raspberry Pi
+	- ` wro.py `-the program used in the simulator for the initial configuration of algorithms
+	- `wroracer` - a program that runs on the robot and controls its actions
+	- ` regulators.py `-module of the robot motion controller
+	- ` RoboAPI.py` - module of communication with the robot
+	- ` wroracer_last_win.py ` -the program that was used at regional competitions
+	- ` start_robot.py `-a file that runs on the main computer
+	- ` InetConnection.py`-server creation file on Raspberry Pi
 7. Files in the main partition:
-- "wroracer" -a program that runs on the robot and controls its actions
-- `wroracer_last_win.py " -the program that was used at regional competitions
-- `start_robot.py`-a file that runs on the main computer
-- ` README.md " -a file with the user's guide and an overview of the repository
+	- `wroracer` -a program that runs on the robot and controls its actions
+	- `wroracer_last_win.py ` -the program that was used at regional competitions
+	- `start_robot.py`-a file that runs on the main computer
+	- ` README.md ` -a file with the user's guide and an overview of the repository
 ---
 ## Software Setup
 To configure the use of the BR-2G robot, you will need to install the following software:
