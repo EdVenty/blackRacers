@@ -1,4 +1,3 @@
-
 import json
 import time
 
@@ -9,39 +8,42 @@ import regulators
 import RobotAPI as rapi
 
 # ======================= Константы =========================
-time_go_banka = 168 # Устанавливаем время объезда банки
+time_go_banka = 300 # Устанавливаем время объезда банки
 time_ditch_banka = 10
 global_speed = 120 # Устанавливаем скорость робота 130
-pause_finish = 0.8 # Устанавливаем пауза перед остановкой на финише 1.25
+pause_finish = 1 # Устанавливаем пауза перед остановкой на финише 1.25
 porog_black_line_minus = 275 # Устанавливаем порог чёрной линии по часовой стрелке 305
 porog_black_line_plus = 285 # Устанавливаем порог чёрной линии против часовой стрелке
-delta_green_plus = 15 # Устанавливаем угол объезда зелёной банки по часовой стрелке
+delta_green_plus = 17 # Устанавливаем угол объезда зелёной банки по часовой стрелке
 delta_red_plus = -15 # Устанавливаем угол объезда красной банки по часовой стрелке
 delta_green_minus = 15 # Устанавливаем угол объезда зелёной банки против часовой стрелке
-delta_red_minus = -15 # Устанавливаем угол объезда красной банки против часовой стрелке
+delta_red_minus = -17 # Устанавливаем угол объезда красной банки против часовой стрелке
 time_go_back_banka = 600 # Устанавливаем время отъезда от банки
 pause_povorot = 1 # Устанавливаем максимальную задуржку на повороте
-go_back_banka_area = 8000 # Устанавливаем площадь банки, при которой робот отъезжает
-super_ditch_banka_area = 4000
-ditch_banka_area = 2000 # Устанавливаем площадь банки, при которой робот обруливает
+go_back_banka_area = 10000 # Устанавливаем площадь банки, при которой робот отъезжает
+super_ditch_banka_area = 5000
+ditch_banka_area = 500 # Устанавливаем площадь банки, при которой робот обруливает
+# break_banka_area = 4000
+break_speed = global_speed
 # ditch_banka_angle = 30
 ditch_banka_mult_plus = 1
 ditch_banka_mult_minus = 1
 super_ditch_banka_mult_plus = 1.5
-super_ditch_banka_mult_minus = 2
-max_lines = 11 # * 7
-povorot_delay = 17 / 11 * 0.6
+super_ditch_banka_mult_minus = 1.5
+max_lines = 11
+# povorot_delay = 17 / 11 * 0.6
+povorot_delay = 0.4
 speed_manual = global_speed # Устанавливаем скорость ручного управления 
 manual_angle = 0 # Устанавливаем угол ручного управления (1- по часовой, -1 против часовой стрелки)
 manual_throttle = 0 # Устанавливаем дроссель ручного управления (1- по часовой, -1 против часовой стрелки)
-after_povorot_delay = 0.0
+after_povorot_delay = 0
 
 flag_qualification = False # Если необходимо проехать квалификацию
 if flag_qualification: 
-    global_speed += 40.3 # Добавляем скорости на квалификации 55
+    global_speed = 170 # Добавляем скорости на квалификации 55
     pause_finish = 0.38 # Устанавливаем задержку финиша на квалификации
-    porog_black_line_plus += 25 # Устанавливаем порог чёрной линии по часовой стрелке на квалификации
-    porog_black_line_minus += 25 # Устанавливаем порог чёрной линии против часовой стрелке на квалификации
+    porog_black_line_plus += 35 # Устанавливаем порог чёрной линии по часовой стрелке на квалификации
+    porog_black_line_minus += 35 # Устанавливаем порог чёрной линии против часовой стрелке на квалификации
     pause_povorot = 0.4 # Устанавливаем максимальную задуржку на повороте на квалификации 0.45
 
 # =================== Программные переменные ==================
@@ -280,8 +282,8 @@ def Find_box(frame, frame_show, color, flag_draw=True):
     # x1, y1 = 0, 100   #Lime
     x2, y2 = 640, 400
     # вырезаем часть изображение
-    frame_crop = frame[y1:y2, x1:x2]
-    frame_crop_show = frame_show[y1:y2, x1:x2]
+    frame_crop = cv2.GaussianBlur(frame[y1:y2, x1:x2], (5, 5), 10)
+    frame_crop_show = frame_crop
     # cv2.imshow("frame_crop", frame_crop)
     # рисуем прямоугольник на изображении
 
@@ -298,22 +300,24 @@ def Find_box(frame, frame_show, color, flag_draw=True):
     _, contours, hierarchy = cv2.findContours(
         mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
     # перебираем все найденные контуры
-    for contour in contours:
+    contours = [i for i in contours if cv2.contourArea(i) > 300]
+    if contours:
+        contour = max(contours, key=cv2.contourArea)
         # Создаем прямоугольник вокруг контура
         x, y, w, h = cv2.boundingRect(contour)
         # вычисляем площадь найденного контура
         area = cv2.contourArea(contour)
-        if area > 300:
-            if flag_draw:
-                c = (0, 0, 255)
-                if color == "green":
-                    c = (0, 255, 0)
-                cv2.drawContours(frame_crop_show, contour, -1, c, 2)
+        
+        if flag_draw:
+            c = (0, 0, 255)
+            if color == "green":
+                c = (0, 255, 0)
+            cv2.drawContours(frame_crop_show, contour, -1, c, 2)
 
-                cv2.putText(frame_show, str(round(area, 1)) + str(x >= 150 and x <= 500), (x + x1, y - 20 + y1),
-                            cv2.FONT_HERSHEY_COMPLEX_SMALL, 1,
-                            c, 2)
-            return x + w / 2, area, x >= 150 and x <= 500
+            cv2.putText(frame_show, str(round(area, 1)) + str(x >= 150 and x <= 400), (x + x1, y - 20 + y1),
+                        cv2.FONT_HERSHEY_COMPLEX_SMALL, 1,
+                        c, 2)
+        return x + w / 2, area, x >= 150 and True  #x <= 400
             # return x + w / 2, area, True
 
     return None, None, False
@@ -422,11 +426,11 @@ robot.serv(0)
 def go_back(angle, time1, time2):
     global timer_finish
     robot.serv(angle)
-    robot.move(-global_speed, 0, time1, wait=False)
+    robot.move(-255, 0, time1, wait=False)
     robot.wait(time1)
 
     robot.serv(-angle)
-    robot.move(global_speed, 0, time2, wait=False)
+    robot.move(2551, 0, time2, wait=False)
     robot.wait(time2)
     if timer_finish is not None:
         timer_finish += time1 / 1000 + time2 / 1000
@@ -580,13 +584,26 @@ while True:
         if time.time() > timer_state + pause_povorot:
             state = "Main move"
 
-        # if not flag_qualification:
-        is_orange = Find_start_line(frame, frame_show, "orange")
-        if is_orange:
-            if after_povorot_delay_timer is None:
-                after_povorot_delay_timer = time.time() + after_povorot_delay
-            elif time.time() >= after_povorot_delay_timer:
-                state = "Main move"
+        if not flag_qualification:
+            is_orange = Find_start_line(frame, frame_show, "orange")
+            if is_orange:
+                if after_povorot_delay_timer is None:
+                    after_povorot_delay_timer = time.time() + after_povorot_delay
+                elif time.time() >= after_povorot_delay_timer:
+                    state = "Main move"
+
+            cord_red_banka, area_red_banka, d = Find_box(
+                        frame, frame_show, "red_up")
+            if area_red_banka is not None:
+                if area_red_banka > ditch_banka_area:
+                    state = "Main move"
+
+            cord_green_banka, area_green_banka, d = Find_box(
+                        frame, frame_show, "green")
+            if area_green_banka is not None:
+                if area_green_banka > ditch_banka_area:
+                    state = "Main move"
+
 
         put_telemetry(frame_show)
     elif state == "Right":
@@ -617,6 +634,18 @@ while True:
                 elif time.time() >= after_povorot_delay_timer:
                     state = "Main move"
 
+            cord_red_banka, area_red_banka, d = Find_box(
+                    frame, frame_show, "red_up")
+            if area_red_banka is not None:
+                if area_red_banka > ditch_banka_area:
+                    state = "Main move"
+
+            cord_green_banka, area_green_banka, d = Find_box(
+                    frame, frame_show, "green")
+            if area_green_banka is not None:
+                if area_green_banka > ditch_banka_area:
+                    state = "Main move"
+
         put_telemetry(frame_show)
     elif state == "Main move":
 
@@ -638,7 +667,7 @@ while True:
 
         delta_banka = 0
         delta_speed = 0
-
+        peed = global_speed
         if direction == 1:
             if Find_black_box_left(frame, frame_show, "black"):
                 go_back(40, 500, 300)
@@ -653,6 +682,8 @@ while True:
                     print(count_lines)
 
             if not flag_qualification:
+                
+
                 cord_red_banka, area_red_banka, d = Find_box(
                     frame, frame_show, "red_up")
                 if area_red_banka is not None:
@@ -666,8 +697,10 @@ while True:
                             timer_finish += time.time() - timer_banka
                     elif area_red_banka > super_ditch_banka_area:
                         delta_banka *= super_ditch_banka_mult_plus
+                        peed = break_speed
                     elif area_red_banka > ditch_banka_area:
                         delta_banka *= ditch_banka_mult_plus
+                        peed = break_speed
                     #     # ditch_banka(ditch_banka_angle, time_ditch_banka)  # 30
 
                     #     if count_lines_proverka < count_lines:
@@ -690,8 +723,10 @@ while True:
                             timer_finish += time.time() - timer_banka
                     elif area_green_banka > super_ditch_banka_area:
                         delta_banka *= super_ditch_banka_mult_plus
+                        peed = break_speed
                     elif area_green_banka > ditch_banka_area:
                         delta_banka *= ditch_banka_mult_plus
+                        peed = break_speed
                     #     ditch_banka(-ditch_banka_angle, time_ditch_banka)
                     #     if count_lines_proverka < count_line-s:
                     #         count_lines -= 1
@@ -734,9 +769,11 @@ while True:
                             timer_finish += time.time() - timer_banka
                     elif area_red_banka > super_ditch_banka_area:
                         delta_banka *= super_ditch_banka_mult_minus
+                        peed = break_speed
                         # print("Super")
                     elif area_red_banka > ditch_banka_area:
                         delta_banka *= ditch_banka_mult_minus
+                        peed = break_speed
                     #     timer_banka = time.time()
                         
                     #     ditch_banka(ditch_banka_angle, time_ditch_banka)
@@ -760,9 +797,11 @@ while True:
                             timer_finish += time.time() - timer_banka
                     elif area_green_banka > super_ditch_banka_area:
                         delta_banka *= super_ditch_banka_mult_minus
+                        peed = break_speed
                         # print("Super")
                     elif area_green_banka > ditch_banka_area:
                         delta_banka *= ditch_banka_mult_minus
+                        peed = break_speed
                     #     timer_banka = time.time()
                     #     # print('aboba')
                     #     ditch_banka(-ditch_banka_angle, time_ditch_banka)
@@ -786,22 +825,31 @@ while True:
 
         max_y = Find_black_line(frame, frame_show, direction)
         # max_y = porog_black_line_minus
-        # max_y2 = Find_black_line(frame, frame_show, -direction)
+        max_y2 = Find_black_line(frame, frame_show, -direction)
         if max_y > 0:
             # print(max_y)
-
-            reg_move.set(0.6, 0.00001, 0.06)
+            reg_move.set(0.4, 0.00002, 0.02)
+            # if flag_qualification:
+            #     reg_move.set(0.4, 0.00002, 0.02)
+            # else:
+            #     reg_move.set(0.5, 0.00001, 0.05)
 
             porog = porog_black_line_minus
             if direction > 0:
                 porog = porog_black_line_plus
-            
-            # p = reg_move.apply(max_y2, max_y) * direction  # Lime
-            p = reg_move.apply(porog,  max_y) * direction 
+
+            if not flag_qualification:
+                max_y2 *= 1.2
+            p = reg_move.apply(max_y2, max_y) * direction
+
+            # if flag_qualification:
+            #     p = reg_move.apply(max_y2, max_y) * direction  # Lime
+            # else:
+            #     p = reg_move.apply(porog,  max_y) * direction 
             # p = reg_move.apply(300, max_y)*direction #Xanna
             # print(max_y)
             robot.serv(p + delta_banka)
-            robot.move(global_speed + delta_speed, 0, 100, wait=False)
+            robot.move(peed + delta_speed, 0, 100, wait=False)
         else:
             if direction == -1:
                 go_back(-40, 300, 50)
