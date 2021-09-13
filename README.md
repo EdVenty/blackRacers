@@ -314,7 +314,7 @@ Connecting the robot:
 Many IP addresses are listed here. The IP of our robot is 192.168.4.1.
 - To select a robot, click on its IP. After connecting, the following text is output to the console
 
-	![	![image122](https://user-images.github user content.com/80317959/130161284-bc00bf8c-c7b0-46db-83f1-f2c2ecbbf2d0.png)
+![image122](https://user-images.github user content.com/80317959/130161284-bc00bf8c-c7b0-46db-83f1-f2c2ecbbf2d0.png)
 
 Otherwise – there will be no inscription.
 - Console. Messages from the robot. All errors during program execution and text outputs (print) are output here.	
@@ -322,7 +322,7 @@ Otherwise – there will be no inscription.
 - Select the robot as shown in point 2. f.
 - Click the "Load Start" button shown in point 2. a.
 - In the window that opens, find the GitHub repository folder, select the file "wroracer_last_win.py". Click "Open".	
-- ![![image124](https://user-images.github user content.com/80317959/130161366-c95fb988-52e0-43c4-be1e-80dfca4feae8.png)
+- ![image124](https://user-images.github user content.com/80317959/130161366-c95fb988-52e0-43c4-be1e-80dfca4feae8.png)
 - The program is running. Click on the button to start the ride.
 
 ---
@@ -361,6 +361,7 @@ Time - a library that allows you to find out the system time. Used in the robot 
 RobotAPI - a self-written library of the Center for the Development of Robotics for connecting and communicating with a robot, as well as executing programs.
 JSON - processing data in JSON format. Used to store and quickly access the parameters of the HSV color range stored in the robot's memory.
 
+---
 
 # РУКОВОДСТВО ПОЛЬЗОВАТЕЛЯ
 BR-2G 
