@@ -322,9 +322,46 @@ Otherwise – there will be no inscription.
 - Select the robot as shown in point 2. f.
 - Click the "Load Start" button shown in point 2. a.
 - In the window that opens, find the GitHub repository folder, select the file "wroracer_last_win.py". Click "Open".	
-
-![![image124](https://user-images.github user content.com/80317959/130161366-c95fb988-52e0-43c4-be1e-80dfca4feae8.png)
+- ![![image124](https://user-images.github user content.com/80317959/130161366-c95fb988-52e0-43c4-be1e-80dfca4feae8.png)
 - The program is running. Click on the button to start the ride.
+
+---
+
+# Program arrangement:
+
+The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
+
+## Sound indication of start
+
+When starting up, the robot emits a long beep. This means that the robot has turned on, but the program has not yet loaded. After that, the program itself starts to run. After its launch, two short sound singals are released. The robot is then ready to drive. To start performing tasks and passing the route, you must press the button after the above-mentioned sound signals.
+
+## The first leg is the start.
+
+The start consists of pressing the button on which the robot starts moving and driving to the turn line. If the line turns out to be blue, then the robot will move clockwise. Otherwise - counterclockwise.
+
+## The second section of the program is the main pass and avoidance of obstacles in the final heats.
+
+To maintain the position relative to the rim, the position of the extremely 1 black point on the frame along the Y axis is used. Further, using the proportional-integral-differential controller, the robot aligns the positions relative to the rim. The position of the extreme point in the frame is determined depending on the direction the robot is going. To go around objects, it is used to find them in the HSV color range. When an object is found, the robot drives back and turns away from the obstacle.
+
+## The third section is finding the finish line and stopping.
+
+After passing a certain number of turns, the robot realizes that it has driven three laps and stops at the start zone.
+
+## Wall collision protection
+
+To protect against collision and, in case of impossibility to correctly adjust the direction of movement by the proportional-integral-differential regulator, a short-term backward movement and a turn from the wall in the opposite direction are used. Thus, even when leaving the required trajectory of movement, the robot will be able to align its position and return to the passage of the task.
+
+## Computer vision and additional libraries
+
+We used a camera and computer vision to identify the different sections of the track. The program used the CV2 library and various libraries necessary for its work. For precise selection of objects on the card, we used the HSV image color scheme and finding the pixels within the specified color limits. Also, additional libraries were used for the correct and trouble-free operation of the program. A complete list of libraries is given below:
+
+OpenCV 2 - computer vision
+NumPy - work with arrays that store images captured from the camera thanks to the OpenCV library.
+Time - a library that allows you to find out the system time. Used in the robot program to create a delay during turns.
+RobotAPI - a self-written library of the Center for the Development of Robotics for connecting and communicating with a robot, as well as executing programs.
+JSON - processing data in JSON format. Used to store and quickly access the parameters of the HSV color range stored in the robot's memory.
+
+
 # РУКОВОДСТВО ПОЛЬЗОВАТЕЛЯ
 BR-2G 
 ![Рисунок1](https://user-images.githubusercontent.com/80317959/129823910-77be7fb0-0ab2-45dd-8bca-df48c1715f8c.png)
@@ -653,6 +690,9 @@ WRO 2021
 
 ![image124](https://user-images.githubusercontent.com/80317959/130161366-c95fb988-52e0-43c4-be1e-80dfca4feae8.png)
 -	Программа запущена. Нажмите на кнопку для начала езды.
+
+---
+
 # Устройтво программы:
 Код состоит из нескольких блоков. Отдельные участки программы выполняют разные действия: ищут стартовую линию, корректируют и управляют движением робота, нахождение финишной линии, обЪезд и защита от столкновения с банками, защита от врезания в борта поля.
 
