@@ -29,7 +29,45 @@ WRO 2021
 	- `wroracer_last_win.py ` -the program that was used at regional competitions
 	- `start_robot.py`-a file that runs on the main computer
 	- ` README.md ` -a file with the user's guide and an overview of the repository
+	
 ---
+
+# Program arrangement:
+
+The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
+
+## Sound indication of start
+
+When starting up, the robot emits a long beep. This means that the robot has turned on, but the program has not yet loaded. After that, the program itself starts to run. After its launch, two short sound singals are released. The robot is then ready to drive. To start performing tasks and passing the route, you must press the button after the above-mentioned sound signals.
+
+## The first leg is the start.
+
+The start consists of pressing the button on which the robot starts moving and driving to the turn line. If the line turns out to be blue, then the robot will move clockwise. Otherwise - counterclockwise.
+
+## The second section of the program is the main pass and avoidance of obstacles in the final heats.
+
+To maintain the position relative to the rim, the position of the extremely 1 black point on the frame along the Y axis is used. Further, using the proportional-integral-differential controller, the robot aligns the positions relative to the rim. The position of the extreme point in the frame is determined depending on the direction the robot is going. To go around objects, it is used to find them in the HSV color range. When an object is found, the robot drives back and turns away from the obstacle.
+
+## The third section is finding the finish line and stopping.
+
+After passing a certain number of turns, the robot realizes that it has driven three laps and stops at the start zone.
+
+## Wall collision protection
+
+To protect against collision and, in case of impossibility to correctly adjust the direction of movement by the proportional-integral-differential regulator, a short-term backward movement and a turn from the wall in the opposite direction are used. Thus, even when leaving the required trajectory of movement, the robot will be able to align its position and return to the passage of the task.
+
+## Computer vision and additional libraries
+
+We used a camera and computer vision to identify the different sections of the track. The program used the CV2 library and various libraries necessary for its work. For precise selection of objects on the card, we used the HSV image color scheme and finding the pixels within the specified color limits. Also, additional libraries were used for the correct and trouble-free operation of the program. A complete list of libraries is given below:
+
+OpenCV 2 - computer vision
+NumPy - work with arrays that store images captured from the camera thanks to the OpenCV library.
+Time - a library that allows you to find out the system time. Used in the robot program to create a delay during turns.
+RobotAPI - a self-written library of the Center for the Development of Robotics for connecting and communicating with a robot, as well as executing programs.
+JSON - processing data in JSON format. Used to store and quickly access the parameters of the HSV color range stored in the robot's memory.
+
+---
+
 ## Software Setup
 To configure the use of the BR-2G robot, you will need to install the following software:
 1. All subsequent programs have been tested and configured for the Windows 10 operating system, and the manual also describes the installation for this system. If you have another system installed, please use the Google search engine or its analogues to search for the installation of programs yourself. If you do not have a graphical system shell (command line), then the installation of client programs may differ significantly from the manual. We strongly recommend using the latest builds of systems not lower than Windows 10, otherwise, you will be responsible for the incorrect installation or malfunction of the robot components.
@@ -325,42 +363,6 @@ Otherwise – there will be no inscription.
 
 ---
 
-# Program arrangement:
-
-The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
-
-## Sound indication of start
-
-When starting up, the robot emits a long beep. This means that the robot has turned on, but the program has not yet loaded. After that, the program itself starts to run. After its launch, two short sound singals are released. The robot is then ready to drive. To start performing tasks and passing the route, you must press the button after the above-mentioned sound signals.
-
-## The first leg is the start.
-
-The start consists of pressing the button on which the robot starts moving and driving to the turn line. If the line turns out to be blue, then the robot will move clockwise. Otherwise - counterclockwise.
-
-## The second section of the program is the main pass and avoidance of obstacles in the final heats.
-
-To maintain the position relative to the rim, the position of the extremely 1 black point on the frame along the Y axis is used. Further, using the proportional-integral-differential controller, the robot aligns the positions relative to the rim. The position of the extreme point in the frame is determined depending on the direction the robot is going. To go around objects, it is used to find them in the HSV color range. When an object is found, the robot drives back and turns away from the obstacle.
-
-## The third section is finding the finish line and stopping.
-
-After passing a certain number of turns, the robot realizes that it has driven three laps and stops at the start zone.
-
-## Wall collision protection
-
-To protect against collision and, in case of impossibility to correctly adjust the direction of movement by the proportional-integral-differential regulator, a short-term backward movement and a turn from the wall in the opposite direction are used. Thus, even when leaving the required trajectory of movement, the robot will be able to align its position and return to the passage of the task.
-
-## Computer vision and additional libraries
-
-We used a camera and computer vision to identify the different sections of the track. The program used the CV2 library and various libraries necessary for its work. For precise selection of objects on the card, we used the HSV image color scheme and finding the pixels within the specified color limits. Also, additional libraries were used for the correct and trouble-free operation of the program. A complete list of libraries is given below:
-
-OpenCV 2 - computer vision
-NumPy - work with arrays that store images captured from the camera thanks to the OpenCV library.
-Time - a library that allows you to find out the system time. Used in the robot program to create a delay during turns.
-RobotAPI - a self-written library of the Center for the Development of Robotics for connecting and communicating with a robot, as well as executing programs.
-JSON - processing data in JSON format. Used to store and quickly access the parameters of the HSV color range stored in the robot's memory.
-
----
-
 # РУКОВОДСТВО ПОЛЬЗОВАТЕЛЯ
 BR-2G 
 ![Рисунок1](https://user-images.githubusercontent.com/80317959/129823910-77be7fb0-0ab2-45dd-8bca-df48c1715f8c.png)
@@ -392,7 +394,46 @@ WRO 2021
 -	``wroracer_last_win.py``-программа, которая использовалась на региональных соревнованиях
 -	``start_robot.py``-файл запускающийся на главном компьютере 
 -	`` README.md``-файл с руководством пользователя и обзором репозитория
+-	
 ---
+
+# Устройство программы:
+Код состоит из нескольких блоков. Отдельные участки программы выполняют разные действия: ищут стартовую линию, корректируют и управляют движением робота, нахождение финишной линии, объезд и защита от столкновения с банками, защита от врезания в борта поля.
+
+## Звуковая индикация запуска
+
+При запуске робот издаёт длинный звуковой сигнал. Это означает, что робот включился, но программа ещё не подгрузилась. После этого программа сама начинает запускаться. После её запуска издаются два коротких звуковых сингала. После этого робот готов к проезду. Для старта выполнения заданий и прохождения трассы необходимо нажать на кнопку, после выше перечисленных звуковых сигналов.
+
+## Первый участок - это старт.
+
+Старт состоит из нажатия на кнопку, по которой робот начинает движение, и проезда до линии поворота. Если линия оказалась синей, то робот будет ехать по часовой стрелке. Иначе - против часовой.
+
+##Второй участок программы - это основной проезд и объезд препятствий на финальных заездах.
+
+Для сохранения положения относительно бортика используется распознование положения крайней точки черного цвета на кадре по оси Y. Далее с помощью пропорционально-интегрально-дифференциального регулятора робот выравнивает положения относительно бортика. Положение крайней точки в кадре определяется в зависимости от направления, куда едет робот. Для объезда объектов используется нахождения их в цветовом диапазоне HSV. При нахождении объекта робот отъезжает назад и отворачивает от препядствия.
+
+## Третий участок - это нахождения финиша и остановка.
+
+После проезда определённого количества поворотов робот понимает, что он проехал три круга и останавливается в зоне старта.
+
+## Защита от столкновения со стеной
+
+Для защиты от столкновения и, в случае невозможности корректно отрегулировать пропорциально-интегрально-дифференциальным регулятором направление движения, используется кратковременный отъезд назад и отворот от стены в противоположную сторону. Таким образом, даже при слёте с необходимой траектории движения, робот сможет выравнить своё положение и вернуться к прохождению задания.
+
+## Компьютерное зрение и дополнительные библиотеки
+
+Для определения различных участков трассы мы исполользовали камеру и компьютерное зрение. В программе была использованна библиотека CV2 и различные библиотеки необходимые для её работы. Для точного выделения объектов на кардре мы использовали цветовую схему изображения HSV и нахождение пикселей в заданных цветовых пределах.
+
+Также были использованы дополнительные библиотеки для корректной и безотказной работы программы. Полный список библиотек приведён ниже:
+
+OpenCV 2 - компьютерное зрение
+NumPy - работа с массивами, в которых храняться изображения, снятые с камеры благодаря библиотеке OpenCV.
+Time - библиотека, позволяющая узнать системное время. Используется в программе робота для создания задержки во время поворотов.
+RobotAPI - самописная библиотека Центра Развития Робототехники для соединения и коммуникации с роботом, а также выполнения программ.
+JSON - обработка данных в формате JSON. Используется для хранения и быстрого доступа к сохранённым в памяти робота параметров диапазона цветов HSV.
+
+---
+
 ## Настройка программного обеспечения
 Для настройки использования робота BR-2G вам понадобится установить следующее программное обеспечение:
 1. Все последующие программы были протестированы и настроены под операционную систему Windows 10, и руководство также описывает установку под это систему. Если у вас установлена другая система, пожалуйста, воспользуйтесь поисковой системой Google или её аналогами для самостоятельного поиска установки программ. Если у вас нету графической оболочки система (командная строка), то установка клиентских программ может существенно отличаться от руководства. Мы настоятельно рекомендуем использовать последние сборки систем не ниже Windows 10, в ином случае, ответственность за неправильную установку или неработоспособность компонентов робота будете нести вы.
@@ -687,40 +728,3 @@ WRO 2021
 
 ![image124](https://user-images.githubusercontent.com/80317959/130161366-c95fb988-52e0-43c4-be1e-80dfca4feae8.png)
 -	Программа запущена. Нажмите на кнопку для начала езды.
-
----
-
-# Устройство программы:
-Код состоит из нескольких блоков. Отдельные участки программы выполняют разные действия: ищут стартовую линию, корректируют и управляют движением робота, нахождение финишной линии, объезд и защита от столкновения с банками, защита от врезания в борта поля.
-
-## Звуковая индикация запуска
-
-При запуске робот издаёт длинный звуковой сигнал. Это означает, что робот включился, но программа ещё не подгрузилась. После этого программа сама начинает запускаться. После её запуска издаются два коротких звуковых сингала. После этого робот готов к проезду. Для старта выполнения заданий и прохождения трассы необходимо нажать на кнопку, после выше перечисленных звуковых сигналов.
-
-## Первый участок - это старт.
-
-Старт состоит из нажатия на кнопку, по которой робот начинает движение, и проезда до линии поворота. Если линия оказалась синей, то робот будет ехать по часовой стрелке. Иначе - против часовой.
-
-##Второй участок программы - это основной проезд и объезд препятствий на финальных заездах.
-
-Для сохранения положения относительно бортика используется распознование положения крайней точки черного цвета на кадре по оси Y. Далее с помощью пропорционально-интегрально-дифференциального регулятора робот выравнивает положения относительно бортика. Положение крайней точки в кадре определяется в зависимости от направления, куда едет робот. Для объезда объектов используется нахождения их в цветовом диапазоне HSV. При нахождении объекта робот отъезжает назад и отворачивает от препядствия.
-
-## Третий участок - это нахождения финиша и остановка.
-
-После проезда определённого количества поворотов робот понимает, что он проехал три круга и останавливается в зоне старта.
-
-## Защита от столкновения со стеной
-
-Для защиты от столкновения и, в случае невозможности корректно отрегулировать пропорциально-интегрально-дифференциальным регулятором направление движения, используется кратковременный отъезд назад и отворот от стены в противоположную сторону. Таким образом, даже при слёте с необходимой траектории движения, робот сможет выравнить своё положение и вернуться к прохождению задания.
-
-## Компьютерное зрение и дополнительные библиотеки
-
-Для определения различных участков трассы мы исполользовали камеру и компьютерное зрение. В программе была использованна библиотека CV2 и различные библиотеки необходимые для её работы. Для точного выделения объектов на кардре мы использовали цветовую схему изображения HSV и нахождение пикселей в заданных цветовых пределах.
-
-Также были использованы дополнительные библиотеки для корректной и безотказной работы программы. Полный список библиотек приведён ниже:
-
-OpenCV 2 - компьютерное зрение
-NumPy - работа с массивами, в которых храняться изображения, снятые с камеры благодаря библиотеке OpenCV.
-Time - библиотека, позволяющая узнать системное время. Используется в программе робота для создания задержки во время поворотов.
-RobotAPI - самописная библиотека Центра Развития Робототехники для соединения и коммуникации с роботом, а также выполнения программ.
-JSON - обработка данных в формате JSON. Используется для хранения и быстрого доступа к сохранённым в памяти робота параметров диапазона цветов HSV.
