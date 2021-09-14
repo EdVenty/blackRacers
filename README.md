@@ -26,7 +26,6 @@ WRO 2021
 	- ` InetConnection.py`-server creation file on Raspberry Pi
 7. Files in the main partition:
 	- `wroracer` -a program that runs on the robot and controls its actions
-	- `wroracer_last_win.py ` -the program that was used at regional competitions
 	- `start_robot.py`-a file that runs on the main computer
 	- ` README.md ` -a file with the user's guide and an overview of the repository
 	
@@ -391,10 +390,9 @@ WRO 2021
 -	`` InetConnection.py``-файл создания сервера на Raspberry Pi
 7.	Файлы в основном разделе:
 -	`` wroracer``-программа запускающаяся на роботе и управляющая его действиями
--	``wroracer_last_win.py``-программа, которая использовалась на региональных соревнованиях
 -	``start_robot.py``-файл запускающийся на главном компьютере 
 -	`` README.md``-файл с руководством пользователя и обзором репозитория
--	
+	
 ---
 
 # Устройство программы:
