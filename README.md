@@ -17,16 +17,9 @@ WRO 2021
 5. 3D models: they are located in the folder " Item number 5-3d models used in the robot”
 	- `Knopka`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 	- `kuzov_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-6. The “Program " folder contains all the code used on the robot and on the main computer
-	- `wroracer` - a program that runs on the robot and controls its actions
-	- ` regulators.py `-module of the robot motion controller
-	- ` RoboAPI.py` - module of communication with the robot
-	- ` wroracer_last_win.py ` -the program that was used at regional competitions
-	- ` start_robot.py `-a file that runs on the main computer
-	- ` InetConnection.py`-server creation file on Raspberry Pi
-7. Files in the main partition:
+6. Files in the main partition:
 	- `wroracer` -a program that runs on the robot and controls its actions
-	- `start_robot.py`-a file that runs on the main computer
+	- ` RoboAPI.py` - module of communication with the robot
 	- ` README.md ` -a file with the user's guide and an overview of the repository
 	
 ---
@@ -381,15 +374,8 @@ WRO 2021
 5.	3Д модели: они находятся в папке “Item number 5 - 3d models used in the robot”
 -	`` Knopka``: модель выложена в двух файлах(stl и itp), модель проектировалась в  Autodesk Inventor 2020
 -	`` kuzov_BlackRacer``: модель выложена в двух файлах(stl и itp), модель проектировалась в  Autodesk Inventor 2020
-6.	В папке “Program” находится весь код, используемый на роботе и на главном компьютере
--	`` wroracer ``-программа запускающаяся на роботе и управляющая его действиями
--	`` regulators.py ``-модуль регулятора движения робота
+6.	Файлы в основном разделе:
 -	`` RoboAPI.py``-модуль коммуникации с роботом
--	`` wroracer_last_win.py `` -программа которая использовалась на региональных соревнованиях
--	`` start_robot.py ``-файл запускающийся на главном компьютере 
--	`` InetConnection.py``-файл создания сервера на Raspberry Pi
-7.	Файлы в основном разделе:
--	`` wroracer``-программа запускающаяся на роботе и управляющая его действиями
 -	``start_robot.py``-файл запускающийся на главном компьютере 
 -	`` README.md``-файл с руководством пользователя и обзором репозитория
 	
