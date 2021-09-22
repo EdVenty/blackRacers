@@ -166,11 +166,11 @@ Next, you need to upload the necessary files and programs to the robot. To downl
 - A computer with an Ethernet port.
 
 Uploading the "bottom" part of the program to Pyboard:
-1.Connect PYboard to computer
-2. Go to the Pyboard memory, it will be displayed in the explorer as a flash device
-3. Load 2 files into Pyboard memory: `` main.py '', and `` module.py ''.
-4. Extract Pyboard
-5. Done
+	- Connect PYboard to computer
+	- Go to the Pyboard memory, it will be displayed in the explorer as a flash device
+	- Load 2 files into Pyboard memory: `` main.py``, and ``module.py`` .
+	- Extract Pyboard
+	- Done
 
 Installation progress:
 1. Install Raspbian OS Lite on the SD card.
