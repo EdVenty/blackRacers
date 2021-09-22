@@ -21,6 +21,8 @@ WRO 2021
 	- `wroracer` -a program that runs on the robot and controls its actions
 	- ` RoboAPI.py` - module of communication with the robot
 	- ` README.md ` -a file with the user's guide and an overview of the repository
+	- `` main.py`` - Pyboard program, responsible for the operation of the main program
+	- `` module.py`` - Pyboard program responsible for motion functions
 	
 ---
 
@@ -162,6 +164,13 @@ Next, you need to upload the necessary files and programs to the robot. To downl
 - Ethernet cable
 - SD card with at least 8 gigabytes of memory.
 - A computer with an Ethernet port.
+
+Uploading the "bottom" part of the program to Pyboard:
+1.Connect PYboard to computer
+2. Go to the Pyboard memory, it will be displayed in the explorer as a flash device
+3. Load 2 files into Pyboard memory: `` main.py '', and `` module.py ''.
+4. Extract Pyboard
+5. Done
 
 Installation progress:
 1. Install Raspbian OS Lite on the SD card.
@@ -378,6 +387,8 @@ WRO 2021
 -	`` RoboAPI.py``-модуль коммуникации с роботом
 -	``start_robot.py``-файл запускающийся на главном компьютере 
 -	`` README.md``-файл с руководством пользователя и обзором репозитория
+-	`` main.py`` - программа на Pyboard, отвечает за работу главной программы
+-	``module.py`` - программа на Pyboard, отвечающая за функции движения
 	
 ---
 
@@ -520,6 +531,13 @@ JSON - обработка данных в формате JSON. Использу�
 - Ethernet кабель
 - SD карта минимум на 8 гигабайт памяти.
 - Компьютер с ethernet портом.
+
+Загрузка "нижней" части программы на Pyboard:
+1.Подключить PYboard к компьютеру
+2. Зайти в память Pyboard, будет отображаться в проводнике как флеш-устрйство
+3. Загрузить в память Pyboard 2 файла: ``main.py``, и ``module.py``.
+4. Извлечь Pyboard
+5. Готово
 
 Ход установки:
 1. Установите Raspbian OS Lite на SD карту.
