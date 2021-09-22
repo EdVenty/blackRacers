@@ -165,8 +165,7 @@ Next, you need to upload the necessary files and programs to the robot. To downl
 - SD card with at least 8 gigabytes of memory.
 - A computer with an Ethernet port.
 
-1. Uploading the "bottom" part of the program to Pyboard:
-
+Uploading the "bottom" part of the program to Pyboard:
 	- Connect PYboard to computer
 	- Go to the Pyboard memory, it will be displayed in the explorer as a flash device
 	- Load 2 files into Pyboard memory: `` main.py``, and ``module.py`` .
