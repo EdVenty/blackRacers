@@ -165,14 +165,6 @@ Next, you need to upload the necessary files and programs to the robot. To downl
 - SD card with at least 8 gigabytes of memory.
 - A computer with an Ethernet port.
 
-1. Uploading the "bottom" part of the program to Pyboard:
-
-	- Connect PYboard to computer
-	- Go to the Pyboard memory, it will be displayed in the explorer as a flash device
-	- Load 2 files into Pyboard memory: `` main.py``, and ``module.py`` .
-	- Extract Pyboard
-	- Done
-
 Installation progress:
 1. Install Raspbian OS Lite on the SD card.
 - Insert the SD card into the computer.
@@ -532,14 +524,6 @@ JSON - обработка данных в формате JSON. Использу�
 - Ethernet кабель
 - SD карта минимум на 8 гигабайт памяти.
 - Компьютер с ethernet портом.
-
-1. Загрузка "нижней" части программы на Pyboard:
-
-	- Подключить PYboard к компьютеру
-	- Зайти в память Pyboard, будет отображаться в проводнике как флеш-устрйство
-	- Загрузить в память Pyboard 2 файла: ``main.py``, и ``module.py``.
-	- Извлечь Pyboard
-	- Готово
 
 Ход установки:
 1. Установите Raspbian OS Lite на SD карту.
