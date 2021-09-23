@@ -311,7 +311,7 @@ And drag it to the Bitvise SFTP window, to the "Remote files" zone. They should 
 - In the "Devices and disks" field, open the disk with the name "PYBFLASH".
 
 ![image110](https://user-images.githubusercontent.com/80317959/130160704-6e6b88f0-4072-4ce4-8b02-ac17029a8768.png)
-- Open the downloaded repository from GitHub and copy 5 files from there.
+- Open the downloaded repository from GitHub and copy 2 files from there.
 
 ![maib](https://user-images.githubusercontent.com/80317959/134554257-ed86f474-6791-48a0-8b8f-524a76d5f5b1.png)
 - Copy them to the root of the disk "PYBFLASH".
@@ -671,7 +671,7 @@ JSON - обработка данных в формате JSON. Использу�
 	-	В поле «Устройства и диски» откройте диск с названием «PYBFLASH». 
 	
 	![image110](https://user-images.githubusercontent.com/80317959/130160704-6e6b88f0-4072-4ce4-8b02-ac17029a8768.png)
-	-	Откройте скачаный репозиторий с GitHub и скопируйте оттуда 5 файлов. 
+	-	Откройте скачаный репозиторий с GitHub и скопируйте оттуда 2 файла. 
 	
 	![maib](https://user-images.githubusercontent.com/80317959/134554311-9c0eb1e9-99d8-4f7a-a544-bc827e6e4281.png)
 	-	Скопируйте их в корень диска «PYBFLASH».
