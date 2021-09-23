@@ -351,7 +351,7 @@ Otherwise – there will be no inscription.
 3. Start the program:
 - Select the robot as shown in point 2. f.
 - Click the "Load Start" button shown in point 2. a.
-- In the window that opens, find the GitHub repository folder, select the file "wroracer_last_win.py". Click "Open".	
+- In the window that opens, find the GitHub repository folder, select the file "wroracer_last_win.py" or "wroracer.py". Click "Open".	
 - ![image124](https://user-images.githubusercontent.com/80317959/130161366-c95fb988-52e0-43c4-be1e-80dfca4feae8.png)
 - The program is running. Click on the button to start the ride.
 
@@ -712,7 +712,7 @@ JSON - обработка данных в формате JSON. Использу�
 3.	Запуск программы:
 -	Выберите робота, как показано в пункте 2.f.
 -	Нажмите кнопку «Load Start», показанную в пункте 2.a.
--	В открывшемся окне найдите папку репозитория GitHub, выберите файл «wroracer_last_win.py». Нажмите «Открыть».	
+-	В открывшемся окне найдите папку репозитория GitHub, выберите файл «wroracer_last_win.py» или «wroracer.py». Нажмите «Открыть».	
 
 ![image124](https://user-images.githubusercontent.com/80317959/130161366-c95fb988-52e0-43c4-be1e-80dfca4feae8.png)
 -	Программа запущена. Нажмите на кнопку для начала езды.
