@@ -313,7 +313,7 @@ And drag it to the Bitvise SFTP window, to the "Remote files" zone. They should 
 ![image110](https://user-images.githubusercontent.com/80317959/130160704-6e6b88f0-4072-4ce4-8b02-ac17029a8768.png)
 - Open the downloaded repository from GitHub and copy 5 files from there.
 
-![image112](https://user-images.githubusercontent.com/80317959/130160730-e903ea64-0eae-41f0-9247-c1e83f1fceb0.png)
+![maib](https://user-images.githubusercontent.com/80317959/134554257-ed86f474-6791-48a0-8b8f-524a76d5f5b1.png)
 - Copy them to the root of the disk "PYBFLASH".
 
 ![image113](https://user-images.githubusercontent.com/80317959/130160747-05ae1c7c-5b5f-4c59-951e-69a8deedf690.png)
@@ -673,7 +673,7 @@ JSON - обработка данных в формате JSON. Использу�
 	![image110](https://user-images.githubusercontent.com/80317959/130160704-6e6b88f0-4072-4ce4-8b02-ac17029a8768.png)
 	-	Откройте скачаный репозиторий с GitHub и скопируйте оттуда 5 файлов. 
 	
-	![image112](https://user-images.githubusercontent.com/80317959/130160730-e903ea64-0eae-41f0-9247-c1e83f1fceb0.png)
+	![maib](https://user-images.githubusercontent.com/80317959/134554311-9c0eb1e9-99d8-4f7a-a544-bc827e6e4281.png)
 	-	Скопируйте их в корень диска «PYBFLASH».
 	
 	![image113](https://user-images.githubusercontent.com/80317959/130160747-05ae1c7c-5b5f-4c59-951e-69a8deedf690.png)
