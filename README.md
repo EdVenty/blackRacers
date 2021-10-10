@@ -18,13 +18,13 @@ WRO 2021
 	- `Knopka`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 	- `kuzov_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 6. Files in the main partition:
+	- ` README.md ` -a file with the user's guide and an overview of the repository
 	- `wroracer` -a program that runs on the robot and controls its actions
 	- ` RoboAPI.py` - module of communication with the robot
-	- ` README.md ` -a file with the user's guide and an overview of the repository
-	- `` main.py`` - Pyboard program, responsible for the operation of the main program
-	- `` module.py`` - Pyboard program responsible for motion functions
 	- ` InetConnection.py`-server creation file on Raspberry Pi
 	- ` start_robot.py` - program for convenient loading of code and viewing data from the robot
+	- `` main.py`` - Pyboard program, responsible for the operation of the main program
+	- `` module.py`` - Pyboard program responsible for motion functions
 	- ` boot.py` - 
 	- ` demon_bootloader.py` - 
 	- ` demon_starter.py` - 
