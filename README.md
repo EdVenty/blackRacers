@@ -24,6 +24,12 @@ WRO 2021
 	- `` main.py`` - Pyboard program, responsible for the operation of the main program
 	- `` module.py`` - Pyboard program responsible for motion functions
 	- ` InetConnection.py`-server creation file on Raspberry Pi
+	- ` start_robot.py` - program for convenient loading of code and viewing data from the robot
+	- ` boot.py` - 
+	- ` demon_bootloader.py` - 
+	- ` demon_starter.py` - 
+	-  ` my_main_roboracer.py` - 
+	-  `rgb.py` - 
 	
 ---
 
