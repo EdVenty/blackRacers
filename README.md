@@ -25,11 +25,11 @@ WRO 2021
 	- ` start_robot.py` - program for convenient loading of code and viewing data from the robot
 	- `` main.py`` - Pyboard program, responsible for the operation of the main program
 	- `` module.py`` - Pyboard program responsible for motion functions
-	- ` boot.py` - 
-	- ` demon_bootloader.py` - 
-	- ` demon_starter.py` - 
-	-  ` my_main_roboracer.py` - 
-	-  `rgb.py` - 
+	- ` boot.py` - program called at PyBoard start
+	- ` demon_bootloader.py` - launches the file `demon_starter.py`
+	- ` demon_starter.py` - starts the server on Raspberry Pi 4B
+	-  ` my_main_roboracer.py` - file that is part of the program on the PyBoard
+	-  `rgb.py` - a file responsible for automatically storing color data of important areas of the image
 	
 ---
 
