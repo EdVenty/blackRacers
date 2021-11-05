@@ -5,9 +5,12 @@ BlackRacers
 WRO 2021
 ---
 ## Repository Overview
-1. Team photos: are located in the “Item number 1 - our photos” folder
-	- Photo (`` Ours photo.jpeg `` )- the official photo of the team, and ( ``ours funny photo.jpg `` ) - funny
-2. The robot's photos are located in the folder " Item number 2 - photos of the robot from 6 sides ”
+1. 3D models: they are located in the folder "models”
+	- `Knopka`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+	- `kuzov_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+2. Team photos: are located in the “other/Our photo” folder
+	- Photo (`` Our photo.jpeg `` )- the official photo of the team, and ( ``our funny photo.jpg `` ) - funny
+2. The robot's photos are located in the folder "photo”
 	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
 3. The link to the video is located in the folder " Item number 3-Url the address of the YouTube video
 	- Link ``Url the address of the YouTube video.md``
