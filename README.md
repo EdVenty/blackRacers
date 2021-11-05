@@ -33,6 +33,8 @@ WRO 2021
 	
 ---
 
+## Url the address of the YouTube video
+https://youtu.be/b1jOhFGcP3c
 # Program arrangement:
 
 The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
