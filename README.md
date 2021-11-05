@@ -10,12 +10,14 @@ WRO 2021
 	- `kuzov_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 2. Team photos: are located in the “other/Our photo” folder
 	- Photo (`` Our photo.jpeg `` )- the official photo of the team, and ( ``our funny photo.jpg `` ) - funny
-3. The robot's photos are located in the folder "photo”
+3. Robot documentation is located in the "other":
+	-`documentation.md` - description of the process of preparing the robot for races
+5. The robot's photos are located in the folder "photo”
 	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
-4. Diagrams: located in the folder "schemes"
+6. Diagrams: located in the folder "schemes"
 	- The electrical diagram is presented in the file: ``Schematic_BlackRacer.png``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer_team.json``
 	- Kinetic diagram compiled using industry standards, file:``kinematic_scheme.jpg``
-5. Control software: located in the folder "src":
+7. Control software: located in the folder "src":
 	- `wroracer` -a program that runs on the robot and controls its actions
 	- ` RoboAPI.py` - module of communication with the robot
 	- ` InetConnection.py`-server creation file on Raspberry Pi
