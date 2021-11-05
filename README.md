@@ -11,7 +11,8 @@ WRO 2021
 2. Team photos: are located in the “other/Our photo” folder
 	- Photo (`` Our photo.jpeg `` )- the official photo of the team, and ( ``our funny photo.jpg `` ) - funny
 3. Robot documentation is located in the "other":
-	-`documentation.md` - description of the process of preparing the robot for races
+
+	- `documentation.md` - description of the process of preparing the robot for races
 5. The robot's photos are located in the folder "photo”
 	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
 6. Diagrams: located in the folder "schemes"
