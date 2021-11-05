@@ -10,18 +10,12 @@ WRO 2021
 	- `kuzov_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 2. Team photos: are located in the “other/Our photo” folder
 	- Photo (`` Our photo.jpeg `` )- the official photo of the team, and ( ``our funny photo.jpg `` ) - funny
-2. The robot's photos are located in the folder "photo”
+3. The robot's photos are located in the folder "photo”
 	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
-3. The link to the video is located in the folder " Item number 3-Url the address of the YouTube video
-	- Link ``Url the address of the YouTube video.md``
-4. Diagrams: located in the folder "Item number 4-schematic diagrams of electromechanical components."
+4. Diagrams: located in the folder "schemes"
 	- The electrical diagram is presented in the file: ``Schematic_BlackRacer. png``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer_team. Json``
 	- The kinetic scheme was compiled using GOST 'a, file:`` kinematic_scheme.jpg``
-5. 3D models: they are located in the folder " Item number 5-3d models used in the robot”
-	- `Knopka`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-	- `kuzov_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-6. Files in the main partition:
-	- ` README.md ` -a file with the user's guide and an overview of the repository
+5. Control software: located in the folder "src":
 	- `wroracer` -a program that runs on the robot and controls its actions
 	- ` RoboAPI.py` - module of communication with the robot
 	- ` InetConnection.py`-server creation file on Raspberry Pi
@@ -38,6 +32,9 @@ WRO 2021
 
 ## Url the address of the YouTube video
 https://youtu.be/b1jOhFGcP3c
+
+---
+
 # Program arrangement:
 
 The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
