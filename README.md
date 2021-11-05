@@ -13,8 +13,8 @@ WRO 2021
 3. The robot's photos are located in the folder "photo”
 	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
 4. Diagrams: located in the folder "schemes"
-	- The electrical diagram is presented in the file: ``Schematic_BlackRacer.png``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer_team.Json``
-	- Kinetic diagram compiled using industry standards, file:`` kinematic_scheme.jpg``
+	- The electrical diagram is presented in the file: ``Schematic_BlackRacer.png``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer_team.json``
+	- Kinetic diagram compiled using industry standards, file:``kinematic_scheme.jpg``
 5. Control software: located in the folder "src":
 	- `wroracer` -a program that runs on the robot and controls its actions
 	- ` RoboAPI.py` - module of communication with the robot
