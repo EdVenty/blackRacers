@@ -40,7 +40,7 @@ https://youtu.be/b1jOhFGcP3c
 # Introduction
 Programs: `wroracer`, ` InetConnection.py`, ` demon_starter.py` and ` demon_bootloader.py`, loaded on Raspberry pi 4B. They read the picture from the camera, process it and send commands to move to Pyboard. Here is an example of a data packet being sent:
 
-	"50, 10"
+	50, 10
 	
 The first value is the speed, and the second is the steering angle.
 
