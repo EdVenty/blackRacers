@@ -19,7 +19,7 @@ WRO 2021
 	- The electrical diagram is presented in the file: ``Schematic_BlackRacer.png``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer_team.json``
 	- Kinetic diagram compiled using industry standards, file:``kinematic_scheme.jpg``
 7. Control software: located in the folder "src":
-	- `wroracer` -a program that runs on the robot and controls its actions
+	- `wroracer.py` -a program that runs on the robot and controls its actions
 	- ` RoboAPI.py` - module of communication with the robot
 	- ` InetConnection.py`-server creation file on Raspberry Pi
 	- ` start_robot.py` - program for convenient loading of code and viewing data from the robot
@@ -38,13 +38,13 @@ https://youtu.be/b1jOhFGcP3c
 
 ---
 # Introduction
-Programs: `wroracer`, ` InetConnection.py`, ` demon_starter.py` and ` demon_bootloader.py`, loaded on Raspberry pi 4B. They read the picture from the camera, process it and send commands to move to Pyboard. Here is an example of a data packet being sent:
+Programs: `wroracer.py`, ` InetConnection.py`, ` demon_starter.py` and ` demon_bootloader.py`, loaded on Raspberry pi 4B. They read the picture from the camera, process it and send commands to move to Pyboard. Here is an example of a data packet being sent:
 
 	50, 10
 	
 The first value is the speed, and the second is the steering angle.
 
-Programs: ` main.py`, ` module.py`, ` boot.py`, ` my_main_roboracer.py` and ` my_main_roboracer.py`, located on the Pyboard, control the rear drive motors and the steering motor. Pyboard receives activity data from the Raspberry Pi via the UART protocol.
+Programs: ` main.py`, ` module.py`, ` boot.py`, ` my_main_roboracer.py` and `rgb.py`, located on the Pyboard, controls the rear-wheel drive motor, steering motor, program start button and buzzer. Pyboard receives activity data from Raspberry Pi via UART protocol.
 
 Programs: `RoboAPI.py` and` start_robot.py`, run on the computer and serve to communicate with the robot.
 
