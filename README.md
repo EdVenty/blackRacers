@@ -37,6 +37,12 @@ WRO 2021
 https://youtu.be/b1jOhFGcP3c
 
 ---
+# Introduction
+Programs: `wroracer`, ` InetConnection.py`, ` demon_starter.py` and ` demon_bootloader.py`, loaded on Raspberry pi 4B. They read the picture from the camera, process it and send commands to move to Pyboard. Here is an example of a data packet being sent:
+	"50, 10"
+The first value is the speed, and the second is the steering angle.
+
+Programs: ` main.py`, ` module.py`, ` boot.py`, ` my_main_roboracer.py` and ` my_main_roboracer.py`, located on the Pyboard, control the rear drive motors and the steering motor. Pyboard receives activity data from the Raspberry Pi via the UART protocol.
 
 # Program arrangement:
 
