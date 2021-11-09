@@ -9,7 +9,7 @@ WRO 2021
 	- `Knopka`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 	- `kuzov_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 2. Team photos: are located in the “other/Our photo” folder
-	- Photo (`` Our photo.jpeg `` )- the official photo of the team, and ( ``our funny photo.jpg `` ) - funny
+	- Photo (`` Our photo.jpg `` )- the official photo of the team, and ( ``our funny photo.jpg `` ) - funny
 3. Robot documentation is located in the "other":
 
 	- `documentation.md` - description of the process of preparing the robot for races
