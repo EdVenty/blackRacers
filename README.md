@@ -46,6 +46,8 @@ The first value is the speed, and the second is the steering angle.
 
 Programs: ` main.py`, ` module.py`, ` boot.py`, ` my_main_roboracer.py` and ` my_main_roboracer.py`, located on the Pyboard, control the rear drive motors and the steering motor. Pyboard receives activity data from the Raspberry Pi via the UART protocol.
 
+Programs: `RoboAPI.py` and` start_robot.py`, run on the computer and serve to communicate with the robot.
+
 # Program arrangement:
 
 The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
