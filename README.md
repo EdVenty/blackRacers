@@ -34,7 +34,7 @@ WRO 2021
 ---
 
 ## Url the address of the YouTube video
-https://www.youtube.com/watch?v=8u7jKAIjP5A
+https://youtu.be/Zgsqh7BnnPI
 
 ---
 # Introduction
