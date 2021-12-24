@@ -1,9 +1,10 @@
 # Introduction
 BR-2G
-![Рисунок1](https://user-images.githubusercontent.com/80317959/129823910-77be7fb0-0ab2-45dd-8bca-df48c1715f8c.png)
+![Picture1](https://user-images.githubusercontent.com/80317959/129823910-77be7fb0-0ab2-45dd-8bca-df48c1715f8c.png)
 BlackRacers
 WRO 2021
 ---
+Special thanks to Yuri Glamazdin <yglamazdin@gmail.com>
 ## Repository Overview
 1. 3D models: they are located in the folder "models”
 	- `Knopka`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
