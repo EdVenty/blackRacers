@@ -1,9 +1,12 @@
-# Introduction
-BR-2G
-![Picture1](https://user-images.githubusercontent.com/80317959/129823910-77be7fb0-0ab2-45dd-8bca-df48c1715f8c.png)
-BlackRacers
-WRO 2021
----
+# 🥇 BlackRacers | WRO 2021 Future Engeneers Winner
+⚠ WARNING ⚠ 
+This documentation is outdated and will be rewritten ... I don't know when :(. So, if you interested in this project, please, contact us.
+
+Contacts:
+- Andrew Danilchenko - mail: <edventyh@gmail.com> discord: Edventy#6866
+
+Thanks
+----
 Special thanks to Yuri Glamazdin <yglamazdin@gmail.com>
 ## Repository Overview
 1. 3D models: they are located in the folder "models”
