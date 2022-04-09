@@ -1,11 +1,9 @@
 # 🥇 BlackRacers | WRO 2021 Future Engeneers Winner
-⚠ WARNING ⚠ 
-This documentation is outdated and will be rewritten ... I don't know when :(. So, if you interested in this project, please, contact us.
 
 Contacts:
 - Andrew Danilchenko - mail: <edventyh@gmail.com> discord: Edventy#6866
+- Matvey Korabeynikov - mail: <korrabeynikov@mail.ru>
 
-Thanks
 ----
 Special thanks to Yuri Glamazdin <yglamazdin@gmail.com>
 ## Repository Overview
