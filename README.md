@@ -7,20 +7,21 @@ Contacts:
 ----
 Special thanks to Yuri Glamazdin <yglamazdin@gmail.com>
 ## Repository Overview
-1. 3D models: they are located in the folder "models”
-	- `Knopka`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-	- `kuzov_BlackRacer`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-2. Team photos: are located in the “other/Our photo” folder
+1. 3D models: they are located in the folder "3D модели”
+	- `Servo_1`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+	- `place`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+	- `camera`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+	- `korpus`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+2. Team photos: are located in the “Фото команды” folder
 	- Photo (`` Our photo.jpg `` )- the official photo of the team, and ( ``our funny photo.jpg `` ) - funny
-3. Robot documentation is located in the "other":
-
+3. Robot documentation is located in the "Другое":
 	- `documentation.md` - description of the process of preparing the robot for races
 5. The robot's photos are located in the folder "photo”
 	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
-6. Diagrams: located in the folder "schemes"
-	- The electrical diagram is presented in the file: ``Schematic_BlackRacer.png``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer_team.json``
+6. Diagrams: located in the folder "Схемы"
+	- The electrical diagram is presented in the file: ``Schematic_BlackRacer.pdf``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer.json``
 	- Kinetic diagram compiled using industry standards, file:``kinematic_scheme.jpg``
-7. Control software: located in the folder "src":
+7. Control software: located in the folder "Программы":
 	- `wroracer.py` -a program that runs on the robot and controls its actions
 	- ` RoboAPI.py` - module of communication with the robot
 	- ` InetConnection.py`-server creation file on Raspberry Pi
@@ -42,7 +43,7 @@ https://youtu.be/Zgsqh7BnnPI
 # Introduction
 Programs: `wroracer.py`, ` InetConnection.py`, ` demon_starter.py` and ` demon_bootloader.py`, loaded on Raspberry pi 4B. They read the picture from the camera, process it and send commands to move to Pyboard. Here is an example of a data packet being sent:
 
-	50, 10
+
 	
 The first value is the speed, and the second is the steering angle.
 
