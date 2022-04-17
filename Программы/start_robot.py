@@ -32,16 +32,19 @@ flag_udp_event = False
 flag_udp_turbo_show_window = False
 flag_udp_show_window = False
 
+show_system_message = False
+fps_fix_timer = 0.04
 
-show_system_message=False
-fps_fix_timer=0.04
 
 video_show = 0
 video_show2 = 3
 video_show2_global = 0
+video_show2_global = 0
 video_show_work = False
-flag_start_script=None
-timer_wait_start=10
+flag_start_script = None
+timer_wait_start = 10
+lock_time = 10+60 * 30
+
 # default libTurboJPEG library path
 DEFAULT_LIB_PATHS = {
     'Darwin': ['/usr/local/opt/jpeg-turbo/lib/libturbojpeg.dylib'],
@@ -294,7 +297,7 @@ time_frame = 0
 
 
 def udp_work_turbo():
-    global flag_udp_turbo_show_window, server_address_udp, frame_udp_turbo, fps_udp_turbo, time_frame,fps_fix_timer
+    global flag_udp_turbo_show_window, server_address_udp, frame_udp_turbo, fps_udp_turbo, time_frame, fps_fix_timer
     sock = sc.socket(sc.AF_INET, sc.SOCK_DGRAM)
     sock.setblocking(0)
     name_window = "Udp TURBO image"
@@ -305,7 +308,6 @@ def udp_work_turbo():
         jpeg = TurboJPEG()
     except:
         pass
-
 
     while (True):
 
@@ -356,7 +358,7 @@ fps_udp = 0
 
 
 def udp_work():
-    global flag_udp_show_window, server_address_udp, fps_udp, frame_udp, time_frame,fps_fix_timer
+    global flag_udp_show_window, server_address_udp, fps_udp, frame_udp, time_frame, fps_fix_timer
     sock = sc.socket(sc.AF_INET, sc.SOCK_DGRAM)
     sock.setblocking(0)
     name_window = "Udp image"
@@ -374,25 +376,25 @@ def udp_work():
                     # print(ready)
                     if ready[0]:
 
-                            # data = sock.recv(65507)
-                            # array = np.frombuffer(data, dtype=np.dtype('uint8'))
-                            # img = cv2.imdecode(array, 1)
-                            # frame_udp = img
-                            # time_frame = time.time()
-                            # fps_count += 1
+                        # data = sock.recv(65507)
+                        # array = np.frombuffer(data, dtype=np.dtype('uint8'))
+                        # img = cv2.imdecode(array, 1)
+                        # frame_udp = img
+                        # time_frame = time.time()
+                        # fps_count += 1
 
-                        t=time.time()
-                        good=False
+                        t = time.time()
+                        good = False
                         while 1:
-                            good=False
+                            good = False
                             try:
                                 data = sock.recv(65507)
-                                good=True
+                                good = True
                                 break
                             except:
                                 time.sleep(0.001)
                                 pass
-                            if time.time()-t>0.1:
+                            if time.time() - t > 0.1:
                                 break
                         if good:
                             array = np.frombuffer(data, dtype=np.dtype('uint8'))
@@ -573,6 +575,14 @@ robot_adres_inet = "-1"
 
 # pass_hash="d5a"
 pass_hash = ""
+lock_pass = None
+
+try:
+    file = open('lock.txt', "r")
+    lock_pass = file.readline()
+except:
+    pass
+
 try:
     file = open("password", "r")
     pass_hash = file.readline()
@@ -604,7 +614,7 @@ last_joy_activ = time.time()
 
 def camera_work():
     global root, video_show2, socket2, video_show2_global, image, started_flag, flag_inet_work, socket_2_connected, DATASET, FRAME, resize_windows, frame_turbo, time_frame
-    global flag_start_script,timer_wait_start, fps_fix_timer
+    global flag_start_script, timer_wait_start, fps_fix_timer
     ic_v = InetConnection.InetConnect(sc.gethostname() + "_v", "client")
     ic_v.connect()
     image = np.zeros((480, 640, 3), np.uint8)
@@ -613,7 +623,7 @@ def camera_work():
     frames_time = time.time()
     context = zmq.Context()
     flag_destroy = False
-    timer_clip_fps=time.time()
+    timer_clip_fps = time.time()
 
     while 1:
         # try:
@@ -624,8 +634,8 @@ def camera_work():
             flag_destroy = True
             if video_show2 == 1:  # and started_flag == 1:
                 # print("vid1", flag_inet_work)
-                if time.time()-timer_clip_fps>fps_fix_timer:
-                    timer_clip_fps=time.time()
+                if time.time() - timer_clip_fps > fps_fix_timer:
+                    timer_clip_fps = time.time()
                     if flag_inet_work == True:
                         if (flag_udp_show_window == False and flag_udp_turbo_show_window == False):
 
@@ -776,9 +786,11 @@ def camera_work():
                     try:
                         image = np.zeros((480, 640, 3), np.uint8)
                         if flag_start_script is not None:
-                            cv2.putText(image, "Connect to robot... "+str(round(timer_wait_start - abs(time.time() -flag_start_script),2)), (50, 240), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
-                        if time.time() -flag_start_script>0:
-                            flag_start_script=None
+                            cv2.putText(image, "Connect to robot... " + str(
+                                round(timer_wait_start - abs(time.time() - flag_start_script), 2)), (50, 240),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
+                        if time.time() - flag_start_script > 0:
+                            flag_start_script = None
                     except:
                         pass
                 cv2.imshow("Robot frame", image)
@@ -805,6 +817,8 @@ def camera_work():
                     #     cv2.waitKey(1)
                     #
                     socket2 = context.socket(zmq.REQ)
+                    # socket2.setTcpNoDelay(True)
+                    print("start")
                     # socket2.setsockopt(zmq.SNDTIMEO, 500)
                     # socket2.setsockopt(zmq.RCVTIMEO, 500)
 
@@ -895,9 +909,43 @@ ic = InetConnection.InetConnect(sc.gethostname() + "_r", "client")
 ic.connect()
 
 
+def status_lock(s):
+    global lock_pass
+    s = s.split("|")[1:]
+    # print(s)
+    if len(s) < 2: return
+    if s[1] == "True":
+        lock_pass = s[2]
+
+        sec = float(s[2]) - time.time()
+        if sec < 60:
+            sec = str(int(sec)) + " sec"
+        else:
+            sec = str(int(sec // 60)) + " min"
+        fg = 'green'
+        color_log = FgGreen
+        print(color_log + "The robot was successfully captured for " + sec)
+        printt("The robot was successfully captured for " + sec, fg)
+        file = open('lock.txt', 'w')
+        file.write(lock_pass)
+        file.close()
+    else:
+        sec = float(s[2])
+        if sec < 60:
+            sec = str(int(sec)) + " sec"
+        else:
+            sec = str(int(sec // 60)) + " min"
+
+        fg = 'red'
+        color_log = FgRed
+        print(color_log + "Fail lock robot! need wait " + sec)
+        printt("Fail lock robot! need wait " + sec, fg)
+        lock_pass = None
+
+
 def robot_recive_work():
     global video_show2, recive_flag, started_flag, flag_inet_work, ic, selected_file_no_dir, selected_file, robot_adres, flag_sended_file, flag_udp_comand, message_s_udp
-    global udp_commanda, flag_start_script, show_system_message
+    global udp_commanda, flag_start_script, show_system_message, lock_pass, flag_udp_show_window, flag_udp_turbo_show_window
     color_log = FgBlack
     # ic = InetConnection.InetConnect(sc.gethostname() + "_r", "client")
     # ic.connect()
@@ -971,7 +1019,7 @@ def robot_recive_work():
                 time.sleep(0.01)
                 continue
 
-            message_ss=message_s.split('\r\n')
+            message_ss = message_s.split('\r\n')
             # print(len(message_ss),message_s )
             for message_s in message_ss:
 
@@ -1013,9 +1061,9 @@ def robot_recive_work():
 
                 if message_s.find("|STOPED") >= 0:
                     count_stoped += 1
-                    if (count_stoped > 2):
-
-                        recive_flag = 0
+                    if (count_stoped > 2 and started_flag == 1):
+                        count_stoped = 0
+                        # recive_flag = 0
                         message_ss.remove(message_s)
                         # printt(message_s, fg='red')
                         printt("STOPED", fg='red')
@@ -1031,11 +1079,12 @@ def robot_recive_work():
                         time.sleep(0.01)
                         continue
 
-                if message_s != "" and len(message_s) > 0 and message_s[0]!="|":
+                if message_s != "" and len(message_s) > 0 and message_s[0] != "|":
                     # обрезаем конец сообщения, спец символ
                     flag_start_script = None
                     fg = 'black'
-                    if message_s.find("Traceback") >= 0 or message_s.find("Error:") >= 0 or message_s.find("Exception in") >= 0 :
+                    if message_s.find("Traceback") >= 0 or message_s.find("Error:") >= 0 or message_s.find(
+                            "Exception in") >= 0:
                         color_log = FgRed
                         video_show2 = -1
                         fg = 'red'
@@ -1045,22 +1094,57 @@ def robot_recive_work():
                 else:
                     if message_s != "":
                         if show_system_message:
-                            print("sys:",message_s.rstrip())
-                        if message_s.find("|run|")>-1:
+                            print("sys:", message_s.rstrip())
+                        if message_s.find("|run|") > -1:
                             s = message_s.split("|")
                             fg = 'blue'
-                            print(color_log + "File start on robot: "+s[2].rstrip())
-                            printt("File start on robot: "+s[2].rstrip(), fg)
+                            print(color_log + "File start on robot: " + s[2].rstrip())
+                            printt("File start on robot: " + s[2].rstrip(), fg)
+                        if message_s.find("|fail_run|") > -1:
+                            s = message_s.split("|")
+                            fg = 'red'
+                            print(FgRed + "Fail run file! Robot locked: " + s[2].rstrip())
+                            printt("Fail run file! Robot locked: " + s[2].rstrip(), fg)
 
-                        if message_s.find("|start_api")>-1:
+                        if message_s.find("|start_api") > -1:
                             # print("--------------------------------")
-                            flag_start_script=None
+                            flag_start_script = None
                             color_log = FgBlack
-                        if message_s.find("|ip|")>-1:
+                        if message_s.find("|ip|") > -1:
                             # print("--------------------------------")
-                            flag_start_script=None
+                            flag_start_script = None
                             color_log = FgBlack
                             take_ip_from_robot(timer=0.1, message_s_ip=message_s)
+                        if message_s.find("|lock|") > -1:
+                            status_lock(message_s)
+
+                        if message_s.find("|fail_stop|robot_locked|") != -1:
+                            print(FgRed + "Fail stop! robot locked!")
+                            printt("Fail stop! robot locked! need wait", "red")
+                            lock_pass=None
+                        if message_s.find("|error|") != -1:
+                            print(FgRed + "Critical SkyNet error!!!" + message_s)
+                            printt("Critical SkyNet error!!!" + message_s, "red")
+                        if message_s.find("|error_udp_frame|") != -1:
+                            s = message_s.split("|")
+                            # print(s)
+                            if flag_udp_show_window or flag_udp_turbo_show_window:
+                                print(FgRed + "UDP error:" + str(s[2]))
+                                printt("UDP error:" + str(s[2]), "red")
+                            flag_udp_show_window=False
+                            flag_udp_turbo_show_window=False
+
+                        if message_s.find("|drop") != -1:
+                            s = message_s.split("|")
+                            if s[2] == "True":
+                                fg = 'blue'
+                                print(color_log + "robot unlocked: " + s[2].rstrip())
+                                printt("robot unlocked: " + s[2].rstrip(), fg)
+                            else:
+                                print(FgRed + "Fail robot unlocked! need wait")
+                                fg = 'red'
+                                printt("Fail robot unlocked! need wait", fg)
+                            lock_pass = None
 
                 time.sleep(0.001)
 
@@ -1070,13 +1154,24 @@ def robot_recive_work():
             ret = ""
 
             if flag_inet_work == True:
-                ret = ic.send_and_wait_answer(robot_adres_inet, "stop|" + pass_hash)
-                ic.send_and_wait_answer(robot_adres_inet, "stopvideo|" + pass_hash)
+                ret = ic.send_and_wait_answer(robot_adres_inet, "stop|" + str(lock_pass) + "|" + pass_hash)
+                # ic.send_and_wait_answer(robot_adres_inet, "stopvideo|" + pass_hash)
                 pass
             else:
                 try:
-                    socket.send_string("stop|" + pass_hash)
+                    socket.send_string("stop|" + str(lock_pass) + "|" + str(pass_hash))
                     ret = socket.recv_string()
+                    color_log = FgRed
+                    fg = "red"
+
+                    if ret.find("|fail_stop|robot_locked|") != -1:
+                        print(FgRed + "Fail stop! robot locked!")
+                        printt("Fail stop! robot locked! need wait", fg)
+                    if ret.find("|STOPED") != -1:
+                        print(color_log + "STOPED")
+                        printt("STOPED", fg)
+                        started_flag = 0
+
                 except:
                     pass
             # if started_flag == 1:
@@ -1084,10 +1179,61 @@ def robot_recive_work():
             # recive_flag = 0
             recive_flag = 1
             time.sleep(0.01)
+        if recive_flag == 2:
+            # print("lock robot recive_flag", recive_flag)
+            color_log = FgBlack
+            ret = ""
+
+            if flag_inet_work == True:
+                ret = ic.send_and_wait_answer(robot_adres_inet,
+                                              "lock|" + str(lock_pass) + "|" + str(lock_time) + "|" + pass_hash)
+                time.sleep(0.5)
+                # ic.send_and_wait_answer(robot_adres_inet, "stopvideo|" + pass_hash)
+                pass
+            else:
+                try:
+                    socket.send_string("lock|" + str(lock_pass) + "|" + str(lock_time) + "|" + pass_hash)
+                    ret = socket.recv_string()
+                except:
+                    pass
+            # time.sleep(0.01)
+            # print("answer lock", ret)
+            status_lock(ret)
+            recive_flag = 1
+
+        if recive_flag == 4:
+            # print("lock robot recive_flag", recive_flag)
+            color_log = FgBlack
+            ret = ""
+
+            if flag_inet_work == True:
+                ret = ic.send_and_wait_answer(robot_adres_inet,
+                                              "drop|" + str(lock_pass) + "|" + str(lock_time) + "|" + pass_hash)
+                time.sleep(0.5)
+                # ic.send_and_wait_answer(robot_adres_inet, "stopvideo|" + pass_hash)
+                pass
+            else:
+                try:
+                    socket.send_string("drop|" + str(lock_pass) + "|" + str(lock_time) + "|" + pass_hash)
+
+                    ret = socket.recv_string()
+                    print(FgRed + ret)
+                    fg = 'red'
+                    printt(ret, fg)
+
+                except:
+                    pass
+            # time.sleep(0.01)
+            # print("answer lock", ret)
+            # status_lock(ret)
+            recive_flag = 1
 
         if recive_flag == 3:
             count_stoped = 0
-            print("open ", selected_file_no_dir, selected_file)
+            # color_log = FgBlack
+            fg = "blue"
+
+            print(FgBlue + "open " + selected_file)
 
             with open(selected_file, 'rb') as myfile:
                 fdata = myfile.read()
@@ -1097,7 +1243,9 @@ def robot_recive_work():
             data_to_send = base64.b64encode(b).decode("utf-8")
             if flag_inet_work:
                 t1 = time.time()
-                ic.send_and_wait_answer(robot_adres_inet, "run|" + data_to_send)
+                ic.clear()
+                ic.send_and_wait_answer(robot_adres_inet,
+                                        "run|" + data_to_send + "|" + str(lock_pass) + "|" + pass_hash)
 
                 print("Sending file time:" + str(round(time.time() - t1, 3)) + " sec")
                 printt("Sending file time:" + str(round(time.time() - t1, 3)) + " sec")
@@ -1109,7 +1257,7 @@ def robot_recive_work():
                         # socket.send_string("start|" + selected_file_no_dir)
                         # res = socket.recv_string()
                         socket.connect("tcp://" + robot_adres + ":%s" % port)
-                        socket.send_string("run|" + str(data_to_send))
+                        socket.send_string("run|" + str(data_to_send) + "|" + str(lock_pass))
                         # t=time.time()
                         # otvet=""
                         # while 1:
@@ -1130,10 +1278,19 @@ def robot_recive_work():
                         #         break
 
                         otvet = socket.recv_string()
-                        if otvet=="":
+                        if otvet == "":
                             print(BgRed + "Fail send file to robot" + Reset)
                         else:
-                            print("save_and_start: " + BgBlue + otvet + Reset)
+                            if otvet.find("fail_run") != -1:
+                                print("answer from robot: " + FgRed + otvet + Reset)
+                                fg = 'red'
+                                printt("answer from robot: " + otvet.rstrip(), fg)
+
+                            else:
+                                print("answer from robot: " + BgGreen + otvet + Reset)
+                                fg = 'blue'
+                                printt("answer from robot: " + otvet.rstrip(), fg)
+
                     except:
 
                         print(FgRed + "Start fail... try again" + Reset)
@@ -1145,9 +1302,8 @@ def robot_recive_work():
                     message_s = ""
 
                     time.sleep(0.5)
-            recive_flag = 0
-
-            recive_flag = 0
+            started_flag = 1
+            recive_flag = 1
             flag_sended_file = True
 
         if recive_flag == 6:
@@ -1204,7 +1360,6 @@ def Raw(ev):
     #     Stop(ev)
     video_show2_global = 1
     video_show2 = 0
-
 
     selected_file_no_dir = "/raw.py"
     # dir = os.path.abspath(os.curdir).replace("starter", '')
@@ -1307,7 +1462,7 @@ def send_selected_file(show_text=False):
 
 def Start(ev):
     global root, robot_adres, video_show2, video_show2_global, started_flag, recive_flag, socket, flag_inet_work
-    global frame_udp, frame_udp_turbo,flag_start_script, frame, timer_wait_start
+    global frame_udp, frame_udp_turbo, flag_start_script, frame, timer_wait_start
     # video_show2 = 1
     t = time.time()
     if robot_adres == "-1":
@@ -1320,7 +1475,7 @@ def Start(ev):
         printt("select file", fg='red')
         return
 
-    flag_start_script=time.time()+timer_wait_start
+    flag_start_script = time.time() + timer_wait_start
 
     Stop(ev, False)
 
@@ -1342,8 +1497,8 @@ def Start(ev):
     #     flag_sended_file = True
     #     # udp_commanda.append(b"r" + base64.b64encode(b))
 
-    print(FgBlue + "starting..." + FgBlue + selected_file_no_dir)
-    printt("starting..." + selected_file_no_dir, fg='blue')
+    # print(FgBlue + "starting..." + FgBlue + selected_file_no_dir)
+    # printt("starting..." + selected_file_no_dir, fg='blue')
     # time.sleep(2.5)
 
     # if flag_udp_comand:
@@ -1366,7 +1521,6 @@ def Start(ev):
     recive_flag = 1
 
 
-
 def Stop(ev, send_stop=True):
     global root, video_show2, video_show2_global, started_flag, recive_flag, robot_adres, socket2, udp_commanda
     global timer_wait_start
@@ -1375,7 +1529,7 @@ def Stop(ev, send_stop=True):
         print(FgRed + "select robot")
         printt("select robot", fg="red")
         return
-    flag_start_script = time.time()+timer_wait_start
+    flag_start_script = time.time() + timer_wait_start
 
     # recive_flag = 0
 
@@ -1403,17 +1557,16 @@ def Stop(ev, send_stop=True):
         time.sleep(0.05)
 
     if send_stop:
-        if flag_udp_comand==False:
+        if flag_udp_comand == False:
             recive_flag = -1
             count = 0
             t = time.time()
-            while recive_flag != 0:
+            while recive_flag != 1:
                 if time.time() - t > 10:
                     print(BgRed + "break Stop" + Reset)
                     break
                 count += 1
                 time.sleep(0.05)
-
 
     # started_flag = 0
     time.sleep(0.1)
@@ -1511,7 +1664,7 @@ def OptionMenu_SelectionEvent(event):  # I'm not sure on the arguments here, it 
     ## do something
     global robot_adres, socket, recive_flag, flag_inet_work, robot_adres_inet, started_flag, pass_hash, server_address_udp, server_address_udp_turbo, server_address_udp_event
     global flag_udp_comand, server_address_udp_command
-    print(pass_hash)
+    # print(pass_hash)
     print(FgBlue, event)
 
     # if event == "none" or robot_adres != "-1":
@@ -1560,7 +1713,7 @@ def OptionMenu_SelectionEvent(event):  # I'm not sure on the arguments here, it 
         robot_adres = event[1]
         robot_adres_inet = event[0]
 
-        print(robot_adres)
+        # print(robot_adres)
         server_address_udp = (robot_adres, 5001)
         server_address_udp_turbo = (robot_adres, 5002)
         server_address_udp_event = (robot_adres, 5003)
@@ -1569,7 +1722,7 @@ def OptionMenu_SelectionEvent(event):  # I'm not sure on the arguments here, it 
         flag_udp_event = True
         flag_udp_show_window = True
 
-        print(server_address_udp)
+        # print(server_address_udp)
         # socket = context.socket(zmq.REP)
         # flag_udp_comand = False
 
@@ -1841,7 +1994,7 @@ def send_event():
 
     timer_send = time.time()
     while 1:
-        if time.time() - timer_send < 0.01:
+        if time.time() - timer_send < 0.005:
             time.sleep(0.001)
             continue
         timer_send = time.time()
@@ -1946,12 +2099,16 @@ def connect_keyboard(robot_adres):
 
 def keydown(e):
     global started_flag, recive_flag, key_pressed, fps_show, key_pressed_dataset, FRAME, resize_windows, flag_udp_show_window, flag_udp_turbo_show_window, flag_udp_event, server_address_udp_command
-    global flag_udp_comand, socket, robot_adres, port
+    global flag_udp_comand, socket, robot_adres, port, recive_flag
     key_pressed = e.keycode
     key_pressed_dataset = e.keycode
     if key_pressed == 113:
-        print("F2 make screen")
-        cv2.imwrite("screen.jpg", FRAME)
+        # print("F2 make screen")
+        # cv2.imwrite("screen.jpg", FRAME)
+        if fps_show == 1:
+            fps_show = 0
+        else:
+            fps_show = 1
     if key_pressed == 114:
         if resize_windows:
             resize_windows = False
@@ -1962,10 +2119,12 @@ def keydown(e):
         # cv2.imwrite("screen.jpg", FRAME)
 
     if key_pressed == 112:
-        if fps_show == 1:
-            fps_show = 0
-        else:
-            fps_show = 1
+        # print("lock robot")
+        recive_flag = 2
+    if key_pressed == 121:
+        # print("drop robot")
+        recive_flag = 4
+
     if key_pressed == 115:
         popup_bonus()
     if key_pressed == 116:
@@ -2028,7 +2187,6 @@ def keydown(e):
 
     # print(key_pressed)
 
-
 root = tk.Tk()
 root.title('RoboStarter')
 root.geometry('420x300+900+10')  # ширина=500, высота=400, x=300, y=200
@@ -2061,6 +2219,7 @@ videoBtn = tk.Button(panelFrame, text='Raw')
 videoBtn2 = tk.Button(panelFrame, text='Video')
 # testBtn = Button(panelFrame, text='test')
 
+
 loadBtn.bind("<Button-1>", LoadFile)
 # saveBtn.bind("<Button-1>", ScanRobots)
 startBtn.bind("<Button-1>", Start)
@@ -2076,101 +2235,64 @@ stopBtn.place(x=110, y=10, width=40, height=40)
 videoBtn.place(x=160, y=10, width=40, height=40)
 videoBtn2.place(x=210, y=10, width=40, height=40)
 
-# testBtn.place(x=10, y=60, width=40, height=40)
-# root.after(10, robot_recive_work)
-#
-list_combobox = []
 
-list_combobox_inet = []
-dropVar = tk.StringVar()
-dropVar.set("Connect to robot")
-dropVar_inet = tk.StringVar()
-dropVar_inet.set("Connect to robot")
-# list_combobox.append(["0", "192.168.88.14", "robot", "l"])
-# list_combobox.append(["0", "192.168.88.20", "robot", "l"])
-list_combobox.append(["1", "192.168.88.21", "robot", "l"])
-list_combobox.append(["2", "192.168.88.22", "robot", "l"])
-list_combobox.append(["3", "192.168.88.23", "robot", "l"])
-list_combobox.append(["4", "192.168.88.24", "robot", "l"])
-list_combobox.append(["5", "192.168.88.25", "robot", "l"])
-list_combobox.append(["6", "192.168.88.26", "robot", "l"])
-list_combobox.append(["7", "192.168.88.27", "robot", "l"])
-list_combobox.append(["8", "192.168.88.28", "robot", "l"])
-list_combobox.append(["8", "192.168.88.36", "robot", "l"])
-list_combobox.append(["9", "192.168.88.37", "robot", "l"])
-# list_combobox.append(["8", "192.168.88.35", "robot", "l"])
-# list_combobox.append(["8", "192.168.88.36", "robot", "l"])
-# list_combobox.append(["8", "192.168.88.151", "robot", "l"])
-list_combobox.append(["8", "192.168.4.1", "robot", "l",])
-
-list_combobox.append(["scan_inet", " "])
-list_combobox_inet.append(["scan_inet", " "])
-
-combobox = tk.OptionMenu(panelFrame, dropVar, *(list_combobox), command=OptionMenu_SelectionEvent)
-combobox.place(x=260, y=10, width=150, height=40)  # Позиционируем Combobox на форме
-
-
-# combobox_inet = OptionMenu(panelFrame, dropVar_inet, *(list_combobox_inet), command=OptionMenu_SelectionEvent_inet)
-# combobox_inet.place(x=260, y=60, width=150, height=40)  # Позиционируем Combobox на форме
-list_to_print=[]
 def ppp():
     global textbox, started_flag, root, list_to_print
     while 1:
-            time.sleep(0.1)
-            text=""
-            fg = 'black'
-            bg = 'white'
-            flag=False
-            for z in list_to_print:
-                text1, fg, bg = z
-                text+=text1+"\n"
-                list_to_print.remove(z)
-                flag=True
+        time.sleep(0.1)
+        text = ""
+        fg = 'black'
+        bg = 'white'
+        flag = False
+        for z in list_to_print:
+            text1, fg, bg = z
+            text += text1 + "\n"
+            list_to_print.remove(z)
+            flag = True
 
-            if flag:
+        if flag:
 
-                textbox.configure(state='normal')
+            textbox.configure(state='normal')
+            data = textbox.get('1.0', 'end-1c')
+
+            data = data.split('\n')
+
+            text_list = text.split("\n")
+
+            # print()
+            count = len(data)
+
+            if count > 100:
+                textbox.delete('1.0', '50.0')
                 data = textbox.get('1.0', 'end-1c')
 
                 data = data.split('\n')
 
                 text_list = text.split("\n")
 
-                # print()
-                count = len(data)
+            # print()
+            count = len(data)
 
-                if count > 100:
-                    textbox.delete('1.0', '50.0')
-                    data = textbox.get('1.0', 'end-1c')
-
-                    data = data.split('\n')
-
-                    text_list = text.split("\n")
-
-                # print()
-                count = len(data)
-
-                textbox.insert('end', str(text) )
-                textbox.see('end')  # Scroll if necessary
-                # print(str(count) + ".0", str(count) + ".20")
-                textbox.tag_add(str(count), str(count) + ".0", str(count) + str(len(text_list)) + ".200")
-                # textbox.tag_add("start", "1.8", "1.13")
-                # textbox.tag_config("here", background="yellow", foreground="blue")
-                textbox.tag_config(str(count), foreground=fg, background=bg)
-                #
-                if started_flag:
-                    textbox.configure(state='disabled')
+            textbox.insert('end', str(text))
+            textbox.see('end')  # Scroll if necessary
+            # print(str(count) + ".0", str(count) + ".20")
+            textbox.tag_add(str(count), str(count) + ".0", str(count) + str(len(text_list)) + ".200")
+            # textbox.tag_add("start", "1.8", "1.13")
+            # textbox.tag_config("here", background="yellow", foreground="blue")
+            textbox.tag_config(str(count), foreground=fg, background=bg)
+            #
+            if started_flag:
+                textbox.configure(state='disabled')
 
 
 my_thread_work_tkinter = threading.Thread(target=ppp)
 my_thread_work_tkinter.daemon = True
 my_thread_work_tkinter.start()
 
-
+list_to_print = []
 def printt(text, fg='black', bg='white'):
     global list_to_print
     list_to_print.append([text, fg, bg])
-
 
 
 # def kill_cv():
@@ -2225,9 +2347,52 @@ def popup_bonus():
     pwdbox.bind('<Return>', onokclick)
     # tk.Button(win, command=onokclick, text='OK').pack(side='top')
 
-def __exit__( exc_type, exc_val, exc_tb):
-    print("EXIT")
+
 # popup_bonus()
 
+def ask_quit():
+    global lock_pass, recive_flag
+    root.destroy()
+    cv2.destroyAllWindows()
+    if lock_pass is not None:
+        recive_flag = 4
+        t = time.time()
+        while recive_flag != 1:
+            if time.time() - t < 5:
+                break
+            time.sleep(0.01)
+    time.sleep(3)
 
+
+
+# testBtn.place(x=10, y=60, width=40, height=40)
+# root.after(10, robot_recive_work)
+#
+list_combobox = []
+
+list_combobox_inet = []
+dropVar = tk.StringVar()
+dropVar.set("Connect to robot")
+dropVar_inet = tk.StringVar()
+dropVar_inet.set("Connect to robot")
+
+list_combobox.append(["8", "192.168.10.1", "robot", "l"])
+list_combobox.append(["alex", "to2", "robot", "l"])
+list_combobox.append(["slava", "korshun4568", "robot", "l"])
+list_combobox.append(["local", "raspberrypi", "robot", "l"])
+list_combobox.append(["rover", "192.168.1.6", "robot", "l"])
+
+
+list_combobox.append(["scan_inet", " "])
+list_combobox_inet.append(["scan_inet", " "])
+
+combobox = tk.OptionMenu(panelFrame, dropVar, *(list_combobox), command=OptionMenu_SelectionEvent)
+combobox.place(x=260, y=10, width=150, height=40)  # Позиционируем Combobox на форме
+
+# combobox_inet = OptionMenu(panelFrame, dropVar_inet, *(list_combobox_inet), command=OptionMenu_SelectionEvent_inet)
+# combobox_inet.place(x=260, y=60, width=150, height=40)  # Позиционируем Combobox на форме
+
+
+
+root.protocol("WM_DELETE_WINDOW", ask_quit)
 root.mainloop()
