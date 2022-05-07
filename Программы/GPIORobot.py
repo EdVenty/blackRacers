@@ -380,7 +380,7 @@ class GPIORobotApi(rapi.RobotAPI):
         self._motor.tick()
 
     def serv(self, angle: int):
-        self._servo.write(constrain(angle, -25, 25) * (-1 if self.invert_servo else 1))
+        self._servo.write(constrain(angle, -45, 45) * (-1 if self.invert_servo else 1))
 
     def button(self):
         return self._button.read()

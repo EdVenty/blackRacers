@@ -1,19 +1,23 @@
-# 🥇 BlackRacers | WRO 2021 Future Engeneers Winner
+# BlackRacers | WRO 2022 Future Engineers
 
 Contacts:
-- Andrew Danilchenko - mail: <edventyh@gmail.com> discord: Edventy#6866
-- Matvey Korabeynikov - mail: <korrabeynikov@mail.ru>
+
+- Andrew Danilchenko - email: <edventyh@gmail.com> discord: Edventy#6866
+- Matvey Korabeynikov - email: <korrabeynikov@mail.ru>
 
 ----
-Special thanks to Yuri Glamazdin <yglamazdin@gmail.com>
+
 ## Repository Overview
+
 1. 3D models: they are located in the folder "3D модели”
-	- `Servo_1`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-	- `place`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-	- `camera`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-	- `korpus`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+
+- `Servo_1`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+- `place`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+- `camera`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+- `korpus`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+
 2. Team photos: are located in the “Фото команды” folder
-	- Photo (`` Our photo.jpg `` )- the official photo of the team, and ( ``our funny photo.jpg `` ) - funny
+	- Photo (``Our photo.jpg``)- the official photo of the team, and (``our funny photo.jpg``) - funny
 3. Robot documentation is located in the "Другое":
 	- `documentation.md` - description of the process of preparing the robot for races
 5. The robot's photos are located in the folder "photo”
@@ -22,52 +26,47 @@ Special thanks to Yuri Glamazdin <yglamazdin@gmail.com>
 	- The electrical diagram is presented in the file: ``Schematic_BlackRacer.pdf``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer.json``
 	- Kinetic diagram compiled using industry standards, file:``kinematic_scheme.jpg``
 7. Control software: located in the folder "Программы":
-	- `wroracer.py` -a program that runs on the robot and controls its actions
-	- ` RoboAPI.py` - module of communication with the robot
-	- ` InetConnection.py`-server creation file on Raspberry Pi
-	- ` start_robot.py` - program for convenient loading of code and viewing data from the robot
-	- `` main.py`` - Pyboard program, responsible for the operation of the main program
-	- `` module.py`` - Pyboard program responsible for motion functions
-	- ` boot.py` - program called at PyBoard start
-	- ` demon_bootloader.py` - launches the file `demon_starter.py`
-	- ` demon_starter.py` - starts the server on Raspberry Pi 4B
-	-  ` my_main_roboracer.py` - file that is part of the program on the PyBoard
-	-  `rgb.py` - a file responsible for automatically storing color data of important areas of the image
-	
----
 
-## Url the address of the YouTube video
-https://youtu.be/Zgsqh7BnnPI
+- `RoboAPI.py` - module of communication with the robot.
+- `InetConnection.py`- server creation file on Raspberry Pi.
+- `start_robot.py` - program for convenient loading of code and viewing data from the robot.
+- `demon_bootloader.py` - launches the file `demon_starter.py`.
+- `demon_starter.py` - starts the server on Raspberry Pi 4B.
+- `GPIORobot.py` - library for controlling raspberry pi gpio pins.
+- `storage.py` - library for storing values in permanent memory.
+- `regulators.py` - library with PID regulator.
 
----
+----
+
+## Url the YouTube video
+
+[Our video on YouTube](https://youtu.be/Zgsqh7BnnPI)
+
+----
+
 # Introduction
-Programs: `wroracer.py`, ` InetConnection.py`, ` demon_starter.py` and ` demon_bootloader.py`, loaded on Raspberry pi 4B. They read the picture from the camera, process it and send commands to move to Pyboard. Here is an example of a data packet being sent:
 
+Programs: `final.py` or `qualification.py`, `demon_starter.py` and `demon_bootloader.py`, loaded on Raspberry pi 4B. They read the picture from the camera, process it and controls electric components.
 
-	
-The first value is the speed, and the second is the steering angle.
+Programs `start_robot.py` and `InetConnection.py` are running on the computer to communicate with the robot.
 
-Programs: ` main.py`, ` module.py`, ` boot.py`, ` my_main_roboracer.py` and `rgb.py`, located on the Pyboard, controls the rear-wheel drive motor, steering motor, program start button and buzzer. Pyboard receives activity data from Raspberry Pi via UART protocol.
-
-Programs: `RoboAPI.py` and` start_robot.py`, run on the computer and serve to communicate with the robot.
-
-# Program arrangement:
+# Program arrangement
 
 The code consists of several blocks. Separate sections of the program perform different actions: looking for the starting line, adjusting and controlling the movement of the robot, finding the finish line, bypassing and protecting against collisions with banks, protecting against crashing into the sides of the field.
 
 ## Sound indication of start
 
-When starting up, the robot emits a long beep. This means that the robot has turned on, but the program has not yet loaded. After that, the program itself starts to run. After its launch, two short sound singals are released. The robot is then ready to drive. To start performing tasks and passing the route, you must press the button after the above-mentioned sound signals.
+When starting up, the robot emits a long beep. This means that the robot has turned on, but the program has not yet loaded. After that, the program itself starts to run. After its launch, two short sound signals are released. The robot is then ready to drive. To start performing tasks and passing the route, you must press the button after the above-mentioned sound signals.
 
-## The first leg is the start.
+## The first leg is the start
 
 The start consists of pressing the button on which the robot starts moving and driving to the turn line. If the line turns out to be blue, then the robot will move clockwise. Otherwise - counterclockwise.
 
-## The second section of the program is the main pass and avoidance of obstacles in the final heats.
+## The second section of the program is the main pass and avoidance of obstacles in the final heats
 
 To maintain the position relative to the rim, the position of the extremely 1 black point on the frame along the Y axis is used. Further, using the proportional-integral-differential controller, the robot aligns the positions relative to the rim. The position of the extreme point in the frame is determined depending on the direction the robot is going. To go around objects, it is used to find them in the HSV color range. When an object is found, the robot drives back and turns away from the obstacle.
 
-## The third section is finding the finish line and stopping.
+## The third section is finding the finish line and stopping
 
 After passing a certain number of turns, the robot realizes that it has driven three laps and stops at the start zone.
 
@@ -85,9 +84,10 @@ Time - a library that allows you to find out the system time. Used in the robot 
 RobotAPI - a self-written library of the Center for the Development of Robotics for connecting and communicating with a robot, as well as executing programs.
 JSON - processing data in JSON format. Used to store and quickly access the parameters of the HSV color range stored in the robot's memory.
 
----
+----
 
 ## Software Setup
+
 To configure the use of the BR-2G robot, you will need to install the following software:
 1. All subsequent programs have been tested and configured for the Windows 10 operating system, and the manual also describes the installation for this system. If you have another system installed, please use the Google search engine or its analogues to search for the installation of programs yourself. If you do not have a graphical system shell (command line), then the installation of client programs may differ significantly from the manual. We strongly recommend using the latest builds of systems not lower than Windows 10, otherwise, you will be responsible for the incorrect installation or malfunction of the robot components.
 

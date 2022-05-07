@@ -6,26 +6,27 @@ import cv2
 import numpy as np
 import regulators
 
-import RobotAPI as rapi
+from GPIORobot import COUNTERCLOCKWISE, GPIORobotApi
+from storage import Storage
 
 # ======================= Константы =========================
 GK = 10 # кривизна колес :)
 time_go_banka = 800 # Устанавливаем время объезда банки
 time_ditch_banka = 10
-global_speed = 90 # Устанавливаем скорость робота 130
-low_speed = 90
-before_line_speed = 50
-povorot_speed = 90
-minspeed = 90
+global_speed = 70 # Устанавливаем скорость робота 130
+low_speed = 70
+before_line_speed = 70
+povorot_speed = 70
+minspeed = 70
 pause_finish = 1 # Устанавливаем пауза перед остановкой на финише 1.25
-porog_black_line_minus = 85 # Устанавливаем порог чёрной линии по часовой стрелке 305
+porog_black_line_minus = 130 # Устанавливаем порог чёрной линии по часовой стрелке 305
 # porog_black_line_plus = 55 # Устанавливаем порог чёрной линии против часовой стрелке
 delta_green_plus = 15 # Устанавливаем угол объезда зелёной банки по часовой стрелке
 delta_red_plus = -15 # Устанавливаем угол объезда красной банки по часовой стрелке
 delta_green_minus = 10 # Устанавливаем угол объезда зелёной банки против часовой стрелке
 delta_red_minus = -10 # Устанавливаем угол объезда красной банки против часовой стрелке
 time_go_back_banka = 600 # Устанавливаем время отъезда от банки
-pause_povorot = 0.4 # Устанавливаем максимальную задуржку на повороте
+pause_povorot = 1 # Устанавливаем максимальную задуржку на повороте
 go_back_banka_area = 12000 # Устанавливаем площадь банки, при которой робот отъезжает
 slow_banka_area = 6000
 ditch_banka_area = 500 # Устанавливаем площадь банки, при которой робот обруливает
@@ -41,6 +42,7 @@ max_lines = 12
 povorot_delay = 1
 speed_type = 'global'
 
+last_control_event_time = 0
 next_line_need = False
 manual_angle = 0 # Устанавливаем угол ручного управления (1- по часовой, -1 против часовой стрелки)
 manual_throttle = 0 # Устанавливаем дроссель ручного управления (1- по часовой, -1 против часовой стрелки)
@@ -53,43 +55,36 @@ last_max_y = None
 little_straight_time = 0
 fragments = [False, False, False, False]
 last_banka_delta = 0
-after_banka_delay = 0.5
+after_banka_delay = 0.6
 after_banka_timer = None
 tick_timer = 0
 tick_old = 0
+last_banka_type = 'none'
 
-# PIN_GREEN = 36
-# PIN_RED =38
-# PIN_BLUE = 40
-# DUTY = 100
-# FREQ = 100
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(PIN_GREEN, GPIO.OUT)
-# GPIO.setup(PIN_RED, GPIO.OUT)
-# GPIO.setup(PIN_BLUE, GPIO.OUT)
+class RobotStorage(Storage):
+    speed: int = 30
 
-# pwmGreen = GPIO.PWM(PIN_GREEN, FREQ)
-# pwmRed = GPIO.PWM(PIN_RED, FREQ)
-# pwmBlue = GPIO.PWM(PIN_BLUE, FREQ)
-# pwmGreen.start(DUTY)
-# pwmRed.start(DUTY)
-# pwmBlue.start(DUTY)
+storage = RobotStorage("config.json")
+try:
+    storage.load()
+except FileNotFoundError:
+    pass # Leave default values
 
-flag_qualification = True # Если необходимо проехать квалификацию
+flag_qualification = False # Если необходимо проехать квалификацию
 if flag_qualification:  
     povorot_delay = 1
-    low_speed = 80
-    before_line_speed = 80
-    global_speed = 80 # Добавляем скорости на квалификации 240 в оражневую, 220 в синею
-    povorot_speed = 80 # Скорость поворота в квалификации 180
-    minspeed = 80
+    low_speed = 40
+    before_line_speed = 40
+    global_speed = 40 # Добавляем скорости на квалификации 240 в оражневую, 220 в синею
+    povorot_speed = 40 # Скорость поворота в квалификации 180
+    minspeed = 40
     pause_finish = 1.2
     pause_povorot = 0.4
     max_lines = 11
     # pause_finish = 0.6 # Устанавливаем задержку финиша на квалификации
     # pause_povorot = 0.7 # Устанавливаем максимальную задуржку на повороте на квалификации 0.45
     porog_black_line_minus = 80
-speed_manual = 85
+speed_manual = 255
 # =================== Программные переменные ==================
 state = "Manual move" # Устанавливаем текущую стадию на Ручное управление
 count_lines_proverka = 0 # Устанавливаем счётчик линий на 0
@@ -105,8 +100,12 @@ ff = False
 banka_timer = 0
 left_pix = 0
 
-robot = rapi.RobotAPI(flag_pyboard=True) # инициализация робота
-robot.set_camera(40, 640, 480, 0, -100) # установка разрешения камеры
+class RobotAdapter(GPIORobotApi):
+    def move(self, thrust: int, *args, **kwargs):
+        return super().move(abs(thrust), thrust >= 0)
+
+robot = RobotAdapter(acceleration_enabled=False, invert_servo=False)
+robot.set_camera(90, 640, 480, 0) # установка разрешения камеры
 
 # def set_color(r, g, b):
 #     pwmRed.ChangeSutyCycle(100 - r)
@@ -268,18 +267,18 @@ timer_state = 0 # Создаём таймер поворота
 #     cv2.drawContours(frame_show, thrsh, -1, (255, 0, 0))
 
 def Find_stop(frame, frame_show, direction, flag_draw=True, mode=0):
-    x1, y1 = 280-10, 280
-    x2, y2 = 300-10, 350
+    x1, y1 = 280-30, 340
+    x2, y2 = 300-30, 480
 
-    x1_1, y1_1 = 340+10, 280
-    x2_1, y2_1 = 360+10, 350
+    x1_1, y1_1 = 340+30, 340
+    x2_1, y2_1 = 360+30, 480
 
     if mode == 1:
-        x1, y1 = 280-20, 280
-        x2, y2 = 300-20, 350
+        x1, y1 = 280-50, 340
+        x2, y2 = 300-50, 480
 
-        x1_1, y1_1 = 340+20, 280
-        x2_1, y2_1 = 360+20, 350
+        x1_1, y1_1 = 340+50, 340
+        x2_1, y2_1 = 360+50, 480
 
     if direction == 1:
         frame_crop = frame[y1:y2, x1:x2]
@@ -375,30 +374,34 @@ def Find_black_line(frame, frame_show, direction, flag_draw=True):
 
 def Find_start_line(frame, frame_show, color, flag_draw=True, p=False):
     global timer_povorot_delay, povorot_delay
-    x1, y1 = 320 -40, 380
-    x2, y2 = 320 + 40, 480
-    # вырезаем часть изображение
-    frame_crop = frame[y1:y2, x1:x2]
+    x1, y1 = 320 -20, 460
+    x2, y2 = 320 + 20, 480
+
+    xc1, yc1 = 320 -20, 460 - 60
+    xc2, yc2 = 320 + 20, 480 - 60
+
+    # check -----------------------
+    frame_crop = frame[yc1:yc2, xc1:xc2]
     frame_crop_show = frame_show[y1:y2, x1:x2]
-    # cv2.imshow("frame_crop", frame_crop)
-    # рисуем прямоугольник на изображении
     cv2.rectangle(frame_show, (x1, y1), (x2, y2), (0, 255, 0), 2)
-    # переводим изображение с камеры в формат HSV
-    # hsv = cv2.cvtColor(frame_crop, cv2.COLOR_BGR2HSV)
-    # фильтруем по заданным параметрам
-    # mask = cv2.inRange(hsv, hsv_low, hsv_high)
     black = hsv_work.make_mask(frame_crop, "black")
     mask = hsv_work.make_mask(frame_crop, color) - black
-    # выводим маску для проверки
-    # cv2.imshow("mask", mask)
-    # на отфильтрованной маске выделяем контуры
-    _, contours, hierarchy = cv2.findContours(
+    _, contours, _ = cv2.findContours(
         mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-    # перебираем все найденные контуры
     for contour in contours:
-        # Создаем прямоугольник вокруг контура
-        x, y, w, h = cv2.boundingRect(contour)
-        # вычисляем площадь найденного контура
+        area = cv2.contourArea(contour)
+        if area > 200:
+            return False
+    # end check -------------------
+
+    frame_crop = frame[y1:y2, x1:x2]
+    frame_crop_show = frame_show[y1:y2, x1:x2]
+    cv2.rectangle(frame_show, (x1, y1), (x2, y2), (0, 255, 0), 2)
+    black = hsv_work.make_mask(frame_crop, "black")
+    mask = hsv_work.make_mask(frame_crop, color) - black
+    _, contours, _ = cv2.findContours(
+        mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    for contour in contours:
         area = cv2.contourArea(contour)
         if area > 200:
             if flag_draw:
@@ -411,11 +414,11 @@ def Find_start_line(frame, frame_show, color, flag_draw=True, p=False):
 
 def Find_box(frame, frame_show, color, mode=0, flag_draw=True):
     """mode - qualification"""
-    x1, y1 = 0, 280  # Xanne
+    x1, y1 = 0, 283  # Xanne
     # x1, y1 = 0, 100   #Lime
     x2, y2 = 640, 430
     if mode == 1:
-        x1, y1 = 0, 280
+        x1, y1 = 0, 283
         x2, y2 = 640, 430
     # вырезаем часть изображение
     # frame_crop = cv2.GaussianBlur(frame[y1:y2, x1:x2], (5, 5), 10)
@@ -605,12 +608,12 @@ orange_reached = False
 # button_work = False
 
 reg_move = regulators.Regulators(0, 0, 0, Ki_border=5)
-reg_move.set(1, 0, 0.1)
+reg_move.set(0.3, 0.00, 0.01)
 if flag_qualification:
     reg_move.set(0.3, 0.000, 0.04)
 
 def calc_banka(frame, frame_show):
-    global direction
+    global direction, last_banka_type
     delta_banka = 0
     near_banka = False
     if direction == 0:
@@ -622,7 +625,7 @@ def calc_banka(frame, frame_show):
                     near_banka = True
                 delta_green_plus = 0
                 # if x_green_banka < 550:
-                delta_green_plus = (640 - x_green_banka)/15
+                delta_green_plus = (640 - x_green_banka)/20
                 if y_green_banka >= 140:
                     delta_green_plus *= 2
                 delta_banka = delta_green_plus
@@ -634,15 +637,24 @@ def calc_banka(frame, frame_show):
                 # if x_red_banka > 90:
                 delta_red_plus = x_red_banka/2
                 if y_red_banka >= 140:
-                    delta_red_plus *= 10
+                    delta_red_plus *= 2
                 delta_banka = delta_red_plus
                 delta_banka = -delta_banka
 
             if area_green_banka is not None and area_red_banka is not None:
                 if area_red_banka > area_green_banka:
+                    robot.light(255, 0, 0)
+                    last_banka_type = 'red'
                     delta_banka = delta_red_plus
                 else:
+                    robot.light(0, 255, 0)
+                    last_banka_type = 'green'
                     delta_banka = delta_green_plus
+            elif area_green_banka is not None:
+                robot.light(0, 255, 0)
+            elif area_red_banka is not None:
+                robot.light(255, 0, 0)
+            
     elif direction == 1:
         if not flag_qualification:
             x_green_banka, y_green_banka, area_green_banka, d = Find_box(frame, frame_show, "green")
@@ -652,7 +664,7 @@ def calc_banka(frame, frame_show):
                     near_banka = True
                 delta_green_plus = 0
                 # if x_green_banka < 550:
-                delta_green_plus = (640 - x_green_banka)/15
+                delta_green_plus = (640 - x_green_banka)/20
                 if y_green_banka >= 140:
                     delta_green_plus *= 2
                 delta_banka = delta_green_plus
@@ -662,9 +674,9 @@ def calc_banka(frame, frame_show):
                     near_banka = True
                 delta_red_plus = 0
                 # if x_red_banka > 90:
-                delta_red_plus = x_red_banka/16
+                delta_red_plus = x_red_banka/20
                 if y_red_banka >= 140:
-                    delta_red_plus *= 2
+                    delta_red_plus *= 1.5
                 delta_banka = delta_red_plus
                 delta_banka = -delta_banka
 
@@ -682,9 +694,10 @@ def calc_banka(frame, frame_show):
                     near_banka = True
                 delta_green_plus = 0
                 # if x_green_banka < 550:
-                delta_green_plus = (640 - x_green_banka)/10
+                delta_green_plus = (630 - x_green_banka)/20
                 if y_green_banka >= 140:
                     delta_green_plus *= 2
+                # delta_green_plus *= y_green_banka / 45
                 delta_banka = delta_green_plus
 
             x_red_banka, y_red_banka, area_red_banka, d = Find_box(frame, frame_show, "red_up")
@@ -693,17 +706,31 @@ def calc_banka(frame, frame_show):
                     near_banka = True
                 delta_red_plus = 0
                 # if x_red_banka > 90:
-                delta_red_plus = x_red_banka/8
+                delta_red_plus = (x_red_banka -  5)/20
                 if y_red_banka >= 140:
-                    delta_red_plus *= 2.5
+                    delta_red_plus *= 2
+                
+                # delta_red_plus *= y_red_banka / 60
                 delta_banka = delta_red_plus
                 delta_banka = -delta_banka
 
             if area_green_banka is not None and area_red_banka is not None:
                 if area_red_banka > area_green_banka:
+                    robot.light(255, 0, 0)
+                    last_banka_type = 'red'
                     delta_banka = delta_red_plus
                 else:
+                    robot.light(0, 255, 0)
+                    last_banka_type = 'green'
                     delta_banka = delta_green_plus
+            elif area_green_banka is not None:
+                robot.light(0, 255, 0)
+                last_banka_type = 'green'
+            elif area_red_banka is not None:
+                robot.light(255, 0, 0)
+                last_banka_type = 'red'
+            else:
+                robot.light(0, 0, 0)
     return delta_banka, near_banka
 
 while True:
@@ -723,7 +750,6 @@ while True:
         #     state = "Manual move"
 
     frame = robot.get_frame(wait_new_frame=True)
-    frame = cv2.flip(frame, -1)
     frame_show = frame.copy()
 
     k = robot.get_key()
@@ -755,6 +781,8 @@ while True:
     if state == "Manual move":
         # ручное управление
         # print(k)
+        if time.time() - last_control_event_time > 0.2:
+            robot.move(0)
         if k == 37:
             manual_serv = 45
             robot.serv(GK+manual_serv)
@@ -766,8 +794,10 @@ while True:
             robot.serv(GK+manual_serv)
         if k == 38:
             robot.move(speed_manual, 0, 100, wait=False)
+            last_control_event_time = time.time()
         if k == 40:
             robot.move(-speed_manual, 0, 100, wait=False)
+            last_control_event_time = time.time()
         if k == 66:
             robot.beep()
             print('b')
@@ -825,44 +855,17 @@ while True:
         delta_banka, near_banka = calc_banka(frame, frame_show)
         k = 2
         if flag_qualification:
-            # if delta_banka != 0:
-            #     robot.serv(GK+delta_banka + k)
-            # else:
             p = reg_move.apply(max_y2, max_y)
             robot.serv(GK+p)
         else:
-            robot.serv(GK+0)
+            if delta_banka != 0:
+                robot.serv(GK+delta_banka + k)
+            else:
+                robot.serv(GK+0)
         robot.move(before_line_speed, 0, 100, wait=False)
-
-        # if kusok_koda_timer is not None and time.time() > kusok_koda_timer:
-        #     kusok_koda_timer = None
-        #     kusok_koda_timer2 = time.time() + 0.7
-
-        # if kusok_koda_timer2 is not None:
-        #     if time.time() > kusok_koda_timer2:
-        #         kusok_koda_timer2 = None
-        #     else:
-        #         robot.serv(GK+kusok_koda_right)
-        # else:
-        #     robot.serv(GK+0)
 
         is_orange = Find_start_line(frame, frame_show, "orange")
         is_blue = Find_start_line(frame, frame_show, "blue")
-        # ----------------- delete -------------------- #
-        # if not flag_qualification and kusok_koda_timer is None:
-        #     cord_red_banka, area_red_banka = Find_box(frame, frame_show, "red_up")
-        #     if area_red_banka is not None:
-        #         if area_red_banka > 7500 and cord_red_banka < SCREEN_WIDTH / 2: # 9500
-        #             # robot.serv(GK+60)
-        #             kusok_koda_right = 30
-        #             kusok_koda_timer = time.time() + 0.2 #0.2
-        # if not flag_qualification and kusok_koda_timer is None:
-        #     cord_green_banka, area_green_banka = Find_box(frame, frame_show, "green")
-        #     if area_green_banka is not None:
-        #         if area_green_banka > 2500 and cord_green_banka > SCREEN_WIDTH / 2:# 9500
-        #             # robot.serv(GK+60)
-        #             kusok_koda_right = -30
-        #             kusok_koda_timer = time.time() + 0.5 #0.2
 
         if is_orange:
             direction = 1
@@ -873,7 +876,6 @@ while True:
             direction = -1
             porog_black_line_minus += 10
             state = "Left"
-            # frame1 = frame
             print("End state Move to line, go ", state)
         put_telemetry(frame_show)
     elif state == "Left":
@@ -906,7 +908,7 @@ while True:
             if flag_qualification:
                 robot.serv(GK+15)
             else:
-                robot.serv(GK+30)
+                robot.serv(GK+50)
         else:
             next_line_need = True
             state = "Main move"
@@ -1013,7 +1015,7 @@ while True:
                 timer_finish = time.time() + pause_finish
             if count_lines > max_lines:
                 robot.serv(GK+0)
-                robot.move(-200, 0, 1000, wait=True)
+                robot.move(0, 0, 1000, wait=True)
                 # robot.serv(GK+0)
                 # # robot.move(-255, 0, 500, wait=True)
                 exit(0)
@@ -1024,22 +1026,21 @@ while True:
                     robot.beep()
                     robot.beep()
                     state = "Finish"
+                    robot.move(0, 0, 1000, wait=True)
 
         delta_banka = 0
         delta_speed = 0
         peed = global_speed
         near_banka = False
         delta_banka, near_banka = calc_banka(frame, frame_show)
-        # max_y = Find_black_line(frame, frame_show, direction)
         if flag_qualification:
             max_y2 = Find_black_line(frame, frame_show, -direction)
-            # if max_y2 == 0:
-            #     max_y2, max_y = max_y, max_y2
             max_y = Find_black_line(frame, frame_show, direction)
         else:
             max_y2 = porog_black_line_minus
             max_y = Find_black_line(frame, frame_show, direction)
             
+        ff = False
         if flag_qualification:
             ff = False
         else:
@@ -1060,15 +1061,6 @@ while True:
             speed_type = 'stop'
         else:
             speed_type = 'low'
-        
-        # if next_line_need:
-        #     if direction == -1:
-        #         is_orange = Find_start_line(frame, frame_show, "orange")
-        #         if is_orange:
-        #             count_lines+= 1
-        #             count_lines_proverka+= 1
-        #             print("+1")
-        #             next_line_need = False
 
         if direction == 1:
             if time.time() - timer_povorot_delay > povorot_delay:
@@ -1079,6 +1071,7 @@ while True:
                     count_lines_proverka+= 1
                     print("RIGHT")
                     state = "Right"
+                    robot.beep()
                     
                     # little_straight_time = time.time() + p*-0.5
                     # print(count_lines, p*-10)
@@ -1091,6 +1084,7 @@ while True:
                     count_lines_proverka+= 1
                     state = "Left"
                     print("LEFT")
+                    robot.beep()
 
         if delta_banka != 0 and not flag_qualification:
             last_banka_delta = delta_banka
@@ -1223,3 +1217,5 @@ while True:
         if m != -1:
             print(name_color, low_set, up_set)
             print(m)
+
+    robot.tick()
