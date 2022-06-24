@@ -1,1 +1,0 @@
-Vehicle's photos
