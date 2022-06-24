@@ -1,4 +1,4 @@
-# 🥇 BlackRacers | WRO 2021 Future Engineers Winner| WRO 2022 Future Engineers
+# 🥇 2021 Winner | BlackRacers WRO 2022 Future Engineers
 
 Contacts:
 
