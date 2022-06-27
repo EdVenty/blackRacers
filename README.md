@@ -17,7 +17,7 @@ Contacts:
 - `korpus`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 
 2. Team photos: are located in the “Фото команды” folder
-	- Photo (``Our photo.jpg``)- the official photo of the team, and (``our funny photo.jpg``) - funny
+	- Photo (``Our photo.jpg``)- the official photo of the team, and (``Funny photo.jpg``) - funny
 3. Robot documentation is located in the "Другое":
 	- `documentation.md` - description of the process of preparing the robot for races
 5. The robot's photos are located in the folder "photo”
