@@ -11,9 +11,9 @@ Contacts:
 
 1. 3D models: they are located in the folder "3D модели”
 
-- `Servo_1`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-- `place`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
-- `camera`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+- `taga1`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+- `taga2`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
+- `disk`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 - `korpus`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 
 2. Team photos: are located in the “Фото команды” folder
