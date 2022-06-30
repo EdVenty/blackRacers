@@ -1,5 +1,6 @@
 import abc
 import subprocess
+from typing import List, Type
 
 import cv2
 from numpy import invert
@@ -7,6 +8,8 @@ from numpy import invert
 import pigpio
 import time
 import RobotAPI as rapi
+import board
+import neopixel
 
 GPIO_PWM_SERVO = 13
 GPIO_PWM_MOTOR = 12
@@ -30,6 +33,125 @@ def arduino_map(x, in_min, in_max, out_min, out_max):
 def constrain(x, out_min, out_max):
     return out_min if x < out_min else out_max if x > out_max else x
 
+
+def hsv_to_rgb(h, s, v):
+    if s == 0.0: v*=255; return (v, v, v)
+    i = int(h*6.) # XXX assume int() truncates!
+    f = (h*6.)-i; p,q,t = int(255*(v*(1.-s))), int(255*(v*(1.-s*f))), int(255*(v*(1.-s*(1.-f)))); v*=255; i%=6
+    if i == 0: return (v, t, p)
+    if i == 1: return (q, v, p)
+    if i == 2: return (p, v, t)
+    if i == 3: return (p, q, v)
+    if i == 4: return (t, p, v)
+    if i == 5: return (v, p, q)
+
+
+class AbstractTimeWaiter(abc.ABC):
+    @abc.abstractmethod
+    def tick(self):
+        """Abstract tick. Refreshes some states, calls methods, etc. Calls every loop iteration.
+        """
+    
+    @abc.abstractmethod
+    def start(self, time_: int):
+        """Start waiter with specified time.
+        Args:
+            time_ (int): Specified time.
+        """
+
+    @abc.abstractmethod
+    def stop(self):
+        """Stop waiter. Resets time.
+        """
+
+class Timer(AbstractTimeWaiter):
+    def __init__(self) -> None:
+        self._time_set = 0
+        self._exceed_in = 0
+        self._callbacks = []
+        self.working = False
+
+    def callback(self, func):
+        """Decorator to register a new callback which will be called when time will exceed.
+        Args:
+            func (Function): Callback function.
+        Returns:
+            __wrapper__ (this is decorator, so it must to return wrapper. Don't interact with it in your code.)
+        """
+        if func not in self._callbacks:
+            self._callbacks.append(func)
+        def __wrapper__(*args, **kwargs):
+            func(args, kwargs)
+        return __wrapper__
+
+    def start(self, time_: int):
+        """Start timer for a specified time.
+        Args:
+            time_ (int): Time for waiting.
+        """
+        self._time_set = time_
+        self._exceed_in = time.time() + time_
+        self.working = True
+
+    def stop(self):
+        """Stop timer. Resets time waiting.
+        """
+        self._time_set = 0
+        self._exceed_in = 0
+        self.working = False
+
+    def tick(self):
+        """Check for the time exceeding and call callback if needed. Must be called in all iterations of loop. Perfer to put timer to a robot with Robot.add_waiter().
+        """
+        if self.working and time.time() > self._exceed_in:
+            self.working = False
+            for c in self._callbacks:
+                c()
+
+class Interval(AbstractTimeWaiter):
+    def __init__(self) -> None:
+        self._time_set = 0
+        self._exceed_in = 0
+        self._callbacks = []
+        self.working = False
+
+    def callback(self, func):
+        """Decorator to register a new callback which will be called when time will exceed.
+        Args:
+            func (Function): Callback function.
+        Returns:
+            __wrapper__ (this is decorator, so it must to return wrapper. Don't interact with it in your code.)
+        """
+        if func not in self._callbacks:
+            self._callbacks.append(func)
+        def __wrapper__(*args, **kwargs):
+            func(args, kwargs)
+        return __wrapper__
+
+    def start(self, time_: int):
+        """Start timeout for a specified time.
+        Args:
+            time_ (int): Time for waiting.
+        """
+        self._time_set = time_
+        self._exceed_in = time.time() + time_
+        self.working = True
+
+    def stop(self):
+        """Stop timeout. Resets time waiting.
+        """
+        self._time_set = 0
+        self._exceed_in = 0
+        self.working = False
+
+    def tick(self):
+        """Check for the time exceeding and call callback if needed, then refreshes time. Must be called in all iterations of loop. Perfer to put timer to a robot with Robot.add_waiter().
+        """
+        if self.working and time.time() > self._exceed_in:
+            start_call_time = time.time()
+            for c in self._callbacks:
+                c()
+            self._exceed_in = self._time_set - (time.time() - start_call_time)
 
 class AbstractComponent(abc.ABC):
     @abc.abstractmethod
@@ -318,7 +440,7 @@ class RobotMotor:
 
 
 class GPIORobotApi(rapi.RobotAPI):
-    def __init__(self, motor_pwm_pin=12, motor_cw_pin=27, motor_ccw_pin=17, servo_pin=13, button_pin=22, buzzer_pin=18, led_pin_red=2, led_pin_green=3, led_pin_blue=4, invert_led=True, invert_button=True, flag_video=True, flag_keyboard=True, flag_pyboard=False, udp_stream=True, udp_turbo_stream=True, udp_event=True, acceleration_enabled = True, invert_servo = False):
+    def __init__(self, motor_pwm_pin=12, motor_cw_pin=27, motor_ccw_pin=17, servo_pin=13, button_pin=22, buzzer_pin=22, led_pin_red=2, led_pin_green=3, led_pin_blue=4, invert_led=True, invert_button=True, flag_video=True, flag_keyboard=True, flag_pyboard=False, udp_stream=True, udp_turbo_stream=True, udp_event=True, acceleration_enabled = True, invert_servo = False):
         super().__init__(flag_video, flag_keyboard, False,
                          flag_pyboard, udp_stream, udp_turbo_stream, udp_event)
         self._servo = Servo(servo_pin)
@@ -327,6 +449,7 @@ class GPIORobotApi(rapi.RobotAPI):
         self._buzzer = Buzzer(buzzer_pin)
         self._led = RGBLed(led_pin_red, led_pin_green,
                            led_pin_blue, invert=invert_led)
+        self.pixels = neopixel.NeoPixel(board.D18, 3)
         self._board = BoardComponent()
 
         if not acceleration_enabled:
@@ -344,6 +467,7 @@ class GPIORobotApi(rapi.RobotAPI):
         self.fps = -1
 
         self.invert_servo = invert_servo
+        self.waiters: List[Type[AbstractTimeWaiter]] = []
 
     def __del__(self):
         self.stop()
@@ -378,9 +502,11 @@ class GPIORobotApi(rapi.RobotAPI):
             self._fps_counter = 0
             self._fps_timer = time.time()
         self._motor.tick()
+        for timer in self.waiters:
+            timer.tick()
 
     def serv(self, angle: int):
-        self._servo.write(constrain(angle, -45, 45) * (-1 if self.invert_servo else 1))
+        self._servo.write(constrain(angle, -80, 50) * (-1 if self.invert_servo else 1))
 
     def button(self):
         return self._button.read()
@@ -418,6 +544,20 @@ class GPIORobotApi(rapi.RobotAPI):
 
     def read_voltage_sdram_c(self):
         return self._board.read_voltage_sdram_c()
+
+    def add_waiter(self, waiter: Type[AbstractTimeWaiter]):
+        """Add waiter.
+        Args:
+            waiter (Type[AbstractTimeWaiter]): Any object of type implements AbstractTimeWaiter interface.
+        """
+        self.waiters.append(waiter)
+
+    def remove_waiter(self, waiter: Type[AbstractTimeWaiter]):
+        """Remove waiter.
+        Args:
+            waiter (Type[AbstractTimeWaiter]): Any object of type implements AbstractTimeWaiter interface.
+        """
+        self.waiters.remove(waiter)
 
 
 class GPIORobotDuoMotors(GPIORobotApi):
