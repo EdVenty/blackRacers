@@ -1,5 +1,13 @@
 # 🥇 2021 Winner | BlackRacers WRO 2022 Future Engineers
 
+----
+
+## Url the YouTube video
+
+[Our video on YouTube](https://youtu.be/alzKjLmoak8)
+
+----
+
 Contacts:
 
 - Andrew Danilchenko - email: <edventyh@gmail.com> discord: Edventy#6866
@@ -9,23 +17,23 @@ Contacts:
 
 ## Repository Overview
 
-1. 3D models: they are located in the folder "3D модели”
+1. 3D models: they are located in the folder "3D models”
 
 - `taga1`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 - `taga2`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 - `disk`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 - `korpus`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 
-2. Team photos: are located in the “Фото команды” folder
+2. Team photos: are located in the “Team photo” folder
 	- Photo (``Our photo.jpg``)- the official photo of the team, and (``Funny photo.jpg``) - funny
-3. Robot documentation is located in the "Другое":
+3. Robot documentation is located in the "Other":
 	- `documentation.md` - description of the process of preparing the robot for races
-5. The robot's photos are located in the folder "photo”
+5. The robot's photos are located in the folder "Robot photo”
 	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
-6. Diagrams: located in the folder "Схемы"
+6. Diagrams: located in the folder "Diagrams"
 	- The electrical diagram is presented in the file: ``Schematic_BlackRacer.pdf``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer.json``
 	- Kinetic diagram compiled using industry standards, file:``kinematic_scheme.jpg``
-7. Control software: located in the folder "Программы":
+7. Control software: located in the folder "Programs":
 
 - `RoboAPI.py` - module of communication with the robot.
 - `InetConnection.py`- server creation file on Raspberry Pi.
@@ -35,12 +43,6 @@ Contacts:
 - `GPIORobot.py` - library for controlling raspberry pi gpio pins.
 - `storage.py` - library for storing values in permanent memory.
 - `regulators.py` - library with PID regulator.
-
-----
-
-## Url the YouTube video
-
-[Our video on YouTube](https://youtu.be/alzKjLmoak8)
 
 ----
 
