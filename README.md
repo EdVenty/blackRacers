@@ -24,13 +24,13 @@ Contacts:
 - `disk`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 - `korpus`: the model is laid out in two files(stl and itp), the model was designed in Autodesk Inventor 2020
 
-2. Team photos: are located in the “Team photo” folder
+2. team_photos: are located in the “team_photo” folder
 	- Photo (``Our photo.jpg``)- the official photo of the team, and (``Funny photo.jpg``) - funny
 3. Robot documentation is located in the "Other":
 	- `documentation.md` - description of the process of preparing the robot for races
-5. The robot's photos are located in the folder "Robot photo”
+5. The robot's photos are located in the folder "robot_photo”
 	- Photos (` Robot_...jpg `) show the structure of the robot from different sides
-6. Diagrams: located in the folder "Diagrams"
+6. schematic: located in the folder "schematic"
 	- The electrical diagram is presented in the file: ``Schematic_BlackRacer.pdf``, the scheme was designed in the EasyEDA program, the file: ``SCH_BlackRacer.json``
 	- Kinetic diagram compiled using industry standards, file:``kinematic_scheme.jpg``
 7. Control software: located in the folder "Programs":
